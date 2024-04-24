@@ -1,0 +1,10 @@
+spare_keys:
+  # TODO: sops doesn't support age-plugin-* yet
+  # real people
+  # - &actor_subsy age1yubikey1q29s8wghs6lasspk8l3zdfqneesu29ldfxrpd3uk48ngllxn8y8txufan8n
+  # real hardware
+  - &host_library age1tnza7kmcy8tdesrnaqhgv2n4zmwksjq9y09eytzsr4e4cnldlclq4yl5up
+
+creation_rules:
+  - path_regex: secrets/library/.*
+    age: *host_library
