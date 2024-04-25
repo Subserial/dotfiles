@@ -19,18 +19,31 @@ with lib; {
 	home-manager.users.twilight = {
 		imports = [ 
 			"${self}/modules/home-manager/zsh.nix"
+			./hyprland.nix
 		];
 
 		home = {
 			username = "twilight";
 			homeDirectory = "/home/twilight";
 			packages = with pkgs; [
+				appimage-run
 				firefox
-				kate
-				gparted
-				# management utils
-				fwupd
-				pciutils
+				ffmpeg
+
+				discord-ptb
+				gimp
+				krita
+				qbittorrent
+				pavucontrol
+				vlc
+
+				blender-hip
+				audacity
+
+				alacritty
+				dolphin
+				wofi
+				dunst
 			];
 			sessionVariables = {
 				EDITOR = "vim";

@@ -83,16 +83,37 @@ with lib; {
 		};
 	};
 
+	# Login aesthetics
+	boot.plymouth.enable = true;
+	boot.plymouth.theme = "breeze";
 	services.xserver = {
 		enable = true;
-		desktopManager.plasma5.enable = true;
 		libinput.enable = true;
 		xkb = {
 			layout = "us";
 			variant = "";
 		};
+		displayManager.gdm = {
+			enable = true;
+			wayland = true;
+		};
 	};
-	services.displayManager.sddm.enable = true;
+
+	xdg = {
+		autostart.enable = true;
+		portal = {
+			enable = true;
+			extraPortals = with pkgs; [
+				xdg-desktop-portal-gtk
+				xdg-desktop-portal-hyprland
+			];
+		};
+	};
+
+	programs.hyprland = {
+		enable = true;
+		xwayland.enable = true;
+	};
 
 	# Enable CUPS to print documents.
 	services.printing.enable = true;
@@ -110,6 +131,18 @@ with lib; {
 		#jack.enable = true;
 	};
 
+	# Bluetooth!
+	services.blueman.enable = true;
+	hardware.bluetooth = {
+		enable = true;
+		powerOnBoot = true;
+		settings = {
+			General = {
+				Enable = "Source,Sink,Media,Socket";
+			};
+		};
+	};
+
 	home-manager.useGlobalPkgs = true;
 	home-manager.useUserPackages = true;
 
@@ -118,7 +151,14 @@ with lib; {
 		git
 		wget
 		curl
+		# Wifi in an emergency
+		wirelesstools
 	];
+
+	# TODO: Verify if this is still necessary.
+	# environment.sessionVariables = {
+	#    WLR_NO_HARDWARE_CURSORS = "1";
+	# };
 
 	# TODO: Key login
 	services.openssh = {

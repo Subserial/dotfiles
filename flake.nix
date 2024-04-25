@@ -33,7 +33,7 @@
 					inputs.home-manager.nixosModules.home-manager
 					inputs.sops-nix.nixosModules.sops
 					./modules/hosts/library.nix
-					./modules/users/twilight.nix
+					./modules/users/twilight
 					({ config, ... }: { 
 						options.users.user.twilight = {
 							hashedPasswordFile = config.sops.secrets.password.path;
