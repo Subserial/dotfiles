@@ -32,8 +32,8 @@
 					inputs.nixos-hardware.nixosModules.dell-xps-15-9570-nvidia
 					inputs.home-manager.nixosModules.home-manager
 					inputs.sops-nix.nixosModules.sops
-					./modules/hosts/library.nix
-					./modules/users/twilight
+					./profiles/hosts/library.nix
+					./profiles/users/twilight
 					({ config, ... }: { 
 						options.users.user.twilight = {
 							hashedPasswordFile = config.sops.secrets.password.path;

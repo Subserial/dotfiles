@@ -18,7 +18,7 @@ with lib; {
 
 	home-manager.users.twilight = {
 		imports = [ 
-			"${self}/modules/home-manager/zsh.nix"
+			"${self}/home-manager/zsh.nix"
 			./hyprland.nix
 		];
 
