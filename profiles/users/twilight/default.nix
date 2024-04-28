@@ -41,9 +41,11 @@ with lib; {
 				audacity
 
 				alacritty
-				dolphin
+				xfce.thunar
 				wofi
 				dunst
+
+				sshfs
 			];
 			sessionVariables = {
 				EDITOR = "vim";

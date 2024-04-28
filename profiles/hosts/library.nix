@@ -180,5 +180,11 @@ with lib; {
 	# smart card interface
 	services.pcscd.enable = true;
 
+	# network shares
+	services.gvfs.enable = true;
+
+	# power button config
+	services.logind.powerKey = "ignore";
+
 	system.stateVersion = "24.05";
 }

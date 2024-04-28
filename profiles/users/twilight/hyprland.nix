@@ -5,7 +5,7 @@
 		settings = {
 			# TODO: Pass these as options, maybe
 			"$mod" = "SUPER";
-			"$fileManager" = "dolphin";
+			"$fileManager" = "thunar";
 			"$menu" = "wofi --show drun";
 			"$terminal" = "alacritty";
 
@@ -13,6 +13,7 @@
 			exec-once = [
 				"$terminal"
 				"dunst"
+				"sshfs scroll@canterlot:/shared ~/Shared -o _netdev,reconnect,identityfile=~/.ssh/sshfs_ed25519_sk"
 			];
 			env = [
 				"XCURSOR_SIZE,24"
