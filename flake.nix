@@ -42,6 +42,23 @@
 					})
 				];
 			};
+			everfree = nixpkgs.lib.nixosSystem {
+				system = "x86_64-linux";
+				specialArgs.self = ./.;
+				modules = [
+					inputs.nixos-hardware.nixosModules.framework-11th-gen-intel
+					inputs.home-manager.nixosModules.home-manager
+					inputs.sops-nix.nixosModules.sops
+					./profiles/hosts/everfree.nix
+					./profiles/users/sb
+					({ config, ... }: {
+						options.users.user.sb = {
+							hashedPasswordFile = config.sops.secrets.password.path;
+							openssl.authorizedKeys.keys = superuser.personalPublicKeys;
+						};
+					})
+				];
+			};
 		};		
 	};	
 }

@@ -9,6 +9,7 @@
 			enable = true;
 			plugins = [ ];
 		};
+		# TODO: Port my old config (or don't?)
 	};
 
 	programs.starship = {

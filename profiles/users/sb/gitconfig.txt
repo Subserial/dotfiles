@@ -1,0 +1,7 @@
+[user]
+	name = Subserial (EVR-00)
+	email = me@subserial.website
+[core]
+	editor = vim
+[init]
+	defaultBranch = main
