@@ -8,7 +8,7 @@ with lib; {
 
 	users.users.sb = {
 		isNormalUser = true;
-		description = "Subsy";
+		description = "EVR-00";
 		shell = pkgs.zsh;
 		extraGroups = [ "networkmanager" "wheel" ];
 	};
