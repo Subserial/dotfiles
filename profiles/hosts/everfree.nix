@@ -8,10 +8,7 @@ with lib; {
 		];
 		extraModulePackages = [ ];
 		supportedFilesystems = [ "ntfs" ];
-		initrd = {
-			availableKernelModules = [ "xhci_pci" "thunderbolt" "nvme" "uas" "usbhid" "sd_mod" ];
-			kernelModules = [ "amdgpu" ];
-		};
+		initrd.availableKernelModules = [ "xhci_pci" "thunderbolt" "nvme" "uas" "usbhid" "sd_mod" ];
 	};
 
 	fileSystems."/" = {
@@ -62,13 +59,6 @@ with lib; {
 		enable = true;
 		driSupport = true;
 		driSupport32Bit = true;
-		extraPackages32 = with pkgs; [
-			driversi686Linux.amdvlk
-		];
-		extraPackages = with pkgs; [
-			vaapiVdpau
-			libvdpau-va-gl
-		];
 	};
 
 	# Network and time

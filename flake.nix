@@ -51,6 +51,7 @@
 					inputs.sops-nix.nixosModules.sops
 					./profiles/hosts/everfree.nix
 					./profiles/users/sb
+					./modules/amd.nix
 					({ config, ... }: {
 						options.users.user.sb = {
 							hashedPasswordFile = config.sops.secrets.password.path;
