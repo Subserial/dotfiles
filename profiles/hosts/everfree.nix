@@ -3,8 +3,8 @@ with lib; {
 	boot = {
 		kernelModules = [ ];
 		kernelParams = [
-			"video=card0-DP-3:1920x1080@75"
-			"video=card0-HDMI-A-1:1920x1080@60"
+			"video=DP-3:1920x1080@75"
+			"video=HDMI-A-1:1920x1080@60"
 		];
 		extraModulePackages = [ ];
 		supportedFilesystems = [ "ntfs" ];
@@ -12,22 +12,17 @@ with lib; {
 	};
 
 	fileSystems."/" = {
-		device = "/dev/disk/by-uuid/39074725-5d59-400f-826f-2b33340d243e";
+		device = "/dev/disk/by-uuid/03bf65d3-e0ff-4a98-9657-b389254ed2ea";
 		fsType = "ext4";
 	};
 
 	fileSystems."/nix" = {
-		device = "/dev/disk/by-uuid/4acecb3a-6388-4f9f-b212-16e38272b9d9";
+		device = "/dev/disk/by-uuid/58e74b03-d053-4b4b-8243-30c6fded7479";
 		fsType = "ext4";
 	};
 
 	fileSystems."/game" = {
 		device = "/dev/disk/by-uuid/b655feef-7b07-4f41-bb95-5370ce64a656";
-		fsType = "ext4";
-	};
-
-	fileSystems."/work" = {
-		device = "/dev/disk/by-uuid/6fc1c4a9-13d6-4bda-a6a5-4693fdf6e6dd";
 		fsType = "ext4";
 	};
 
@@ -37,11 +32,16 @@ with lib; {
 	};
 
 	fileSystems."/boot" = {
-		device = "/dev/disk/by-uuid/6DEC-A028";
+		device = "/dev/disk/by-uuid/5477-6C44";
 		fsType = "vfat";
+		options = [
+			"fmask=0022"
+			"dmask=0022"
+		];
 	};
 
-	swapDevices = [ { device = "/dev/disk/by-uuid/56a84e1d-0e8a-487a-86dc-95277bd97eba"; } ];
+	swapDevices = [ { device = "/dev/disk/by-uuid/a31200f1-0b8f-450d-a56c-c4dbb198fca3"; } ];
+
 
 	networking.useDHCP = mkDefault true;
 	nixpkgs.hostPlatform = mkDefault "x86_64-linux";
@@ -220,6 +220,10 @@ with lib; {
 			neededForUsers = true;
 		};
 	};
+
+	# Impermanence
+	users.mutableUsers = false;
+	#users.allowNoPasswordLogin = true;
 
 	# smart card interface
 	services.pcscd.enable = true;

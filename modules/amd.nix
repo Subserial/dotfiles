@@ -1,5 +1,6 @@
 { pkgs, ... }:
 {
+	boot.initrd.availableKernelModules = [ "amdgpu" ];
 	boot.initrd.kernelModules = [ "amdgpu" ];
 	hardware.opengl = {
 		extraPackages = [ pkgs.amdvlk ];
