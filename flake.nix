@@ -37,7 +37,7 @@
 					({ config, ... }: { 
 						options.users.user.twilight = {
 							hashedPasswordFile = config.sops.secrets.password.path;
-							openssl.authorizedKeys.keys = superuser.personalPublicKeys;
+							openssh.authorizedKeys.keys = superuser.personalPublicKeys;
 						};
 					})
 				];
@@ -55,7 +55,7 @@
 					({ config, ... }: {
 						options.users.user.sb = {
 							hashedPasswordFile = config.sops.secrets.password.path;
-							openssl.authorizedKeys.keys = superuser.personalPublicKeys;
+							openssh.authorizedKeys.keys = superuser.personalPublicKeys;
 						};
 					})
 				];
