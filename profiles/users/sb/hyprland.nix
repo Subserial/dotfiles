@@ -11,14 +11,13 @@
 
 			monitor = [
 				"eDP-1, disable"
-				"DP-3, 1920x1080@75, 0x0, 1, bitdepth, 8"
+				"DP-6, 1920x1080@75, 0x0, 1, bitdepth, 8"
 				"HDMI-A-1, 1920x1080@60, 1920x0, 1, bitdepth, 8"
 			];
 			exec-once = [
-				"/usr/lib/polkit-kde-authentification-agent-1"
 				"dunst"
 				"eww daemon"
-				"sshfs scroll@canterlot:/shared ~/Shared -o _netdev,reconnect,identityfile=~/.ssh/sshfs_ed25519"
+				# "sshfs scroll@canterlot:/shared ~/Shared -o _netdev,reconnect,identityfile=~/.ssh/sshfs_ed25519"
 			];
 			env = [
 				"XCURSOR_SIZE,24"

@@ -20,6 +20,7 @@
 
 	outputs = inputs @ {self, nixpkgs, ... }:
 	let
+		specialArgs.self = ./.;
 		superuser.personalPublicKeys = [
 			"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJTDi1aJeU501aY7olJyoD1H7IVHrh1/rmxHHj1SDSYu sb@everfree"
 		];
@@ -27,7 +28,7 @@
 		nixosConfigurations = {
 			library = nixpkgs.lib.nixosSystem {
 				system = "x86_64-linux";
-				specialArgs.self = ./.;
+				inherit specialArgs;
 				modules = [
 					inputs.nixos-hardware.nixosModules.dell-xps-15-9570-nvidia
 					inputs.home-manager.nixosModules.home-manager
@@ -35,7 +36,7 @@
 					./profiles/hosts/library.nix
 					./profiles/users/twilight
 					({ config, ... }: { 
-						options.users.user.twilight = {
+						users.users.twilight = {
 							hashedPasswordFile = config.sops.secrets.password.path;
 							openssh.authorizedKeys.keys = superuser.personalPublicKeys;
 						};
@@ -44,16 +45,16 @@
 			};
 			everfree = nixpkgs.lib.nixosSystem {
 				system = "x86_64-linux";
-				specialArgs.self = ./.;
+				inherit specialArgs;
 				modules = [
 					inputs.nixos-hardware.nixosModules.framework-11th-gen-intel
 					inputs.home-manager.nixosModules.home-manager
 					inputs.sops-nix.nixosModules.sops
 					./profiles/hosts/everfree.nix
-					./profiles/users/sb
 					./modules/amd.nix
+					./profiles/users/sb
 					({ config, ... }: {
-						options.users.user.sb = {
+						users.users.sb = {
 							hashedPasswordFile = config.sops.secrets.password.path;
 							openssh.authorizedKeys.keys = superuser.personalPublicKeys;
 						};

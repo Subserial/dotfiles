@@ -1,12 +1,11 @@
 { self, lib, pkgs, ... }:
 with lib; {
 	boot = {
-		kernelModules = [ ];
+		kernelModules = [ "kvm-intel" ];
 		kernelParams = [
 			"video=DP-3:1920x1080@75"
 			"video=HDMI-A-1:1920x1080@60"
 		];
-		extraModulePackages = [ ];
 		supportedFilesystems = [ "ntfs" ];
 		initrd.availableKernelModules = [ "xhci_pci" "thunderbolt" "nvme" "uas" "usbhid" "sd_mod" ];
 	};
@@ -40,7 +39,7 @@ with lib; {
 		];
 	};
 
-	swapDevices = [ { device = "/dev/disk/by-uuid/a31200f1-0b8f-450d-a56c-c4dbb198fca3"; } ];
+	swapDevices = [ { device = "/dev/disk/by-uuid/1c745f1e-f407-42ba-a2fb-e6a9e87d6f09"; } ];
 
 
 	networking.useDHCP = mkDefault true;
@@ -223,7 +222,6 @@ with lib; {
 
 	# Impermanence
 	users.mutableUsers = false;
-	#users.allowNoPasswordLogin = true;
 
 	# smart card interface
 	services.pcscd.enable = true;
