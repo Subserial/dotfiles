@@ -11,8 +11,8 @@
 
 			monitor = [
 				"eDP-1, disable"
-				"DP-6, 1920x1080@75, 0x0, 1, bitdepth, 8"
-				"HDMI-A-1, 1920x1080@60, 1920x0, 1, bitdepth, 8"
+				"DP-6, 1920x1080@60, 0x0, 1, bitdepth, 8"
+				"HDMI-A-1, 1920x1080@75, 1920x0, 1, bitdepth, 8"
 			];
 			exec-once = [
 				"dunst"

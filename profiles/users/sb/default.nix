@@ -13,6 +13,9 @@ with lib; {
 		extraGroups = [ "networkmanager" "wheel" ];
 	};
 
+	# required for swaylock
+	security.pam.services.swaylock = {};
+
 	# Required to source the necessary files for zsh
 	programs.zsh.enable = true;
 
@@ -38,6 +41,7 @@ with lib; {
 
 				# parsec-bin
 				lutris
+				steam
 
 				# inkscape
 				kdenlive
@@ -46,6 +50,7 @@ with lib; {
 				obs-studio
 				pavucontrol
 				vlc
+				kate
 
 				blender-hip
 				audacity
@@ -59,8 +64,13 @@ with lib; {
 
 				swaylock
 				pywal
+				jq
+				grim
+				slurp
 
 				sshfs
+
+				prismlauncher
 			];
 			sessionVariables = {
 				EDITOR = "vim";
@@ -87,5 +97,7 @@ with lib; {
 				init.defaultBranch = "init";
 			};
 		};
+
+		programs.pywal.enable = true;
 	};
 }

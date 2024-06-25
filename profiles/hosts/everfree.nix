@@ -204,6 +204,9 @@ with lib; {
 		mesa
 	];
 
+	# Dev sanity (intellij)
+	programs.nix-ld.enable = true;
+
 	# TODO: Key login
 	services.openssh = {
 		enable = true;
