@@ -34,8 +34,8 @@
 				", F10, exec, ~/.config/scripts/volume-up.sh"
 				"$mod SHIFT, T, exec, ~/.config/scripts/toggle-touchpad.sh"
 
-				", Print, exec, grim -t png \"~/Screenshots/$(date +%y-%m-%d-%H-%M-%S).png\""
-				"SHIFT, Print, exec, grim -t png -g \"$(slurp)\" \"~/Screenshots/$(date +%y-%m-%d-%H-%M-%S).png\""
+				", Print, exec, grim -t png \"/home/sb/Screenshots/$(date +%y-%m-%d-%H-%M-%S).png\""
+				"SHIFT, Print, exec, grim -t png -g \"$(slurp)\" \"/home/sb/Screenshots/$(date +%y-%m-%d-%H-%M-%S).png\""
 
 				"$mod, Q, exec, $terminal"
 				"$mod, E, exec, $fileManager"
