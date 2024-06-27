@@ -54,10 +54,9 @@ with lib; {
 	boot.loader.efi.canTouchEfiVariables = true;
 
 	# Graphics
-	hardware.opengl = {
+	hardware.graphics = {
 		enable = true;
-		driSupport = true;
-		driSupport32Bit = true;
+		enable32Bit = true;
 	};
 
 	# Network and time
