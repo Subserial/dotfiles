@@ -2,7 +2,7 @@
 {
 	boot.initrd.availableKernelModules = [ "amdgpu" ];
 	boot.initrd.kernelModules = [ "amdgpu" ];
-	hardware.opengl = {
+	hardware.graphics = {
 		extraPackages = [ pkgs.amdvlk ];
 		extraPackages32 = [ pkgs.driversi686Linux.amdvlk ];
 	};
