@@ -3,7 +3,7 @@ with lib; {
 	boot = {
 		kernelModules = [ "kvm-intel" ];
 		kernelParams = [
-			"video=DP-3:1920x1080@75"
+			"video=DP-5:1920x1080@75"
 			"video=HDMI-A-1:1920x1080@60"
 		];
 		supportedFilesystems = [ "ntfs" ];
@@ -53,12 +53,6 @@ with lib; {
 	boot.loader.systemd-boot.enable = true;
 	boot.loader.efi.canTouchEfiVariables = true;
 
-	# Graphics
-	hardware.graphics = {
-		enable = true;
-		enable32Bit = true;
-	};
-
 	# Network and time
 	networking = {
 		hostName = "everfree";
@@ -96,7 +90,7 @@ with lib; {
 	# XServer
 	services.xserver = {
 		enable = true;
-		videoDrivers = [ "modesetting" ];
+		# videoDrivers = [ "modesetting" "amdgpu" ];
 		xkb = {
 			layout = "us";
 			variant = "";
@@ -198,8 +192,6 @@ with lib; {
 		docker-client
 		# Wifi in an emergency
 		wirelesstools
-		# Graphics
-		mesa
 	];
 
 	# Dev sanity (intellij)

@@ -11,7 +11,8 @@
 
 			monitor = [
 				"eDP-1, disable"
-				"DP-5, 1920x1080@60, 0x0, 1, bitdepth, 8"
+				"Unknown-1, disable"
+				"DP-1, 1920x1080@60, 0x0, 1, bitdepth, 8"
 				"HDMI-A-1, 1920x1080@75, 1920x0, 1, bitdepth, 8"
 			];
 			exec-once = [
@@ -22,6 +23,7 @@
 			env = [
 				"XCURSOR_SIZE,24"
 				"HYPRCURSOR_SIZE,24"
+				"AQ_DRM_DEVICES,/dev/dri/card0:/dev/dri/card1"
 			];
 
 			bind = [

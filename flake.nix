@@ -50,8 +50,9 @@
 					inputs.nixos-hardware.nixosModules.framework-11th-gen-intel
 					inputs.home-manager.nixosModules.home-manager
 					inputs.sops-nix.nixosModules.sops
+					inputs.nixos-hardware.nixosModules.common-gpu-amd
+					./modules/amd-egpu.nix
 					./profiles/hosts/everfree.nix
-					./modules/amd.nix
 					./profiles/users/sb
 					({ config, ... }: {
 						users.users.sb = {
