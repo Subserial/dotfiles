@@ -154,10 +154,10 @@ with lib; {
 		wirelesstools
 	];
 
-	# TODO: Verify if this is still necessary.
-	# environment.sessionVariables = {
-	#    WLR_NO_HARDWARE_CURSORS = "1";
-	# };
+	# Optional, hint Electron apps to use Wayland:
+  environment.sessionVariables = {
+		NIXOS_OZONE_WL = "1";
+	};
 
 	# TODO: Key login
 	services.openssh = {

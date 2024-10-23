@@ -1,4 +1,4 @@
-{ self, pkgs, lib, ... }:
+{ self, overlays, pkgs, lib, ... }:
 with lib; {
 	# Allow unfree packages
 	nixpkgs.config.allowUnfree = mkDefault true;
@@ -24,6 +24,8 @@ with lib; {
 			"${self}/home-manager/zsh.nix"
 			./hyprland.nix
 		];
+
+		nixpkgs.overlays = [ overlays.hyprland_x86 ];
 
 		home = {
 			username = "sb";
