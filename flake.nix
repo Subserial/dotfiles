@@ -4,10 +4,11 @@
 	inputs = {
 		nixpkgs.url = "nixpkgs/nixos-unstable";
 
-		hyprland.url = "github:hyprwm/Hyprland/v0.42.0";
-
 		# Hardware tweaks
 		nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+
+		# Hyprland
+		hyprland.url = "github:hyprwm/Hyprland";
 
 		home-manager = {
 			url = "github:nix-community/home-manager";
@@ -23,12 +24,12 @@
 	outputs = inputs @ {self, nixpkgs, ... }:
 	let
 		specialArgs.self = ./.;
-		superuser.personalPublicKeys = [
-			"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJTDi1aJeU501aY7olJyoD1H7IVHrh1/rmxHHj1SDSYu sb@everfree"
-		];
 		specialArgs.overlays = {
 			hyprland_x86 = (self: super: { hyprland = inputs.hyprland.packages.x86_64-linux.hyprland; });
 		};
+		superuser.personalPublicKeys = [
+			"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJTDi1aJeU501aY7olJyoD1H7IVHrh1/rmxHHj1SDSYu sb@everfree"
+		];
 	in {
 		nixosConfigurations = {
 			library = nixpkgs.lib.nixosSystem {

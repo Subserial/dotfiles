@@ -85,6 +85,8 @@ with lib; {
 				source = "${self}/scripts";
 				recursive = true;
 			};
+			
+			file.".icons/default".source = "${pkgs.vanilla-dmz}/share/icons/Vanilla-DMZ";
 
 			enableNixpkgsReleaseCheck = true;
 			stateVersion = "24.05";
