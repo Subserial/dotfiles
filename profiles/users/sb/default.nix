@@ -6,6 +6,8 @@ with lib; {
 	# Flakes!
 	nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
+  users.extraGroups.vboxusers.members = [ "sb" ];
+
 	users.users.sb = {
 		isNormalUser = true;
 		description = "EVR-00";

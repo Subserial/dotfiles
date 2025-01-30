@@ -225,5 +225,9 @@ with lib; {
 	# power button config
 	# services.logind.powerKey = "poweroff";
 
+	# virtualbox
+	virtualisation.virtualbox.host.enable = true;
+  # users.extraGroups.vboxusers.members = [ "user" ];
+
 	system.stateVersion = "24.05";
 }
