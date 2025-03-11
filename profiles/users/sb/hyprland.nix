@@ -18,6 +18,7 @@
 			exec-once = [
 				"dunst"
 				"eww daemon"
+				"systemctl --user start hyprpolkitagent"
 				# "sshfs scroll@canterlot:/shared ~/Shared -o _netdev,reconnect,identityfile=~/.ssh/sshfs_ed25519"
 			];
 			env = [

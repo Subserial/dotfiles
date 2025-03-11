@@ -34,7 +34,7 @@ with lib; {
 			homeDirectory = "/home/sb";
 			packages = with pkgs; [
 				xfce.thunar
-				libsForQt5.kcalc
+				kdePackages.kcalc
 				alacritty
 
 				webcord
@@ -48,13 +48,13 @@ with lib; {
 				steam
 
 				# inkscape
-				kdenlive
+				kdePackages.kdenlive
 				krita
 				gimp
 				obs-studio
 				pavucontrol
 				vlc
-				kate
+				kdePackages.kate
 
 				blender-hip
 				audacity

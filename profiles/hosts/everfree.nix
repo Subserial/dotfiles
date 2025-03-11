@@ -129,8 +129,8 @@ with lib; {
 	};
 
 	# Enable sound with pipewire.
-	hardware.pulseaudio.enable = false;
 	security.rtkit.enable = true;
+	services.pulseaudio.enable = false;
 	services.pipewire = {
 		enable = true;
 		alsa.enable = true;
@@ -154,21 +154,7 @@ with lib; {
 
 	# Polkit
 	security.polkit.enable = true;
-	systemd.user.services.polkit-kde-authentication-agent-1 = {
-		description = "polkit-kde-authentication-agent-1";
-		wantedBy = [ "graphical-session.target" ];
-		wants = [ "graphical-session.target" ];
-		after = [ "graphical-session.target" ];
-		serviceConfig = {
-			Type = "simple";
-			ExecStart = "${pkgs.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1";
-			Restart = "on-failure";
-			RestartSec = 1;
-			TimeoutStopSec = 10;
-		};
-	};
 
-	home-manager.useGlobalPkgs = true;
 	home-manager.useUserPackages = true;
 
 	environment.sessionVariables = {
@@ -190,6 +176,9 @@ with lib; {
 		wget
 		curl
 		docker-client
+		# hypr polkit
+		# requires `exec-once systemctl --user start hyprpolkitagent`
+		hyprpolkitagent
 		# Wifi in an emergency
 		wirelesstools
 	];
