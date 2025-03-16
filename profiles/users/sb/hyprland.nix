@@ -13,7 +13,7 @@
 				"eDP-1, disable"
 				"Unknown-1, disable"
 				"DP-1, 1920x1080@60, 0x0, 1, bitdepth, 8"
-				"HDMI-A-1, 1920x1080@75, 1920x0, 1, bitdepth, 8"
+				"HDMI-A-1, 1920x1080@75, 0x1080, 1, bitdepth, 8"
 			];
 			exec-once = [
 				"dunst"
