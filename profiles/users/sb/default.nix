@@ -75,6 +75,7 @@ with lib; {
 				sshfs
 
 				prismlauncher
+				vintagestory
 			];
 			sessionVariables = {
 				EDITOR = "vim";
