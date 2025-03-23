@@ -13,6 +13,9 @@ with lib; {
 		extraGroups = [ "networkmanager" "wheel" ];
 	};
 
+	# required for swaylock
+	security.pam.services.swaylock = {};
+
 	# Required to source the necessary files for zsh
 	programs.zsh.enable = true;
 
@@ -30,20 +33,34 @@ with lib; {
 				firefox
 				ffmpeg
 
-				discord-ptb
-				gimp
+				lutris
+				steam
+
+				kdePackages.kdenlive
+				discord-canary
 				krita
+				gimp
 				qbittorrent
+				obs-studio
 				pavucontrol
 				vlc
+				kdePackages.kate
 
 				blender-hip
 				audacity
 
 				alacritty
 				xfce.thunar
+				kdePackages.kcalc
 				wofi
 				dunst
+				font-awesome
+
+				swaylock
+				pywal
+				jq
+				grim
+				slurp
 
 				sshfs
 			];
@@ -52,8 +69,30 @@ with lib; {
 				VISUAL = "vim";
 			};
 
+			file.".gitconfig".source = ./gitconfig.txt;
+
+			file.".config/scripts" = {
+				source = "${self}/scripts";
+				recursive = true;
+			};
+			
+			file.".icons/default".source = "${pkgs.vanilla-dmz}/share/icons/Vanilla-DMZ";
+
 			enableNixpkgsReleaseCheck = true;
 			stateVersion = "24.05";
 		};
+
+		programs.git = {
+			enable = true;
+			userName = "Subserial (TWI-01)";
+			userEmail = "me@subserial.website";
+			extraConfig = {
+				core.editor = "vim";
+				core.autocrlf = "input";
+				init.defaultBranch = "main";
+			};
+		};
+
+		programs.pywal.enable = true;
 	};
 }

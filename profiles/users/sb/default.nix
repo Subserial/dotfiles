@@ -101,7 +101,8 @@ with lib; {
 			userEmail = "me@subserial.website";
 			extraConfig = {
 				core.editor = "vim";
-				init.defaultBranch = "init";
+				core.autocrlf = "input";
+				init.defaultBranch = "main";
 			};
 		};
 

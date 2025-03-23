@@ -29,7 +29,7 @@ with lib; {
 	fileSystems."/boot" = {
 		device = "/dev/nvme0n1p1";
 		fsType = "vfat";
-		options = [ "fmask=0022" "dmask=0022" ];
+		options = [ "fmask=0077" "dmask=0077" ];
 	};
 
 	fileSystems."/" = {
@@ -86,9 +86,10 @@ with lib; {
 	# Login aesthetics
 	boot.plymouth.enable = true;
 	boot.plymouth.theme = "breeze";
+
+	# XServer
 	services.xserver = {
 		enable = true;
-		libinput.enable = true;
 		xkb = {
 			layout = "us";
 			variant = "";
@@ -142,7 +143,23 @@ with lib; {
 		};
 	};
 
+	# Polkit
+	security.polkit.enable = true;
+
 	home-manager.useUserPackages = true;
+
+	# Optional, hint Electron apps to use Wayland:
+	environment.sessionVariables = {
+		NIXOS_OZONE_WL = "1";
+	};
+
+	virtualisation.docker = {
+		enable = true;
+		rootless = {
+			enable = true;
+			setSocketVariable = true;
+		};
+	};
 
 	environment.systemPackages = with pkgs; [
 		vim
@@ -153,10 +170,8 @@ with lib; {
 		wirelesstools
 	];
 
-	# Optional, hint Electron apps to use Wayland:
-  environment.sessionVariables = {
-		NIXOS_OZONE_WL = "1";
-	};
+	# Dev sanity (intellij)
+	programs.nix-ld.enable = true;
 
 	# TODO: Key login
 	services.openssh = {
@@ -164,9 +179,9 @@ with lib; {
 		settings.PermitRootLogin = mkForce "no";
 	};
 
+
 	# Sops
 	sops = {
-		# TODO: Move persistent secrets from "/" to "/root".
 		age.keyFile = "/root/.sops/secrets/library.age";
 		secrets.password = {
 			sopsFile = "${self}/secrets/library/password.txt";
@@ -174,6 +189,9 @@ with lib; {
 			neededForUsers = true;
 		};
 	};
+
+	# Impermanence
+	users.mutableUsers = false;
 
 	# smart card interface
 	services.pcscd.enable = true;

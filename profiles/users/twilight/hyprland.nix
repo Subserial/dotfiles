@@ -13,7 +13,9 @@
 			exec-once = [
 				"$terminal"
 				"dunst"
-				"sshfs scroll@canterlot:/shared ~/Shared -o _netdev,reconnect,identityfile=~/.ssh/sshfs_ed25519_sk"
+				"eww daemon"
+				"systemctl --user start hyprpolkitagent"
+				# "sshfs scroll@canterlot:/shared ~/Shared -o _netdev,reconnect,identityfile=~/.ssh/sshfs_ed25519_sk"
 			];
 			env = [
 				"XCURSOR_SIZE,24"
@@ -21,9 +23,17 @@
 			];
 
 			bind = [
+				"$mod SHIFT, R, exec, hyprctl reload"
 				"$mod, M, exit"
 
-				"$mod, A, exec, $terminal"
+				"$mod, L, exec, ~/.config/scripts/lock.sh"
+				", F9, exec, ~/.config/scripts/volume-down.sh"
+				", F10, exec, ~/.config/scripts/volume-up.sh"
+
+				", Print, exec, grim -t png \"/home/sb/Screenshots/$(date +%y-%m-%d-%H-%M-%S).png\""
+				"SHIFT, Print, exec, grim -t png -g \"$(slurp)\" \"/home/sb/Screenshots/$(date +%y-%m-%d-%H-%M-%S).png\""
+
+				"$mod, Q, exec, $terminal"
 				"$mod, E, exec, $fileManager"
 				"$mod, F, exec, firefox"
 				"$mod, R, exec, $menu"
@@ -31,6 +41,7 @@
 				"$mod, C, killactive"
 				"$mod, V, togglefloating"
 				"$mod, J, togglesplit"
+				"$mod, P, pseudo"
 				"$mod, G, togglegroup"
 				"$mod, H, lockactivegroup, toggle"
 				"ALT, Tab, changegroupactive"
@@ -81,10 +92,12 @@
 					size = 3;
 					passes = 1;
 				};
-				drop_shadow = true;
-				shadow_range = 4;
-				shadow_render_power = 3;
-				"col.shadow" = "rgba(1a1a1aee)";
+				shadow = {
+					enabled = true;
+					range = 4;
+					render_power = 3;
+					color = "rgba(1a1a1aee)";
+				};
 			};
 			animations = {
 				enabled = true;
