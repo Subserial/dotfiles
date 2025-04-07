@@ -72,6 +72,8 @@ with lib; {
 				jq
 				grim
 				slurp
+				hyprpaper
+				hyprsunset
 
 				sshfs
 
