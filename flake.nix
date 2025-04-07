@@ -57,6 +57,7 @@
 					inputs.home-manager.nixosModules.home-manager
 					inputs.sops-nix.nixosModules.sops
 					inputs.nixos-hardware.nixosModules.common-gpu-amd
+					./modules/i2c.nix
 					./modules/amd-egpu.nix
 					./profiles/hosts/everfree.nix
 					./profiles/users/sb

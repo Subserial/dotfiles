@@ -40,6 +40,7 @@ with lib; {
 				webcord
 				discord-canary
 				firefox
+				thunderbird
 				mpv
 				qbittorrent
 
