@@ -17,6 +17,8 @@
 			];
 			exec-once = [
 				"dunst"
+				"hyprpaper"
+				"hyprsunset"
 				"eww daemon"
 				"systemctl --user start hyprpolkitagent"
 				# "sshfs scroll@canterlot:/shared ~/Shared -o _netdev,reconnect,identityfile=~/.ssh/sshfs_ed25519"
@@ -35,6 +37,8 @@
 				"$mod SHIFT, L, exec, SLEEP_SUSPEND=1 ~/.config/scripts/lock.sh"
 				", F9, exec, ~/.config/scripts/volume-down.sh"
 				", F10, exec, ~/.config/scripts/volume-up.sh"
+				"SHIFT, F9, exec, hyprctl hyprsunset gamma -10"
+				"SHIFT, F10, exec, hyprctl hyprsunset gamma +10"
 				"$mod SHIFT, T, exec, ~/.config/scripts/toggle-touchpad.sh"
 
 				", Print, exec, grim -t png \"/home/sb/Screenshots/$(date +%y-%m-%d-%H-%M-%S).png\""
@@ -75,7 +79,9 @@
 				# "workspace 1, class:(steam)"
 				# "noinitialfocus, class:(steam)"
 				"workspace 4, class:(discord)"
+				"opacity 0.8 0.8, class:(discord)"
 				"suppressevent maximize, class:.*"
+				"opacity 0.8 0.8, class:(Alacritty)"
 			];
 			input = {
 				kb_layout = "us";
@@ -126,6 +132,21 @@
 				preserve_split = true;
 			};
 			gestures.workspace_swipe = false;
+		};
+	};
+	services.hyprpaper = {
+		enable = true;
+		settings = {
+			ipc = false;
+			splash = true;
+			preload = [
+				"/home/sb/.config/hypr/paper/946739-top.jpg"
+				"/home/sb/.config/hypr/paper/946739-bottom.jpg"
+			];
+			wallpaper = [
+				"DP-1, /home/sb/.config/hypr/paper/946739-top.jpg"
+				"HDMI-A-1, /home/sb/.config/hypr/paper/946739-bottom.jpg"
+			];
 		};
 	};
 }

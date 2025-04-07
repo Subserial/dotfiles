@@ -40,6 +40,7 @@ with lib; {
 				webcord
 				discord-canary
 				firefox
+				thunderbird
 				mpv
 				qbittorrent
 
@@ -71,18 +72,19 @@ with lib; {
 				jq
 				grim
 				slurp
+				hyprpaper
+				hyprsunset
 
 				sshfs
 
 				prismlauncher
-				vintagestory
 			];
 			sessionVariables = {
 				EDITOR = "vim";
 				VISUAL = "vim";
 			};
 
-			file.".gitconfig".source = ./gitconfig.txt;
+			file.".config/hypr/paper".source = ./paper;
 
 			file.".config/scripts" = {
 				source = "${self}/scripts";
