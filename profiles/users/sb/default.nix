@@ -84,7 +84,7 @@ with lib; {
 				VISUAL = "vim";
 			};
 
-			file.".gitconfig".source = ./gitconfig.txt;
+			file.".config/hypr/paper".source = ./paper;
 
 			file.".config/scripts" = {
 				source = "${self}/scripts";
