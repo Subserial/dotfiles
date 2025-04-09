@@ -19,11 +19,19 @@
 			url = "github:Mic92/sops-nix";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
+
+		wavefox = {
+			url = "github:QNetITQ/WaveFox?ref=refs/tags/v1.8.136";
+			flake = false;
+		};
 	};
 
 	outputs = inputs @ {self, nixpkgs, ... }:
 	let
 		specialArgs.self = ./.;
+		specialArgs.extraPackages = {
+			wavefox = inputs.wavefox;
+		};
 		specialArgs.overlays = {
 			hyprland_x86 = (self: super: { hyprland = inputs.hyprland.packages.x86_64-linux.hyprland; });
 		};
@@ -39,6 +47,7 @@
 					inputs.nixos-hardware.nixosModules.dell-xps-15-9570-nvidia
 					inputs.home-manager.nixosModules.home-manager
 					inputs.sops-nix.nixosModules.sops
+					./modules/home-manager-settings.nix
 					./profiles/hosts/library.nix
 					./profiles/users/twilight
 					({ config, ... }: { 
@@ -59,6 +68,7 @@
 					inputs.nixos-hardware.nixosModules.common-gpu-amd
 					./modules/i2c.nix
 					./modules/amd-egpu.nix
+					./modules/home-manager-settings.nix
 					./profiles/hosts/everfree.nix
 					./profiles/users/sb
 					({ config, ... }: {

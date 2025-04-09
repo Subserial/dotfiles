@@ -1,8 +1,0 @@
-[user]
-	name = Subserial (TWI-01)
-	email = me@subserial.website
-[core]
-	editor = vim
-	autocrlf = input
-[init]
-	defaultBranch = main

@@ -1,4 +1,4 @@
-{ self, pkgs, lib, ... }:
+{ self, pkgs, lib, extraPackages, ... }:
 with lib; {	
 	# Allow unfree packages
 	nixpkgs.config.allowUnfree = mkDefault true;
@@ -30,7 +30,6 @@ with lib; {
 			homeDirectory = "/home/twilight";
 			packages = with pkgs; [
 				appimage-run
-				firefox
 				ffmpeg
 
 				lutris
@@ -62,6 +61,8 @@ with lib; {
 				grim
 				slurp
 
+				brightnessctl
+				hyprsunset
 				sshfs
 			];
 			sessionVariables = {
@@ -69,17 +70,26 @@ with lib; {
 				VISUAL = "vim";
 			};
 
-			file.".gitconfig".source = ./gitconfig.txt;
+			file.".mozilla/firefox/defaultProfile/chrome".source = "${extraPackages.wavefox}/chrome";
 
-			file.".config/scripts" = {
-				source = "${self}/scripts";
-				recursive = true;
-			};
-			
+			file.".config/hypr/paper".source = ./paper;
+			file.".config/scripts".source = "${self}/scripts";
+
 			file.".icons/default".source = "${pkgs.vanilla-dmz}/share/icons/Vanilla-DMZ";
 
 			enableNixpkgsReleaseCheck = true;
 			stateVersion = "24.05";
+		};
+
+		programs.firefox = {
+			enable = true;
+			languagePacks = [ "en-US" ];
+			profiles."defaultProfile" = {
+				name = "Twilight";
+				settings = {
+					"toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+				};
+			};
 		};
 
 		programs.git = {

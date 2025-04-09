@@ -12,6 +12,7 @@
 			monitor = [ ", preferred, auto, 1" ];
 			exec-once = [
 				"$terminal"
+				"hyprpaper"
 				"dunst"
 				"eww daemon"
 				"systemctl --user start hyprpolkitagent"
@@ -27,8 +28,10 @@
 				"$mod, M, exit"
 
 				"$mod, L, exec, ~/.config/scripts/lock.sh"
-				", F9, exec, ~/.config/scripts/volume-down.sh"
-				", F10, exec, ~/.config/scripts/volume-up.sh"
+				", XF86AudioLowerVolume, exec, ~/.config/scripts/volume-down.sh"
+				", XF86AudioRaiseVolume, exec, ~/.config/scripts/volume-up.sh"
+				", XF86MonBrightnessDown, exec, ~/.config/scripts/brightness-down.sh"
+				", XF86MonBrightnessUp, exec, ~/.config/scripts/brightness-up.sh"
 
 				", Print, exec, grim -t png \"/home/sb/Screenshots/$(date +%y-%m-%d-%H-%M-%S).png\""
 				"SHIFT, Print, exec, grim -t png -g \"$(slurp)\" \"/home/sb/Screenshots/$(date +%y-%m-%d-%H-%M-%S).png\""
@@ -67,6 +70,8 @@
 			windowrulev2 = [
 				# "workspace 1, class:(steam)"
 				# "noinitialfocus, class:(steam)"
+				"opacity 0.9, class:(Alacritty)"
+				"opacity 0.95, class:(discord)"
 				"workspace 4, class:(discord)"
 				"suppressevent maximize, class:.*"
 			];
@@ -120,6 +125,19 @@
 				preserve_split = true;
 			};
 			gestures.workspace_swipe = false;
+		};
+	};
+	services.hyprpaper = {
+		enable = true;
+		settings = {
+			ipc = false;
+			splash = true;
+			preload = [
+				"/home/twilight/.config/hypr/paper/2456565.png"
+			];
+			wallpaper = [
+				"eDP-1, /home/twilight/.config/hypr/paper/2456565.png"
+			];
 		};
 	};
 }
