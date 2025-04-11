@@ -59,6 +59,7 @@
 					in [
 						"$mod, ${xs}, workspace, ${ws}"
 						"$mod SHIFT, ${xs}, movetoworkspace, ${ws}"
+						"$mod CTRL, ${xs}, focusworkspaceoncurrentmonitor, ${ws}"
 					]
 				)
 				10)
