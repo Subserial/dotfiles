@@ -80,7 +80,7 @@
 				# "workspace 1, class:(steam)"
 				# "noinitialfocus, class:(steam)"
 				"workspace 4, class:(discord)"
-				"opacity 0.8 0.8, class:(discord)"
+				"opacity 1.0 0.8, class:(discord)"
 				"suppressevent maximize, class:.*"
 				"opacity 0.8 0.8, class:(Alacritty)"
 			];
