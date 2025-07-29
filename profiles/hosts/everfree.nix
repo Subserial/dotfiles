@@ -90,7 +90,7 @@ with lib; {
 	# XServer
 	services.xserver = {
 		enable = true;
-		# videoDrivers = [ "modesetting" "amdgpu" ];
+		videoDrivers = lib.mkForce [ "amdgpu" "modesetting" ];
 		xkb = {
 			layout = "us";
 			variant = "";
@@ -181,6 +181,8 @@ with lib; {
 		hyprpolkitagent
 		# Wifi in an emergency
 		wirelesstools
+		# graphics extras
+		libva-vdpau-driver
 	];
 
 	# Dev sanity (intellij)
