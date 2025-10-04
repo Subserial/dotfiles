@@ -94,7 +94,10 @@ with lib; {
 			layout = "us";
 			variant = "";
 		};
-		displayManager.gdm = {
+	};
+
+	services.displayManager = {
+		gdm = {
 			enable = true;
 			wayland = true;
 		};

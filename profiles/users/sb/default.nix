@@ -1,4 +1,4 @@
-{ self, overlays, pkgs, lib, ... }:
+{ self, pkgs, lib, ... }:
 with lib; {
 	# Allow unfree packages
 	nixpkgs.config.allowUnfree = mkDefault true;
@@ -15,9 +15,6 @@ with lib; {
 		extraGroups = [ "networkmanager" "wheel" ];
 	};
 
-	# required for swaylock
-	security.pam.services.swaylock = {};
-
 	# Required to source the necessary files for zsh
 	programs.zsh.enable = true;
 
@@ -26,8 +23,6 @@ with lib; {
 			"${self}/home-manager/zsh.nix"
 			./hyprland.nix
 		];
-
-		nixpkgs.overlays = [ overlays.hyprland_x86 ];
 
 		home = {
 			username = "sb";
@@ -67,13 +62,8 @@ with lib; {
 				eww
 				font-awesome
 
-				swaylock
 				pywal
 				jq
-				grim
-				slurp
-				hyprpaper
-				hyprsunset
 
 				sshfs
 

@@ -7,9 +7,6 @@
 		# Hardware tweaks
 		nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
-		# Hyprland
-		hyprland.url = "github:hyprwm/Hyprland";
-
 		home-manager = {
 			url = "github:nix-community/home-manager";
 			inputs.nixpkgs.follows = "nixpkgs";
@@ -21,7 +18,7 @@
 		};
 
 		wavefox = {
-			url = "github:QNetITQ/WaveFox?ref=refs/tags/v1.8.136";
+			url = "github:QNetITQ/WaveFox?ref=refs/tags/v1.8.143";
 			flake = false;
 		};
 	};
@@ -31,9 +28,6 @@
 		specialArgs.self = ./.;
 		specialArgs.extraPackages = {
 			wavefox = inputs.wavefox;
-		};
-		specialArgs.overlays = {
-			hyprland_x86 = (self: super: { hyprland = inputs.hyprland.packages.x86_64-linux.hyprland; });
 		};
 		superuser.personalPublicKeys = [
 			"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJTDi1aJeU501aY7olJyoD1H7IVHrh1/rmxHHj1SDSYu sb@everfree"
@@ -51,6 +45,8 @@
 					./profiles/hosts/library.nix
 					./profiles/users/twilight
 					({ config, ... }: { 
+						services.displayManager.defaultSession = "none+hyprland";
+						services.displayManager.autoLogin.user = "twilight";
 						users.users.twilight = {
 							hashedPasswordFile = config.sops.secrets.password.path;
 							openssh.authorizedKeys.keys = superuser.personalPublicKeys;

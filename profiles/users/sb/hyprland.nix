@@ -1,5 +1,120 @@
 { inputs, pkgs, ... }:
 {
+	home.packages = with pkgs; [
+		grim
+		slurp
+		hyprpaper
+		hyprsunset
+		wayshot
+	];
+
+	services.hypridle = {
+		enable = true;
+		settings = {
+			general = {
+				lock_cmd = "pidof hyprlock || hyprlock";
+				before_sleep_cmd = "loginctl lock-session";
+				after_sleep_cmd = "hyprctl dispatch dpms on";
+			};
+		};
+	};
+
+	home.file.".config/hypr/lock".source = ./lock;
+
+	programs.hyprlock = {
+		enable = true;
+		settings = {
+			source = "$HOME/.config/hypr/lock/macchiato.conf";
+			"$accent" = "$mauve";
+			"$accentAlpha" = "$mauveAlpha";
+			"$font" = "JetBrainsMono Nerd Font";
+	
+			general.hide_cursor = true;
+			animations = {
+				enabled = true;
+				bezier = "linear, 1, 1, 0, 0";
+				animation = [
+					"fadeIn, 1, 5, linear"
+					"fadeOut, 1, 5, linear"
+					"inputFieldDots, 1, 2, linear"
+				];
+			};
+			background = {
+				monitor = "";
+				# path = "screenshot";
+				blur_passes = 0;
+				color = "$base";
+			};
+
+			label = [
+				{
+					monitor = "";
+					text = "Layout: $LAYOUT";
+					color = "$text";
+					font_size = 25;
+					font_family = "$font";
+					position = "30, -30";
+					halign = "left";
+					valign = "top";
+				}
+				{
+					monitor = "";
+					text = "$TIME";
+					color = "$text";
+					font_size = 90;
+					font_family = "$font";
+					position = "-30, 0";
+					halign = "right";
+					valign = "top";
+				}
+				{
+					monitor = "";
+					text = "cmd[update:10000] date +\"%A, %d %B %Y\"";
+					color = "$text";
+					font_size = 25;
+					font_family = "$font";
+					position = "-30, -150";
+					halign = "right";
+					valign = "top";
+				}
+			];
+
+			image = [
+				{
+					monitor = "";
+					path = "$HOME/.config/hypr/lock/face.png";
+					size = 100;
+					border_color = "$accent";
+					position = "0, 75";
+					halign = "center";
+					valign = "center";
+				}
+			];
+	
+			input-field = {
+				monitor = "";
+				size = "300, 60";
+				outline_thickness = 4;
+				dots_size = 0.2;
+				dots_spacing = 0.2;
+				dots_center = true;
+				outer_color = "$accent";
+				inner_color = "$surface0";
+				font_color = "$text";
+				fade_on_empty = false;
+				placeholder_text = "<span foreground=\"##$textAlpha\"><i>Logged in as </i><span foreground=\"##$accentAlpha\">$USER</span></span>";
+				hide_input = false;
+				check_color = "$accent";
+				fail_color = "$red";
+				fail_text = "<i>$FAIL <b>($ATTEMPTS)</b></i>";
+				capslock_color = "$yellow";
+				position = "0, -47";
+				halign = "center";
+				valign = "center";
+			};
+		};
+	};
+
 	wayland.windowManager.hyprland = {
 		enable = true;
 		settings = {
@@ -17,6 +132,7 @@
 			];
 			exec-once = [
 				"dunst"
+				"hypridle"
 				"hyprpaper"
 				"hyprsunset"
 				"eww daemon"
@@ -33,16 +149,17 @@
 				"$mod SHIFT, R, exec, hyprctl reload"
 				"$mod, M, exit"
 
-				"$mod, L, exec, ~/.config/scripts/lock.sh"
-				"$mod SHIFT, L, exec, SLEEP_SUSPEND=1 ~/.config/scripts/lock.sh"
+				"$mod, L, exec, loginctl lock-session"
+				"$mod SHIFT, L, exec, systemctl suspend"
 				", F9, exec, ~/.config/scripts/volume-down.sh"
 				", F10, exec, ~/.config/scripts/volume-up.sh"
 				"SHIFT, F9, exec, hyprctl hyprsunset gamma -10"
 				"SHIFT, F10, exec, hyprctl hyprsunset gamma +10"
 				"$mod SHIFT, T, exec, ~/.config/scripts/toggle-touchpad.sh"
 
-				", Print, exec, grim -t png \"/home/sb/Screenshots/$(date +%y-%m-%d-%H-%M-%S).png\""
-				"SHIFT, Print, exec, grim -t png -g \"$(slurp)\" \"/home/sb/Screenshots/$(date +%y-%m-%d-%H-%M-%S).png\""
+				", Print, exec, wayshot -f \"/home/sb/Screenshots/$(date +%y-%m-%d-%H-%M-%S).png\""
+				"SHIFT, Print, exec, wayshot -s \"$(slurp -b ffffffaa -w 0)\" -f \"/home/sb/Screenshots/$(date +%y-%m-%d-%H-%M-%S).png\""
+				"CTRL, Print, exec, wayshot -s \"$(slurp -o -w 0)\" -f \"/home/sb/Screenshots/$(date +%y-%m-%d-%H-%M-%S).png\""
 
 				"$mod, Q, exec, $terminal"
 				"$mod, E, exec, $fileManager"
@@ -132,7 +249,6 @@
 				pseudotile = true;
 				preserve_split = true;
 			};
-			gestures.workspace_swipe = false;
 		};
 	};
 	services.hyprpaper = {

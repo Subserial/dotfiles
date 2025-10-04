@@ -125,7 +125,9 @@
 				pseudotile = true;
 				preserve_split = true;
 			};
-			gestures.workspace_swipe = false;
+			gesture = [
+				"3, horizontal, workspace"
+			];
 		};
 	};
 	services.hyprpaper = {
