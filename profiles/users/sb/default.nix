@@ -6,7 +6,7 @@ with lib; {
 	# Flakes!
 	nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-  users.extraGroups.vboxusers.members = [ "sb" ];
+	users.extraGroups.vboxusers.members = [ "sb" ];
 
 	users.users.sb = {
 		isNormalUser = true;
@@ -99,5 +99,11 @@ with lib; {
 		};
 
 		programs.pywal.enable = true;
+		xdg.mimeApps = {
+			enable = true;
+			associations.removed = {
+				"inode/directory" = "kate.desktop";
+			};
+		};
 	};
 }
