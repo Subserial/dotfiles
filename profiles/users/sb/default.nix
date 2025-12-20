@@ -1,5 +1,6 @@
-{ self, pkgs, lib, ... }:
+{ self, extraPackages, pkgs, lib, ... }:
 with lib; {
+
 	# Allow unfree packages
 	nixpkgs.config.allowUnfree = mkDefault true;
 
@@ -68,6 +69,8 @@ with lib; {
 				sshfs
 
 				prismlauncher
+
+				extraPackages.localPackages.pyzo
 			];
 			sessionVariables = {
 				EDITOR = "vim";
@@ -89,9 +92,9 @@ with lib; {
 
 		programs.git = {
 			enable = true;
-			userName = "Subserial (EVR-00)";
-			userEmail = "me@subserial.website";
-			extraConfig = {
+			settings = {
+				user.name = "Subserial (EVR-00)";
+				user.email = "me@subserial.website";
 				core.editor = "vim";
 				core.autocrlf = "input";
 				init.defaultBranch = "main";

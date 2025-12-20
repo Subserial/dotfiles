@@ -94,9 +94,9 @@ with lib; {
 
 		programs.git = {
 			enable = true;
-			userName = "Subserial (TWI-01)";
-			userEmail = "me@subserial.website";
-			extraConfig = {
+			settings = {
+				user.name = "Subserial (TWI-01)";
+				user.email = "me@subserial.website";
 				core.editor = "vim";
 				core.autocrlf = "input";
 				init.defaultBranch = "main";

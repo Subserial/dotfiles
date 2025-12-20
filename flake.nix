@@ -27,6 +27,7 @@
 	let
 		specialArgs.self = ./.;
 		specialArgs.extraPackages = {
+			localPackages = import ./pkgs { pkgs = nixpkgs.legacyPackages.x86_64-linux; };
 			wavefox = inputs.wavefox;
 		};
 		superuser.personalPublicKeys = [
