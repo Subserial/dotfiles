@@ -3,6 +3,7 @@ with lib; {
 
 	# Allow unfree packages
 	nixpkgs.config.allowUnfree = mkDefault true;
+	nixpkgs.config.rockSupport = true;
 
 	# Flakes!
 	nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -53,7 +54,7 @@ with lib; {
 				vlc
 				kdePackages.kate
 
-				blender-hip
+				blender
 				audacity
 				appimage-run
 				ffmpeg
