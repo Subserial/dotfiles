@@ -191,13 +191,14 @@
 				"$mod, mouse:272, movewindow"
 				"$mod, mouse:273, resizewindow"
 			];
-			windowrulev2 = [
-				# "workspace 1, class:(steam)"
-				# "noinitialfocus, class:(steam)"
-				"workspace 4, class:(discord)"
-				"opacity 1.0 0.8, class:(discord)"
-				"suppressevent maximize, class:.*"
-				"opacity 0.8 0.8, class:(Alacritty)"
+			windowrule = [
+				"match:class steam, workspace 1"
+				"match:class steam, float off"
+				"match:class steam, no_initial_focus on"
+				"match:class discord, workspace 4"
+				"match:class discord, opacity 1.0 0.9"
+				"match:class Alacritty, opacity 0.9 0.9"
+				"match:class .*, suppress_event maximize"
 			];
 			input = {
 				kb_layout = "us";
