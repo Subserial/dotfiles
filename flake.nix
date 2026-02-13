@@ -76,6 +76,24 @@
 					})
 				];
 			};
+			cloudsdale = nixpkgs.lib.nixosSystem {
+				system = "x86_64-linux";
+				inherit specialArgs;
+				modules = [
+					inputs.home-manager.nixosModules.home-manager
+					./modules/home-manager-settings.nix
+					./profiles/hosts/cloudsdale.nix
+					./profiles/users/rdash
+					({ config, ... }: {
+						services.displayManager.defaultSession = "hyprland";
+						services.displayManager.autoLogin.user = "rdash";
+						users.users.rdash = {
+							password = "tank";
+							openssh.authorizedKeys.keys = superuser.personalPublicKeys;
+						};
+					})
+				];
+			};
 		};		
 	};	
 }
