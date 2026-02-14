@@ -1,47 +1,78 @@
 { self, modulesPath, lib, pkgs, ... }:
 with lib; {
-	imports = [
-		"${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix"
-	];
 	boot = {
 		kernelModules = [ ];
-		kernelParams = [ "copytoram" ];
+		kernelParams = [
+			"root=LABEL=BOOT"
+			"boot.shell_on_fail"
+			"copytoram"
+		];
 		supportedFilesystems = [ "ntfs" "xfs" ];
-/*		initrd = {
-			availableKernelModules = [ "xhci_pci" "thunderbolt" "nvme" "usbhid" "usb_storage" "sd_mod" ];
-			kernelModules = [ "vfat" ];
-			luks = {
-				yubikeySupport = true;
-				devices."nixos-enc" = {
-					device = "/dev/sda2";
-					yubikey = {
-						slot = 2;
-						twoFactor = false;
-						gracePeriod = 30;
-						keyLength = 64;
-						saltLength = 16;
-						storage = {
-							device = "/dev/sda1";
-							fsType = "vfat";
-							path = "/crypt-storage/default";
-						};
+	};
+
+	fileSystems."/" = {
+		fsType = "tmpfs";
+		options = [ "mode=0755" ];
+	};
+
+	fileSystems."/boot" = {
+		device = "/dev/root";
+		neededForBoot = true;
+		noCheck = true;
+	};
+
+	# squashfs disk
+	fileSystems."/nix/.ro-store" = {
+		fsType = "squashfs";
+		device = "/boot/nix-store.squashfs";
+		options = [ "loop" ];
+		neededForBoot = true;
+	};
+
+	fileSystems."/nix/.rw-store" = {
+		fsType = "tmpfs";
+		options = [ "mode=0755" ];
+		neededForBoot = true;
+	};
+
+	fileSystems."/nix/store" = {
+		fsType = "overlay";
+		device = "overlay";
+		options = [
+			"lowerdir=/nix/.ro-store"
+			"upperdir=/nix/.rw-store/store"
+			"workdir=/nix/.rw-store/work"
+		];
+	};
+
+	boot.initrd = {
+		availableKernelModules = [ "squashfs" "iso9660" "uas" "overlay" "usbhid" "usb_storage" "sd_mod" ];
+		kernelModules = [ "vfat" "loop" "overlay" ];
+		luks = {
+			yubikeySupport = true;
+			devices."nixos-enc" = {
+				device = "/dev/disk/by-partlabel/persist";
+				yubikey = {
+					slot = 2;
+					twoFactor = false;
+					gracePeriod = 5;
+					keyLength = 64;
+					saltLength = 16;
+					storage = {
+						device = "/dev/root";
+						fsType = "vfat";
+						path = "/crypt-storage/default";
 					};
 				};
 			};
 		};
-*/	};
-/*
-	fileSystems."/boot" = {
-		device = "/dev/sda1";
-		fsType = "vfat";
-		options = [ "fmask=0077" "dmask=0077" ];
 	};
 
-	fileSystems."/mnt/disk" = {
-		device = "/dev/sda2";
+	fileSystems."/persist" = {
+		device = "/dev/disk/by-label/HEARTH";
 		fstype = "xfs";
 	};
-*/
+
 	networking.useDHCP = mkDefault true;
 	nixpkgs.hostPlatform = mkDefault "x86_64-linux";
 	hardware.cpu.intel.updateMicrocode = true;

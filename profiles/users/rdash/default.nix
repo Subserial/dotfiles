@@ -23,20 +23,20 @@ with lib; {
 			username = "rdash";
 			homeDirectory = "/home/rdash";
 			packages = with pkgs; [
-#				appimage-run
-#				ffmpeg
-				# steam
-				# discord-canary
-#				gimp
-#				qbittorrent
+				appimage-run
+				ffmpeg
+				steam
+				discord-canary
+				gimp
+				qbittorrent
 				pavucontrol
-#				vlc
+				vlc
 				kdePackages.kate
-#				audacity
+				audacity
 				alacritty
 
 				xfce.thunar
-#				kdePackages.kcalc
+				kdePackages.kcalc
 
 				wofi
 				dunst
