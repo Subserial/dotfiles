@@ -193,7 +193,12 @@
 			];
 			windowrule = [
 				"match:class steam, workspace 1"
-				"match:class steam, float off"
+				{
+					name = "float steam dialogs";
+					"match:class" = "steam";
+					"match:title" = ".+";
+					float = "off";
+				}
 				"match:class steam, no_initial_focus on"
 				"match:class discord, workspace 4"
 				"match:class discord, opacity 1.0 0.9"
