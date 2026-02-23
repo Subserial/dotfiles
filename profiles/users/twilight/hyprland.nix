@@ -153,9 +153,9 @@
 				", XF86MonBrightnessDown, exec, ~/.config/scripts/brightness-down.sh"
 				", XF86MonBrightnessUp, exec, ~/.config/scripts/brightness-up.sh"
 
-				"$mod, Print, exec, wayshot -f \"~/Screenshots/$(date +%y-%m-%d-%H-%M-%S).png\""
-				"$mod SHIFT, Print, exec, wayshot -s \"$(slurp -b ffffffaa -w 0)\" -f \"~/Screenshots/$(date +%y-%m-%d-%H-%M-%S).png\""
-				"$mod CTRL, Print, exec, wayshot -s \"$(slurp -o -w 0)\" -f \"~/Screenshots/$(date +%y-%m-%d-%H-%M-%S).png\""
+				"$mod, Print, exec, wayshot -f \"/home/twilight/Screenshots/$(date +%y-%m-%d-%H-%M-%S).png\""
+				"$mod SHIFT, Print, exec, wayshot -s \"$(slurp -b ffffffaa -w 0)\" -f \"/home/twilight/Screenshots/$(date +%y-%m-%d-%H-%M-%S).png\""
+				"$mod CTRL, Print, exec, wayshot -s \"$(slurp -o -w 0)\" -f \"/home/twilight/Screenshots/$(date +%y-%m-%d-%H-%M-%S).png\""
 				", Print, exec, wayshot --clipboard"
 				"SHIFT, Print, exec, wayshot -s \"$(slurp -b ffffffaa -w 0)\" --clipboard"
 				"CTRL, Print, exec, wayshot -s \"$(slurp -o -w 0)\" --clipboard"
@@ -200,7 +200,7 @@
 				"match:class .*, suppress_event maximize"
 			];
 			workspace = [
-				"special:scratch, on-created-empty:[float] alacritty"
+				"special:scratchpad, on-created-empty:[float] alacritty"
 			];
 			input = {
 				kb_layout = "us";
@@ -264,7 +264,11 @@
 				"/home/twilight/.config/hypr/paper/2456565.png"
 			];
 			wallpaper = [
-				"eDP-1, /home/twilight/.config/hypr/paper/2456565.png"
+				{
+					monitor = "eDP-1";
+					path = "~/.config/hypr/paper/2456565.png";
+					fit_mode = "cover";
+				}
 			];
 		};
 	};
