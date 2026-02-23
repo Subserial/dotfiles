@@ -44,7 +44,7 @@ with lib; {
 
 	fileSystems."/game" = {
 		device = "/dev/partitions/game";
-		fsType = "btrfs";
+		fsType = "xfs";
 	};
 
 	networking.useDHCP = mkDefault true;

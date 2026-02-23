@@ -171,6 +171,7 @@
 				"$mod, P, pseudo"
 				"$mod, G, togglegroup"
 				"$mod, H, lockactivegroup, toggle"
+				"$mod, X, togglespecialworkspace"
 				"ALT, Tab, changegroupactive"
 				"SHIFT, F11, fullscreen"
 			]
@@ -192,15 +193,15 @@
 				"$mod, mouse:272, movewindow"
 				"$mod, mouse:273, resizewindow"
 			];
-			windowrulev2 = [
-				# "workspace 1, class:(steam)"
-				# "noinitialfocus, class:(steam)"
-				"opacity 0.9, class:(Alacritty)"
-				"opacity 0.95, class:(discord)"
-				"workspace 4, class:(discord)"
-				"suppressevent maximize, class:.*"
+			windowrule = [
+				"match:class Alacritty, opacity 0.9"
+				"match:class discord, opacity 0.95"
+				"match:class discord, workspace 4"
+				"match:class .*, suppress_event maximize"
 			];
-			
+			workspace = [
+				"special:scratch, on-created-empty:[float] alacritty"
+			];
 			input = {
 				kb_layout = "us";
 				follow_mouse = 2;
