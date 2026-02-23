@@ -1,5 +1,120 @@
-{ ... }:
+{ pkgs, ... }:
 {
+	home.packages = with pkgs; [
+		grim
+		slurp
+		hyprpaper
+		hyprsunset
+		wayshot
+	];
+
+	services.hypridle = {
+		enable = true;
+		settings = {
+			general = {
+				lock_cmd = "pidof hyprlock || hyprlock";
+				before_sleep_cmd = "loginctl lock-session";
+				after_sleep_cmd = "hyprctl dispatch dpms on";
+			};
+		};
+	};
+
+	home.file.".config/hypr/lock".source = ./lock;
+
+	programs.hyprlock = {
+		enable = true;
+		settings = {
+			source = "$HOME/.config/hypr/lock/macchiato.conf";
+			"$accent" = "$mauve";
+			"$accentAlpha" = "$mauveAlpha";
+			"$font" = "JetBrainsMono Nerd Font";
+	
+			general.hide_cursor = true;
+			animations = {
+				enabled = true;
+				bezier = "linear, 1, 1, 0, 0";
+				animation = [
+					"fadeIn, 1, 5, linear"
+					"fadeOut, 1, 5, linear"
+					"inputFieldDots, 1, 2, linear"
+				];
+			};
+			background = {
+				monitor = "";
+				# path = "screenshot";
+				blur_passes = 0;
+				color = "$base";
+			};
+
+			label = [
+				{
+					monitor = "";
+					text = "Layout: $LAYOUT";
+					color = "$text";
+					font_size = 25;
+					font_family = "$font";
+					position = "30, -30";
+					halign = "left";
+					valign = "top";
+				}
+				{
+					monitor = "";
+					text = "$TIME";
+					color = "$text";
+					font_size = 90;
+					font_family = "$font";
+					position = "-30, 0";
+					halign = "right";
+					valign = "top";
+				}
+				{
+					monitor = "";
+					text = "cmd[update:10000] date +\"%A, %d %B %Y\"";
+					color = "$text";
+					font_size = 25;
+					font_family = "$font";
+					position = "-30, -150";
+					halign = "right";
+					valign = "top";
+				}
+			];
+
+			image = [
+				{
+					monitor = "";
+					path = "$HOME/.config/hypr/lock/face.png";
+					size = 100;
+					border_color = "$accent";
+					position = "0, 75";
+					halign = "center";
+					valign = "center";
+				}
+			];
+	
+			input-field = {
+				monitor = "";
+				size = "300, 60";
+				outline_thickness = 4;
+				dots_size = 0.2;
+				dots_spacing = 0.2;
+				dots_center = true;
+				outer_color = "$accent";
+				inner_color = "$surface0";
+				font_color = "$text";
+				fade_on_empty = false;
+				placeholder_text = "<span foreground=\"##$textAlpha\"><i>Logged in as </i><span foreground=\"##$accentAlpha\">$USER</span></span>";
+				hide_input = false;
+				check_color = "$accent";
+				fail_color = "$red";
+				fail_text = "<i>$FAIL <b>($ATTEMPTS)</b></i>";
+				capslock_color = "$yellow";
+				position = "0, -47";
+				halign = "center";
+				valign = "center";
+			};
+		};
+	};
+
 	wayland.windowManager.hyprland = {
 		enable = true;
 		settings = {
@@ -9,14 +124,18 @@
 			"$menu" = "wofi --show drun";
 			"$terminal" = "alacritty";
 
-			monitor = [ ", preferred, auto, 1" ];
+			monitor = [
+				"eDP-1, preferred, auto, 1"
+				", preferred, auto, 1, mirror, eDP-1"
+			];
 			exec-once = [
 				"$terminal"
-				"hyprpaper"
 				"dunst"
+				"hyprpaper"
+				"hyprsunset"
 				"eww daemon"
 				"systemctl --user start hyprpolkitagent"
-				# "sshfs scroll@canterlot:/shared ~/Shared -o _netdev,reconnect,identityfile=~/.ssh/sshfs_ed25519_sk"
+				"sshfs scroll@canterlot:/shared ~/Shared -o _netdev,reconnect,identityfile=~/.ssh/sshfs_ed25519"
 			];
 			env = [
 				"XCURSOR_SIZE,24"
@@ -27,14 +146,19 @@
 				"$mod SHIFT, R, exec, hyprctl reload"
 				"$mod, M, exit"
 
-				"$mod, L, exec, ~/.config/scripts/lock.sh"
+				"$mod, L, exec, loginctl lock-session"
+				"$mod SHIFT, L, exec, systemctl suspend"
 				", XF86AudioLowerVolume, exec, ~/.config/scripts/volume-down.sh"
 				", XF86AudioRaiseVolume, exec, ~/.config/scripts/volume-up.sh"
 				", XF86MonBrightnessDown, exec, ~/.config/scripts/brightness-down.sh"
 				", XF86MonBrightnessUp, exec, ~/.config/scripts/brightness-up.sh"
 
-				", Print, exec, grim -t png \"/home/sb/Screenshots/$(date +%y-%m-%d-%H-%M-%S).png\""
-				"SHIFT, Print, exec, grim -t png -g \"$(slurp)\" \"/home/sb/Screenshots/$(date +%y-%m-%d-%H-%M-%S).png\""
+				"$mod, Print, exec, wayshot -f \"~/Screenshots/$(date +%y-%m-%d-%H-%M-%S).png\""
+				"$mod SHIFT, Print, exec, wayshot -s \"$(slurp -b ffffffaa -w 0)\" -f \"~/Screenshots/$(date +%y-%m-%d-%H-%M-%S).png\""
+				"$mod CTRL, Print, exec, wayshot -s \"$(slurp -o -w 0)\" -f \"~/Screenshots/$(date +%y-%m-%d-%H-%M-%S).png\""
+				", Print, exec, wayshot --clipboard"
+				"SHIFT, Print, exec, wayshot -s \"$(slurp -b ffffffaa -w 0)\" --clipboard"
+				"CTRL, Print, exec, wayshot -s \"$(slurp -o -w 0)\" --clipboard"
 
 				"$mod, Q, exec, $terminal"
 				"$mod, E, exec, $fileManager"

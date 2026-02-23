@@ -19,8 +19,6 @@
 		};
 	};
 
-	home.file.".config/hypr/lock".source = ./lock;
-
 	programs.hyprlock = {
 		enable = true;
 		settings = {

@@ -3,7 +3,7 @@ spare_keys:
   # real people
   # - &actor_subsy age1yubikey1q29s8wghs6lasspk8l3zdfqneesu29ldfxrpd3uk48ngllxn8y8txufan8n
   # real hardware
-  - &host_library age1tnza7kmcy8tdesrnaqhgv2n4zmwksjq9y09eytzsr4e4cnldlclq4yl5up
+  - &host_library age1aqqtsxg3fnfr2rsjaqkyk2cvd493u7gjup563h7h6w8avwnhv9usg9y90h
   - &host_everfree age12hwskd59d8qg9wykppauaelhpl4ngwzegfkv5um4w3fyunfrv5kq8747ff
 
 creation_rules:

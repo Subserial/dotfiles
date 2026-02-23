@@ -29,7 +29,7 @@ with lib; {
 			username = "sb";
 			homeDirectory = "/home/sb";
 			packages = with pkgs; [
-				xfce.thunar
+				thunar
 				kdePackages.kcalc
 				alacritty
 
@@ -78,6 +78,7 @@ with lib; {
 			};
 
 			file.".config/hypr/paper".source = ./paper;
+			file.".config/hypr/lock".source = ./lock;
 
 			file.".config/scripts" = {
 				source = "${self}/scripts";

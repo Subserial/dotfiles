@@ -46,7 +46,7 @@
 					./profiles/hosts/library.nix
 					./profiles/users/twilight
 					({ config, ... }: { 
-						services.displayManager.defaultSession = "none+hyprland";
+						services.displayManager.defaultSession = "hyprland"; # "none+hyprland";
 						services.displayManager.autoLogin.user = "twilight";
 						users.users.twilight = {
 							hashedPasswordFile = config.sops.secrets.password.path;

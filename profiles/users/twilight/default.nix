@@ -1,20 +1,15 @@
 { self, pkgs, lib, extraPackages, ... }:
 with lib; {	
-	# Allow unfree packages
 	nixpkgs.config.allowUnfree = mkDefault true;
-
-	# Flakes!
+	nixpkgs.config.rockSupport = true;
 	nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
 	users.users.twilight = {
 		isNormalUser = true;
 		description = "TWI-01";
 		shell = pkgs.zsh;
-		extraGroups = [ "networkmanager" "wheel" ];
+		extraGroups = [ "networkmanager" "wheel" "podman" ];
 	};
-
-	# required for swaylock
-	security.pam.services.swaylock = {};
 
 	# Required to source the necessary files for zsh
 	programs.zsh.enable = true;
@@ -45,34 +40,34 @@ with lib; {
 				vlc
 				kdePackages.kate
 
-				blender-hip
+				blender
 				audacity
 
 				alacritty
-				xfce.thunar
+				thunar
 				kdePackages.kcalc
 				wofi
 				dunst
 				font-awesome
 
-				swaylock
 				pywal
 				jq
-				grim
-				slurp
 
 				brightnessctl
-				hyprsunset
 				sshfs
+
+				extraPackages.localPackages.pyzo
 			];
 			sessionVariables = {
 				EDITOR = "vim";
 				VISUAL = "vim";
 			};
 
-			file.".mozilla/firefox/defaultProfile/chrome".source = "${extraPackages.wavefox}/chrome";
+			# file.".mozilla/firefox/defaultProfile/chrome".source = "${extraPackages.wavefox}/chrome";
 
 			file.".config/hypr/paper".source = ./paper;
+			file.".config/hypr/lock".source = ./lock;
+			
 			file.".config/scripts".source = "${self}/scripts";
 
 			file.".icons/default".source = "${pkgs.vanilla-dmz}/share/icons/Vanilla-DMZ";
@@ -104,5 +99,11 @@ with lib; {
 		};
 
 		programs.pywal.enable = true;
+		xdg.mimeApps = {
+			enable = true;
+			associations.removed = {
+				"inode/directory" = "kate.desktop";
+			};
+		};
 	};
 }

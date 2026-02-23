@@ -8,7 +8,7 @@ with lib; {
 		kernelModules = ["vfat" "nls_cp437" "nls_iso8859-1" "usbhid"];
 		luks = {
 			yubikeySupport = true;
-			devices."nixos-enc" = {
+			devices."encrypted" = {
 				device = "/dev/nvme0n1p2";
 				yubikey = {
 					slot = 2;
@@ -33,24 +33,19 @@ with lib; {
 	};
 
 	fileSystems."/" = {
-		device = "/dev/nixos-vg/fsroot";
-		fsType = "btrfs";
-		options = [ "subvol=root" ];
+		device = "/dev/partitions/data";
+		fsType = "xfs";
 	};
 
 	fileSystems."/nix" = {
-		device = "/dev/nixos-vg/fsroot";
-		fsType = "btrfs";
-		options = [ "subvol=nix" ];
+		device = "/dev/partitions/nix";
+		fsType = "xfs";
 	};
 
-	fileSystems."/home" = {
-		device = "/dev/nixos-vg/fsroot";
+	fileSystems."/game" = {
+		device = "/dev/partitions/game";
 		fsType = "btrfs";
-		options = [ "subvol=home" ];
 	};
-
-	swapDevices = [ { device = "/dev/nixos-vg/swap"; } ];
 
 	networking.useDHCP = mkDefault true;
 	nixpkgs.hostPlatform = mkDefault "x86_64-linux";
@@ -156,11 +151,13 @@ with lib; {
 		NIXOS_OZONE_WL = "1";
 	};
 
-	virtualisation.docker = {
-		enable = true;
-		rootless = {
+	virtualisation = {
+		containers.enable = true;
+		containers.registries.search = [ "docker.io" ];
+		podman = {
 			enable = true;
-			setSocketVariable = true;
+			dockerCompat = true;
+			defaultNetwork.settings.dns_enabled = true;
 		};
 	};
 
@@ -171,6 +168,7 @@ with lib; {
 		curl
 		# Wifi in an emergency
 		wirelesstools
+		podman-compose
 	];
 
 	# Dev sanity (intellij)
@@ -185,7 +183,7 @@ with lib; {
 
 	# Sops
 	sops = {
-		age.keyFile = "/root/.sops/secrets/library.age";
+		age.keyFile = "/root/.config/sops/age/keys.txt";
 		secrets.password = {
 			sopsFile = "${self}/secrets/library/password.txt";
 			format = "binary";
@@ -203,7 +201,7 @@ with lib; {
 	services.gvfs.enable = true;
 
 	# power button config
-	services.logind.powerKey = "ignore";
+	services.logind.settings.Login.HandlePowerKey = "ignore";
 
 	system.stateVersion = "24.05";
 }
