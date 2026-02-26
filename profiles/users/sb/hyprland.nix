@@ -265,8 +265,16 @@
 				"/home/sb/.config/hypr/paper/946739-bottom.jpg"
 			];
 			wallpaper = [
-				"DP-1, /home/sb/.config/hypr/paper/946739-top.jpg"
-				"HDMI-A-1, /home/sb/.config/hypr/paper/946739-bottom.jpg"
+				{
+					monitor = "DP-1";
+					path = "/home/sb/.config/hypr/paper/946739-top.jpg";
+					fit_mode = "cover";
+				}
+				{
+					monitor = "HDMI-A-1";
+					path = "/home/sb/.config/hypr/paper/946739-bottom.jpg";
+					fit_mode = "cover";
+				}
 			];
 		};
 	};

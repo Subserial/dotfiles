@@ -47,7 +47,6 @@ with lib; {
 
 				# inkscape
 				kdePackages.kdenlive
-				krita
 				gimp
 				obs-studio
 				pavucontrol
