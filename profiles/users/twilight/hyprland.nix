@@ -129,7 +129,6 @@
 				", preferred, auto, 1, mirror, eDP-1"
 			];
 			exec-once = [
-				"$terminal"
 				"dunst"
 				"hyprpaper"
 				"hyprsunset"
@@ -171,7 +170,7 @@
 				"$mod, P, pseudo"
 				"$mod, G, togglegroup"
 				"$mod, H, lockactivegroup, toggle"
-				"$mod, X, togglespecialworkspace"
+				"$mod, Return, togglespecialworkspace, scratchpad"
 				"ALT, Tab, changegroupactive"
 				"SHIFT, F11, fullscreen"
 			]
@@ -200,7 +199,8 @@
 				"match:class .*, suppress_event maximize"
 			];
 			workspace = [
-				"special:scratchpad, on-created-empty:[float] alacritty"
+				"1, on-created-empty:$terminal"
+				"special:scratchpad, on-created-empty:[float] $terminal"
 			];
 			input = {
 				kb_layout = "us";
