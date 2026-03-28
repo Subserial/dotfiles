@@ -29,10 +29,10 @@ with lib; {
 
 				lutris
 				steam
+        prismlauncher
 
 				kdePackages.kdenlive
 				discord-canary
-				krita
 				gimp
 				qbittorrent
 				obs-studio
