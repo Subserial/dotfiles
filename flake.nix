@@ -46,7 +46,7 @@
 					./profiles/hosts/library.nix
 					./profiles/users/twilight
 					({ config, ... }: { 
-						services.displayManager.defaultSession = "hyprland"; # "none+hyprland";
+						services.displayManager.defaultSession = "hyprland";
 						services.displayManager.autoLogin.user = "twilight";
 						users.users.twilight = {
 							hashedPasswordFile = config.sops.secrets.password.path;
@@ -69,6 +69,8 @@
 					./profiles/hosts/everfree.nix
 					./profiles/users/sb
 					({ config, ... }: {
+						services.displayManager.defaultSession = "hyprland";
+						services.displayManager.autoLogin.user = "sb";
 						users.users.sb = {
 							hashedPasswordFile = config.sops.secrets.password.path;
 							openssh.authorizedKeys.keys = superuser.personalPublicKeys;
