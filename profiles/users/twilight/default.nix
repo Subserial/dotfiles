@@ -1,109 +1,124 @@
-{ self, pkgs, lib, extraPackages, ... }:
-with lib; {	
-	nixpkgs.config.allowUnfree = mkDefault true;
-	nixpkgs.config.rockSupport = true;
-	nix.settings.experimental-features = [ "nix-command" "flakes" ];
+{
+  self,
+  pkgs,
+  lib,
+  extraPackages,
+  ...
+}:
+with lib;
+{
+  nixpkgs.config.allowUnfree = mkDefault true;
+  nixpkgs.config.rockSupport = true;
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
-	users.users.twilight = {
-		isNormalUser = true;
-		description = "TWI-01";
-		shell = pkgs.zsh;
-		extraGroups = [ "networkmanager" "wheel" "podman" ];
-	};
+  users.users.twilight = {
+    isNormalUser = true;
+    description = "TWI-01";
+    shell = pkgs.zsh;
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "podman"
+    ];
+  };
 
-	# Required to source the necessary files for zsh
-	programs.zsh.enable = true;
+  # Required to source the necessary files for zsh
+  programs.zsh.enable = true;
 
-	home-manager.users.twilight = {
-		imports = [ 
-			"${self}/home-manager/zsh.nix"
-			./hyprland.nix
-		];
+  home-manager.users.twilight = {
+    imports = [
+      "${self}/home-manager/zsh.nix"
+      ./hyprland.nix
+    ];
 
-		home = {
-			username = "twilight";
-			homeDirectory = "/home/twilight";
-			packages = with pkgs; [
-				appimage-run
-				ffmpeg
+    home = {
+      username = "twilight";
+      homeDirectory = "/home/twilight";
+      packages = with pkgs; [
+        appimage-run
+        ffmpeg
 
-				lutris
-				steam
+        lutris
+        steam
         prismlauncher
 
-				kdePackages.kdenlive
-				discord-canary
-				gimp
-				qbittorrent
-				obs-studio
-				pavucontrol
-				vlc
-				kdePackages.kate
+        kdePackages.kdenlive
+        discord-canary
+        gimp
+        qbittorrent
+        obs-studio
+        pavucontrol
+        vlc
+        kdePackages.kate
 
-				blender
-				audacity
+        pkgsRocm.blender
+        audacity
 
-				alacritty
-				thunar
-				kdePackages.kcalc
-				wofi
-				dunst
-				font-awesome
+        alacritty
+        thunar
+        kdePackages.kcalc
+        wofi
+        dunst
+        font-awesome
 
-				pywal
-				jq
+        pywal
+        jq
 
-				brightnessctl
-				sshfs
+        brightnessctl
+        sshfs
 
-				extraPackages.localPackages.pyzo
-			];
-			sessionVariables = {
-				EDITOR = "vim";
-				VISUAL = "vim";
-			};
+        extraPackages.localPackages.pyzo
+      ];
+      sessionVariables = {
+        EDITOR = "vim";
+        VISUAL = "vim";
+      };
 
-			# file.".mozilla/firefox/defaultProfile/chrome".source = "${extraPackages.wavefox}/chrome";
+      # file.".mozilla/firefox/defaultProfile/chrome".source = "${extraPackages.wavefox}/chrome";
 
-			file.".config/hypr/paper".source = ./paper;
-			file.".config/hypr/lock".source = ./lock;
-			
-			file.".config/scripts".source = "${self}/scripts";
+      file.".config/hypr/paper".source = ./paper;
+      file.".config/hypr/lock".source = ./lock;
 
-			file.".icons/default".source = "${pkgs.vanilla-dmz}/share/icons/Vanilla-DMZ";
+      file.".config/scripts".source = "${self}/scripts";
 
-			enableNixpkgsReleaseCheck = true;
-			stateVersion = "24.05";
-		};
+      file.".icons/default".source = "${pkgs.vanilla-dmz}/share/icons/Vanilla-DMZ";
 
-		programs.firefox = {
-			enable = true;
-			languagePacks = [ "en-US" ];
-			profiles."defaultProfile" = {
-				name = "Twilight";
-				settings = {
-					"toolkit.legacyUserProfileCustomizations.stylesheets" = true;
-				};
-			};
-		};
+      enableNixpkgsReleaseCheck = true;
+      stateVersion = "24.05";
+    };
 
-		programs.git = {
-			enable = true;
-			settings = {
-				user.name = "Subserial (TWI-01)";
-				user.email = "me@subserial.website";
-				core.editor = "vim";
-				core.autocrlf = "input";
-				init.defaultBranch = "main";
-			};
-		};
+    programs.firefox = {
+      enable = true;
+      languagePacks = [ "en-US" ];
+      profiles."defaultProfile" = {
+        name = "Twilight";
+        settings = {
+          "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+        };
+      };
+    };
 
-		programs.pywal.enable = true;
-		xdg.mimeApps = {
-			enable = true;
-			associations.removed = {
-				"inode/directory" = "kate.desktop";
-			};
-		};
-	};
+    programs.git = {
+      enable = true;
+      signing.format = null;
+      settings = {
+        user.name = "Subserial (TWI-01)";
+        user.email = "me@subserial.website";
+        core.editor = "vim";
+        core.autocrlf = "input";
+        init.defaultBranch = "main";
+      };
+    };
+
+    programs.pywal.enable = true;
+    xdg.mimeApps = {
+      enable = true;
+      associations.removed = {
+        "inode/directory" = "kate.desktop";
+      };
+    };
+  };
 }
