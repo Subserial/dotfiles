@@ -155,9 +155,9 @@
         "SHIFT, F10, exec, hyprctl hyprsunset gamma +10"
         "$mod SHIFT, T, exec, ~/.config/scripts/toggle-touchpad.sh"
 
-        ", Print, exec, wayshot -f \"/home/sb/Screenshots/$(date +%y-%m-%d-%H-%M-%S).png\""
-        "SHIFT, Print, exec, wayshot -s \"$(slurp -b ffffffaa -w 0)\" -f \"/home/sb/Screenshots/$(date +%y-%m-%d-%H-%M-%S).png\""
-        "CTRL, Print, exec, wayshot -s \"$(slurp -o -w 0)\" -f \"/home/sb/Screenshots/$(date +%y-%m-%d-%H-%M-%S).png\""
+        ", Print, exec, wayshot \"/home/sb/Screenshots/$(date +%y-%m-%d-%H-%M-%S).png\""
+        "SHIFT, Print, exec, wayshot -g \"/home/sb/Screenshots/$(date +%y-%m-%d-%H-%M-%S).png\""
+        "CTRL, Print, exec, wayshot -g --clipboard"
 
         "$mod, Q, exec, $terminal"
         "$mod, E, exec, $fileManager"
