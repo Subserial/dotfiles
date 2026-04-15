@@ -1,113 +1,126 @@
-{ self, extraPackages, pkgs, lib, ... }:
-with lib; {
+{
+  self,
+  extraPackages,
+  pkgs,
+  lib,
+  ...
+}:
+with lib;
+{
+  # Allow unfree packages
+  nixpkgs.config.allowUnfree = mkDefault true;
+  nixpkgs.config.rocmSupport = true;
 
-	# Allow unfree packages
-	nixpkgs.config.allowUnfree = mkDefault true;
-	nixpkgs.config.rockSupport = true;
+  # Flakes!
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
-	# Flakes!
-	nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  users.extraGroups.vboxusers.members = [ "sb" ];
 
-	users.extraGroups.vboxusers.members = [ "sb" ];
+  users.users.sb = {
+    isNormalUser = true;
+    description = "EVR-00";
+    shell = pkgs.zsh;
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+    ];
+  };
 
-	users.users.sb = {
-		isNormalUser = true;
-		description = "EVR-00";
-		shell = pkgs.zsh;
-		extraGroups = [ "networkmanager" "wheel" ];
-	};
+  # Required to source the necessary files for zsh
+  programs.zsh.enable = true;
 
-	# Required to source the necessary files for zsh
-	programs.zsh.enable = true;
+  home-manager.users.sb = {
+    imports = [
+      "${self}/home-manager/zsh.nix"
+      ./hyprland.nix
+    ];
 
-	home-manager.users.sb = {
-		imports = [
-			"${self}/home-manager/zsh.nix"
-			./hyprland.nix
-		];
+    home = {
+      username = "sb";
+      homeDirectory = "/home/sb";
+      packages = with pkgs; [
+        thunar
+        kdePackages.kcalc
+        alacritty
 
-		home = {
-			username = "sb";
-			homeDirectory = "/home/sb";
-			packages = with pkgs; [
-				thunar
-				kdePackages.kcalc
-				alacritty
+        webcord
+        discord-canary
+        firefox
+        thunderbird
+        mpv
+        qbittorrent
 
-				webcord
-				discord-canary
-				firefox
-				thunderbird
-				mpv
-				qbittorrent
+        # parsec-bin
+        lutris
+        steam
 
-				# parsec-bin
-				lutris
-				steam
+        # inkscape
+        kdePackages.kdenlive
+        gimp
+        obs-studio
+        pavucontrol
+        vlc
+        kdePackages.kate
 
-				# inkscape
-				kdePackages.kdenlive
-				gimp
-				obs-studio
-				pavucontrol
-				vlc
-				kdePackages.kate
+        blender
+        audacity
+        appimage-run
+        ffmpeg
 
-				blender
-				audacity
-				appimage-run
-				ffmpeg
+        wofi
+        dunst
+        eww
+        font-awesome
 
-				wofi
-				dunst
-				eww
-				font-awesome
+        pywal
+        jq
 
-				pywal
-				jq
+        sshfs
 
-				sshfs
+        prismlauncher
 
-				prismlauncher
+        extraPackages.localPackages.pyzo
+      ];
+      sessionVariables = {
+        EDITOR = "vim";
+        VISUAL = "vim";
+      };
 
-				extraPackages.localPackages.pyzo
-			];
-			sessionVariables = {
-				EDITOR = "vim";
-				VISUAL = "vim";
-			};
+      file.".config/hypr/paper".source = ./paper;
+      file.".config/hypr/lock".source = ./lock;
 
-			file.".config/hypr/paper".source = ./paper;
-			file.".config/hypr/lock".source = ./lock;
+      file.".config/scripts" = {
+        source = "${self}/scripts";
+        recursive = true;
+      };
 
-			file.".config/scripts" = {
-				source = "${self}/scripts";
-				recursive = true;
-			};
-			
-			file.".icons/default".source = "${pkgs.vanilla-dmz}/share/icons/Vanilla-DMZ";
+      file.".icons/default".source = "${pkgs.vanilla-dmz}/share/icons/Vanilla-DMZ";
 
-			enableNixpkgsReleaseCheck = true;
-			stateVersion = "24.05";
-		};
+      enableNixpkgsReleaseCheck = true;
+      stateVersion = "24.05";
+    };
 
-		programs.git = {
-			enable = true;
-			settings = {
-				user.name = "Subserial (EVR-00)";
-				user.email = "me@subserial.website";
-				core.editor = "vim";
-				core.autocrlf = "input";
-				init.defaultBranch = "main";
-			};
-		};
+    programs.git = {
+      enable = true;
+      signing.format = null;
+      settings = {
+        user.name = "Subserial (EVR-00)";
+        user.email = "me@subserial.website";
+        core.editor = "vim";
+        core.autocrlf = "input";
+        init.defaultBranch = "main";
+      };
+    };
 
-		programs.pywal.enable = true;
-		xdg.mimeApps = {
-			enable = true;
-			associations.removed = {
-				"inode/directory" = "kate.desktop";
-			};
-		};
-	};
+    programs.pywal.enable = true;
+    xdg.mimeApps = {
+      enable = true;
+      associations.removed = {
+        "inode/directory" = "kate.desktop";
+      };
+    };
+  };
 }

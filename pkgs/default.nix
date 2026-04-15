@@ -1,4 +1,4 @@
 { pkgs, ... }:
 {
-	pyzo = pkgs.qt6.callPackage ./pyzo.nix { };
+  pyzo = pkgs.qt6.callPackage ./pyzo.nix { };
 }
