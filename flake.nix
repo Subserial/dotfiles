@@ -40,7 +40,7 @@
       eachSystem = nixpkgs.lib.genAttrs (import inputs.systems);
       specialArgs.self = ./.;
       specialArgs.extraPackages = {
-        localPackages = import ./pkgs { pkgs = nixpkgs.legacyPackages.x86_64-linux; };
+        localPackages = eachSystem (system: import ./pkgs { pkgs = nixpkgs.legacyPackages.${system}; });
         wavefox = inputs.wavefox;
       };
       superuser.personalPublicKeys = [

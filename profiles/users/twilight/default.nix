@@ -70,7 +70,8 @@ with lib;
         brightnessctl
         sshfs
 
-        extraPackages.localPackages.pyzo
+        # TODO: make this pretty with an overlay or smth
+        extraPackages.localPackages.x86_64-linux.pyzo
       ];
       sessionVariables = {
         EDITOR = "vim";
