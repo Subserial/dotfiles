@@ -2,7 +2,7 @@
   self,
   pkgs,
   lib,
-  extraPackages,
+  localPackages,
   ...
 }:
 with lib;
@@ -70,8 +70,7 @@ with lib;
         brightnessctl
         sshfs
 
-        # TODO: make this pretty with an overlay or smth
-        extraPackages.localPackages.x86_64-linux.pyzo
+        localPackages.pyzo
       ];
       sessionVariables = {
         EDITOR = "vim";

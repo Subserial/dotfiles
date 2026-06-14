@@ -2,7 +2,7 @@
   self,
   pkgs,
   lib,
-  extraPackages,
+  # localPackages,
   ...
 }:
 with lib;
@@ -67,7 +67,7 @@ with lib;
         VISUAL = "vim";
       };
 
-      # file.".mozilla/firefox/defaultProfile/chrome".source = "${extraPackages.wavefox}/chrome";
+      # file.".mozilla/firefox/defaultProfile/chrome".source = "${inputs.wavefox}/chrome";
 
       file.".config/hypr/paper".source = ./paper;
       file.".config/scripts" = {

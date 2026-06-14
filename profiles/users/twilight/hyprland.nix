@@ -117,6 +117,7 @@
 
   wayland.windowManager.hyprland = {
     enable = true;
+    configType = "hyprlang";
     settings = {
       # TODO: Pass these as options, maybe
       "$mod" = "SUPER";
@@ -166,7 +167,7 @@
 
         "$mod, C, killactive"
         "$mod, V, togglefloating"
-        "$mod, J, togglesplit"
+        "$mod, J, layoutmsg, rotatesplit, 90" # dwindle
         "$mod, P, pseudo"
         "$mod, G, togglegroup"
         "$mod, H, lockactivegroup, toggle"
@@ -248,7 +249,6 @@
         ];
       };
       dwindle = {
-        pseudotile = true;
         preserve_split = true;
       };
       gesture = [

@@ -38,10 +38,9 @@
     inputs@{ self, nixpkgs, ... }:
     let
       eachSystem = nixpkgs.lib.genAttrs (import inputs.systems);
-      specialArgs.self = ./.;
-      specialArgs.extraPackages = {
-        localPackages = eachSystem (system: import ./pkgs { pkgs = nixpkgs.legacyPackages.${system}; });
-        wavefox = inputs.wavefox;
+      systemArgs = system: {
+        self = ./.;
+        localPackages = import ./pkgs { pkgs = nixpkgs.legacyPackages.${system}; };
       };
       superuser.personalPublicKeys = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJTDi1aJeU501aY7olJyoD1H7IVHrh1/rmxHHj1SDSYu sb@everfree"
@@ -69,76 +68,88 @@
         pkgs.writeShellScriptBin "pre-commit-run" script
       );
       nixosConfigurations = {
-        library = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          inherit specialArgs;
-          modules = [
-            inputs.nixos-hardware.nixosModules.dell-xps-15-9570-nvidia
-            inputs.home-manager.nixosModules.home-manager
-            inputs.sops-nix.nixosModules.sops
-            ./modules/home-manager-settings.nix
-            ./profiles/hosts/library.nix
-            ./profiles/users/twilight
-            (
-              { config, ... }:
-              {
-                services.displayManager.defaultSession = "hyprland";
-                services.displayManager.autoLogin.user = "twilight";
-                users.users.twilight = {
-                  hashedPasswordFile = config.sops.secrets.password.path;
-                  openssh.authorizedKeys.keys = superuser.personalPublicKeys;
-                };
-              }
-            )
-          ];
-        };
-        everfree = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          inherit specialArgs;
-          modules = [
-            inputs.nixos-hardware.nixosModules.framework-11th-gen-intel
-            inputs.home-manager.nixosModules.home-manager
-            inputs.sops-nix.nixosModules.sops
-            inputs.nixos-hardware.nixosModules.common-gpu-amd
-            ./modules/i2c.nix
-            ./modules/amd-egpu.nix
-            ./modules/home-manager-settings.nix
-            ./profiles/hosts/everfree.nix
-            ./profiles/users/sb
-            (
-              { config, ... }:
-              {
-                services.displayManager.defaultSession = "hyprland";
-                services.displayManager.autoLogin.user = "sb";
-                users.users.sb = {
-                  hashedPasswordFile = config.sops.secrets.password.path;
-                  openssh.authorizedKeys.keys = superuser.personalPublicKeys;
-                };
-              }
-            )
-          ];
-        };
-        cloudsdale = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          inherit specialArgs;
-          modules = [
-            inputs.home-manager.nixosModules.home-manager
-            ./modules/home-manager-settings.nix
-            ./profiles/hosts/cloudsdale.nix
-            ./profiles/users/rdash
-            (
-              { config, ... }:
-              {
-                services.displayManager.defaultSession = "hyprland";
-                services.displayManager.autoLogin.user = "rdash";
-                users.users.rdash = {
-                  password = "tank";
-                  openssh.authorizedKeys.keys = superuser.personalPublicKeys;
-                };
-              }
-            )
-          ];
-        };
+        library =
+          let
+            system = "x86_64-linux";
+          in
+          nixpkgs.lib.nixosSystem {
+            inherit system;
+            specialArgs = systemArgs system;
+            modules = [
+              inputs.nixos-hardware.nixosModules.dell-xps-15-9570-nvidia
+              inputs.home-manager.nixosModules.home-manager
+              inputs.sops-nix.nixosModules.sops
+              ./modules/home-manager-settings.nix
+              ./profiles/hosts/library.nix
+              ./profiles/users/twilight
+              (
+                { config, ... }:
+                {
+                  services.displayManager.defaultSession = "hyprland";
+                  services.displayManager.autoLogin.user = "twilight";
+                  users.users.twilight = {
+                    hashedPasswordFile = config.sops.secrets.password.path;
+                    openssh.authorizedKeys.keys = superuser.personalPublicKeys;
+                  };
+                }
+              )
+            ];
+          };
+        everfree =
+          let
+            system = "x86_64-linux";
+          in
+          nixpkgs.lib.nixosSystem {
+            inherit system;
+            specialArgs = systemArgs system;
+            modules = [
+              inputs.nixos-hardware.nixosModules.framework-11th-gen-intel
+              inputs.home-manager.nixosModules.home-manager
+              inputs.sops-nix.nixosModules.sops
+              inputs.nixos-hardware.nixosModules.common-gpu-amd
+              ./modules/i2c.nix
+              ./modules/amd-egpu.nix
+              ./modules/home-manager-settings.nix
+              ./profiles/hosts/everfree.nix
+              ./profiles/users/sb
+              (
+                { config, ... }:
+                {
+                  services.displayManager.defaultSession = "hyprland";
+                  services.displayManager.autoLogin.user = "sb";
+                  users.users.sb = {
+                    hashedPasswordFile = config.sops.secrets.password.path;
+                    openssh.authorizedKeys.keys = superuser.personalPublicKeys;
+                  };
+                }
+              )
+            ];
+          };
+        cloudsdale =
+          let
+            system = "x86_64-linux";
+          in
+          nixpkgs.lib.nixosSystem {
+            inherit system;
+            specialArgs = systemArgs system;
+            modules = [
+              inputs.home-manager.nixosModules.home-manager
+              ./modules/home-manager-settings.nix
+              ./profiles/hosts/cloudsdale.nix
+              ./profiles/users/rdash
+              (
+                { config, ... }:
+                {
+                  services.displayManager.defaultSession = "hyprland";
+                  services.displayManager.autoLogin.user = "rdash";
+                  users.users.rdash = {
+                    password = "tank";
+                    openssh.authorizedKeys.keys = superuser.personalPublicKeys;
+                  };
+                }
+              )
+            ];
+          };
       };
     };
 }

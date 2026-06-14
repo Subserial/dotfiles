@@ -1,8 +1,8 @@
 {
   self,
-  extraPackages,
   pkgs,
   lib,
+  localPackages,
   ...
 }:
 with lib;
@@ -10,6 +10,14 @@ with lib;
   # Allow unfree packages
   nixpkgs.config.allowUnfree = mkDefault true;
   nixpkgs.config.rocmSupport = true;
+
+  nixpkgs.overlays = [
+    (_: prev: {
+      openldap = prev.openldap.overrideAttrs {
+        doCheck = !prev.stdenv.hostPlatform.isi686;
+      };
+    })
+  ];
 
   # Flakes!
   nix.settings.experimental-features = [
@@ -82,8 +90,7 @@ with lib;
 
         prismlauncher
 
-        # TODO: make this pretty with an overlay or smth
-        extraPackages.localPackages.x86_64-linux.pyzo
+        localPackages.pyzo
       ];
       sessionVariables = {
         EDITOR = "vim";
@@ -122,6 +129,18 @@ with lib;
       associations.removed = {
         "inode/directory" = "kate.desktop";
       };
+    };
+
+    programs.vim = {
+      enable = true;
+      plugins = with pkgs.vimPlugins; [
+        localPackages.vimPlugins.vimini
+      ];
+      settings = { };
+      extraConfig = ''
+        				set ts=2 sw=2
+        				set smartindent
+        			'';
     };
   };
 }
