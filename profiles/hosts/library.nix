@@ -25,23 +25,12 @@ with lib;
       "usbhid"
     ];
     luks = {
-      yubikeySupport = true;
       devices."encrypted" = {
-        device = "/dev/nvme0n1p2";
-        yubikey = {
-          slot = 2;
-          twoFactor = false;
-          gracePeriod = 10;
-          keyLength = 64;
-          saltLength = 16;
-          storage = {
-            device = "/dev/nvme0n1p1";
-            fsType = "vfat";
-            path = "/crypt-storage/default";
-          };
-        };
+        device = "/dev/nvme0n1p3";
+        crypttabExtraOpts = [ "fido2device=auto" ];
       };
     };
+    systemd.enable = true;
   };
 
   fileSystems."/boot" = {
@@ -74,8 +63,16 @@ with lib;
   hardware.enableRedistributableFirmware = true;
 
   # Bootloader
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader = {
+    efi = {
+      canTouchEfiVariables = true;
+      efiSysMountPoint = "/boot/efi";
+    };
+    grub = {
+      efiSupport = true;
+      device = "nodev";
+    };
+  };
 
   networking = {
     hostName = "library";
