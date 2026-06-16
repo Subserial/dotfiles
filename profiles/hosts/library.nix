@@ -42,6 +42,11 @@ with lib;
     ];
   };
 
+  fileSystems."/win" = {
+    device = "/dev/nvme0n1p2";
+    fsType = "ntfs";
+  };
+
   fileSystems."/" = {
     device = "/dev/partitions/data";
     fsType = "xfs";

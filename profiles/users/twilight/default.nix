@@ -92,6 +92,7 @@ with lib;
 
     programs.firefox = {
       enable = true;
+      configPath = "/home/twilight/.config/mozilla/firefox";
       languagePacks = [ "en-US" ];
       profiles."defaultProfile" = {
         name = "Twilight";
