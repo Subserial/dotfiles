@@ -27,7 +27,7 @@ with lib;
     luks = {
       devices."encrypted" = {
         device = "/dev/nvme0n1p3";
-        crypttabExtraOpts = [ "fido2device=auto" ];
+        crypttabExtraOpts = [ "fido2-device=auto" ];
       };
     };
     systemd.enable = true;
