@@ -67,6 +67,9 @@ with lib;
   hardware.cpu.intel.updateMicrocode = true;
   hardware.enableRedistributableFirmware = true;
 
+  # Controller
+  hardware.xpadneo.enable = true;
+
   # Bootloader
   boot.loader = {
     efi = {
