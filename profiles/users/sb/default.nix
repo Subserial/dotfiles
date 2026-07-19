@@ -135,6 +135,7 @@ with lib;
       enable = true;
       plugins = with pkgs.vimPlugins; [
         localPackages.vimPlugins.vimini
+        localPackages.vimPlugins.zsh-nix-shell
       ];
       settings = { };
       extraConfig = ''

@@ -4,5 +4,6 @@
 
   vimPlugins = {
     vimini = import ./vim-vimini.nix { pkgs = pkgs; };
+    zsh-nix-shell = import ./vim-zsh-nix-shell.nix { pkgs = pkgs; };
   };
 }
