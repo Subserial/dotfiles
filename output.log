@@ -1,0 +1,622 @@
+2026-09-06 14:36:10.850 [info] [Main] [BrowserOnboardingClientMainService] Starting browser onboarding server
+2026-09-06 14:36:10.850 [info] [Main] [BrowserOnboardingClientServer] Browser onboarding server started on http://localhost:44197
+2026-09-06 14:36:10.850 [info] [Main] update#setState disabled
+2026-09-06 14:36:10.850 [info] [Main] update#ctor - updates are disabled as there is no update URL
+2026-09-06 14:36:10.850 [info] [ls-main] [LS Main] Starting language server from: /nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/bin/language_server_linux_x64
+2026-09-06 14:36:10.850 [info] [auth] [Auth] Auth state changed to: uninitialized
+2026-09-06 14:36:10.974 [info] [ls-main] [LS Main] Args: --csrf_token 97c53f8c-341d-4613-ae60-8106881e0b6d --extension_server_port 41931 --extension_server_csrf_token 834208b4-3b6c-4773-9d3a-5522187861a2 --app_data_dir antigravity --cloud_code_endpoint https://cloudcode-pa.googleapis.com
+2026-09-06 14:36:10.983 [info] [ls-main] [LS Main] Process spawned with PID: 392228
+2026-09-06 14:36:10.986 [info] [auth] [Auth] Auth state changed to: validatingLogin
+2026-09-06 14:36:10.987 [error] [cloudcode] Failed to set Cloud Code URL on Language Server: Language server client has not been initialized!
+2026-09-06 14:36:10.987 [info] [auth] [Auth] Auth state changed to: validatingLogin
+2026-09-06 14:36:11.079 [error] [ls-main] [LS Main stderr] I0906 14:36:11.079412 392228 server.go:1236] Starting language server process with pid 392228
+
+2026-09-06 14:36:11.080 [error] [ls-main] [LS Main stderr] I0906 14:36:11.079490 392228 server.go:301] Setting GOMAXPROCS to 4
+
+2026-09-06 14:36:11.082 [error] [ls-main] [LS Main stderr] I0906 14:36:11.080265 392228 server.go:440] Language server will attempt to listen on host 127.0.0.1
+I0906 14:36:11.080382 392228 server.go:454] Language server listening on random port at 36105 for HTTPS (gRPC)
+I0906 14:36:11.080396 392228 server.go:461] Language server listening on random port at 45207 for HTTP
+
+2026-09-06 14:36:11.185 [error] [ls-main] [LS Main stderr] I0906 14:36:11.185574 392228 server.go:433] Created extension server client at port 41931
+
+2026-09-06 14:36:11.199 [error] [ls-main] [LS Main stderr] I0906 14:36:11.199367 392228 cascade_manager.go:773] Reactive state is disabled
+
+2026-09-06 14:36:11.217 [info] [ls-main] [LS Main] LS started on port 36105
+2026-09-06 14:36:11.222 [error] [ls-main] [LS Main stderr] I0906 14:36:11.221306 392228 server.go:1693] initialized server successfully in 141.791404ms
+
+2026-09-06 14:36:11.296 [info] [cloudcode] [CloudCode] POST v1internal:loadCodeAssist traceId: 202ed18a7fcb48d
+2026-09-06 14:36:11.308 [error] [Main] [uncaught exception in main]: ConnectError: [internal] certificate has expired
+2026-09-06 14:36:11.309 [error] [Main] ConnectError: [internal] certificate has expired
+    at Kz.from (file:///nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/out/main.js:4581:78019)
+    at v7 (file:///nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/out/main.js:4583:44480)
+    at ClientHttp2Session.o (file:///nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/out/main.js:4583:48904)
+    at ClientHttp2Session.emit (node:events:519:28)
+    at emitClose (node:internal/http2/core:1164:10)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+2026-09-06 14:36:11.310 [error] [ls-main] [LS Main stderr] 2026/09/06 14:36:11 http: TLS handshake error from 127.0.0.1:44680: EOF
+
+2026-09-06 14:36:11.337 [info] [cloudcode] [CloudCode] POST v1internal:loadCodeAssist traceId: cba8e6c270b7df08
+2026-09-06 14:36:11.343 [error] [Main] [uncaught exception in main]: ConnectError: [internal] certificate has expired
+2026-09-06 14:36:11.343 [error] [Main] ConnectError: [internal] certificate has expired
+    at Kz.from (file:///nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/out/main.js:4581:78019)
+    at v7 (file:///nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/out/main.js:4583:44480)
+    at ClientHttp2Session.o (file:///nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/out/main.js:4583:48904)
+    at ClientHttp2Session.emit (node:events:519:28)
+    at emitClose (node:internal/http2/core:1164:10)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+2026-09-06 14:36:11.343 [error] [ls-main] [LS Main stderr] 2026/09/06 14:36:11 http: TLS handshake error from 127.0.0.1:44690: EOF
+
+2026-09-06 14:36:11.396 [info] [cloudcode] [CloudCode] POST v1internal:onboardUser traceId: 1baf921acd5372b6
+2026-09-06 14:36:11.448 [error] [ls-main] [LS Main stderr] I0906 14:36:11.447541 392228 http_helpers.go:151] URL: https://cloudcode-pa.googleapis.com/v1internal:loadCodeAssist Trace: 0xd0458296ea60fadf
+
+2026-09-06 14:36:11.501 [info] [cloudcode] [CloudCode] POST v1internal:fetchAvailableModels traceId: ef65f8fbfba9494
+2026-09-06 14:36:11.520 [error] [ls-main] [LS Main stderr] I0906 14:36:11.520436 392228 http_helpers.go:151] URL: https://cloudcode-pa.googleapis.com/v1internal:fetchAvailableModels Trace: 0x3e416d30f1171d77
+
+2026-09-06 14:36:11.542 [info] [cloudcode] [CloudCode] POST v1internal:loadCodeAssist traceId: fc87e8cb0a211477
+2026-09-06 14:36:11.548 [error] [Main] [uncaught exception in main]: ConnectError: [internal] certificate has expired
+2026-09-06 14:36:11.549 [error] [Main] ConnectError: [internal] certificate has expired
+    at Kz.from (file:///nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/out/main.js:4581:78019)
+    at v7 (file:///nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/out/main.js:4583:44480)
+    at ClientHttp2Session.o (file:///nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/out/main.js:4583:48904)
+    at ClientHttp2Session.emit (node:events:519:28)
+    at emitClose (node:internal/http2/core:1164:10)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+2026-09-06 14:36:11.552 [error] [ls-main] [LS Main stderr] 2026/09/06 14:36:11 http: TLS handshake error from 127.0.0.1:44692: EOF
+
+2026-09-06 14:36:11.601 [info] [cloudcode] [CloudCode] POST v1internal:fetchAvailableModels traceId: f7d242c8908c6da9
+2026-09-06 14:36:11.608 [info] [auth] [Auth] Auth state changed to: signedIn
+2026-09-06 14:36:11.608 [info] [auth] [Auth] Auth state changed to: signedIn
+2026-09-06 14:36:11.608 [info] [auth] [Auth] AntigravityAuthMainService initialized
+2026-09-06 14:36:11.839 [warning] [Window] Via 'product.json#extensionEnabledApiProposals' extension 'ms-vscode.vscode-selfhost-test-provider' wants API proposal 'attributableCoverage' but that proposal DOES NOT EXIST. Likely, the proposal has been finalized (check 'vscode.d.ts') or was abandoned.
+2026-09-06 14:36:11.840 [warning] [Window] Via 'product.json#extensionEnabledApiProposals' extension 'ms-vsliveshare.vsliveshare' wants API proposal 'notebookCellExecutionState' but that proposal DOES NOT EXIST. Likely, the proposal has been finalized (check 'vscode.d.ts') or was abandoned.
+2026-09-06 14:36:11.840 [warning] [Window] Via 'product.json#extensionEnabledApiProposals' extension 'ms-python.python' wants API proposal 'contribIssueReporter' but that proposal DOES NOT EXIST. Likely, the proposal has been finalized (check 'vscode.d.ts') or was abandoned.
+2026-09-06 14:36:11.841 [warning] [Window] Via 'product.json#extensionEnabledApiProposals' extension 'github.vscode-pull-request-github' wants API proposal 'fileComments' but that proposal DOES NOT EXIST. Likely, the proposal has been finalized (check 'vscode.d.ts') or was abandoned.
+2026-09-06 14:36:11.841 [warning] [Window] Via 'product.json#extensionEnabledApiProposals' extension 'github.copilot-chat' wants API proposal 'chatVariableResolver' but that proposal DOES NOT EXIST. Likely, the proposal has been finalized (check 'vscode.d.ts') or was abandoned.
+2026-09-06 14:36:11.841 [warning] [Window] Via 'product.json#extensionEnabledApiProposals' extension 'github.copilot-chat' wants API proposal 'lmTools' but that proposal DOES NOT EXIST. Likely, the proposal has been finalized (check 'vscode.d.ts') or was abandoned.
+2026-09-06 14:36:11.841 [warning] [Window] Via 'product.json#extensionEnabledApiProposals' extension 'ms-python.gather' wants API proposal 'notebookCellExecutionState' but that proposal DOES NOT EXIST. Likely, the proposal has been finalized (check 'vscode.d.ts') or was abandoned.
+2026-09-06 14:36:11.842 [warning] [Window] Via 'product.json#extensionEnabledApiProposals' extension 'ms-python.vscode-pylance' wants API proposal 'notebookCellExecutionState' but that proposal DOES NOT EXIST. Likely, the proposal has been finalized (check 'vscode.d.ts') or was abandoned.
+2026-09-06 14:36:11.842 [warning] [Window] Via 'product.json#extensionEnabledApiProposals' extension 'ms-python.debugpy' wants API proposal 'contribIssueReporter' but that proposal DOES NOT EXIST. Likely, the proposal has been finalized (check 'vscode.d.ts') or was abandoned.
+2026-09-06 14:36:11.842 [warning] [Window] Via 'product.json#extensionEnabledApiProposals' extension 'ms-toolsai.jupyter' wants API proposal 'notebookCellExecutionState' but that proposal DOES NOT EXIST. Likely, the proposal has been finalized (check 'vscode.d.ts') or was abandoned.
+2026-09-06 14:36:11.842 [warning] [Window] Via 'product.json#extensionEnabledApiProposals' extension 'dbaeumer.vscode-eslint' wants API proposal 'notebookCellExecutionState' but that proposal DOES NOT EXIST. Likely, the proposal has been finalized (check 'vscode.d.ts') or was abandoned.
+2026-09-06 14:36:11.842 [warning] [Window] Via 'product.json#extensionEnabledApiProposals' extension 'ms-azuretools.vscode-azure-github-copilot' wants API proposal 'lmTools' but that proposal DOES NOT EXIST. Likely, the proposal has been finalized (check 'vscode.d.ts') or was abandoned.
+2026-09-06 14:36:11.843 [warning] [Window] Via 'product.json#extensionEnabledApiProposals' extension 'ms-vscode.cpptools' wants API proposal 'lmTools' but that proposal DOES NOT EXIST. Likely, the proposal has been finalized (check 'vscode.d.ts') or was abandoned.
+2026-09-06 14:36:11.843 [warning] [Window] Via 'product.json#extensionEnabledApiProposals' extension 'redhat.java' wants API proposal 'documentPaste' but that proposal DOES NOT EXIST. Likely, the proposal has been finalized (check 'vscode.d.ts') or was abandoned.
+2026-09-06 14:36:11.843 [warning] [Window] Via 'product.json#extensionEnabledApiProposals' extension 'vscjava.vscode-java-pack' wants API proposal 'lmTools' but that proposal DOES NOT EXIST. Likely, the proposal has been finalized (check 'vscode.d.ts') or was abandoned.
+2026-09-06 14:36:11.886 [error] [ls-main] [LS Main stderr] 2026/09/06 14:36:11 http: TLS handshake error from 127.0.0.1:44712: EOF
+
+2026-09-06 14:36:12.068 [error] [Window] [createInstance] ooe depends on UNKNOWN service agentSessions.: Error: [createInstance] ooe depends on UNKNOWN service agentSessions.
+    at jrs.y (vscode-file://vscode-app/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/out/vs/workbench/workbench.desktop.main.js:5934:4186)
+    at jrs.o (vscode-file://vscode-app/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/out/vs/workbench/workbench.desktop.main.js:5934:1360)
+    at jrs.createInstance (vscode-file://vscode-app/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/out/vs/workbench/workbench.desktop.main.js:5934:1207)
+    at new Bei (vscode-file://vscode-app/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/out/vs/workbench/workbench.desktop.main.js:6603:8181)
+    at new G6n (vscode-file://vscode-app/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/out/vs/workbench/workbench.desktop.main.js:6603:15815)
+    at jrs.o (vscode-file://vscode-app/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/out/vs/workbench/workbench.desktop.main.js:5934:1710)
+    at jrs.createInstance (vscode-file://vscode-app/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/out/vs/workbench/workbench.desktop.main.js:5934:1207)
+    at new _ei (vscode-file://vscode-app/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/out/vs/workbench/workbench.desktop.main.js:6603:18528)
+    at jrs.o (vscode-file://vscode-app/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/out/vs/workbench/workbench.desktop.main.js:5934:1710)
+    at jrs.createInstance (vscode-file://vscode-app/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/out/vs/workbench/workbench.desktop.main.js:5934:1207)
+2026-09-06 14:36:12.558 [info] [Window] Started local extension host with pid 392307.
+2026-09-06 14:36:12.914 [info] [Pty Host] Revived process, old id 7758a72dd07b70995fdf815331eb82eb-2 -> new id 1
+2026-09-06 14:36:12.990 [info] [Shared] Marked extension as removed golang.go-0.56.0-universal
+2026-09-06 14:36:13.077 [error] [Window] Extension 'meta.pyrefly CANNOT USE these API proposals 'editorHoverVerbosityLevel'. You MUST start in extension development mode or use the --enable-proposed-api command line flag
+2026-09-06 14:36:13.078 [error] [Window] Extension 'ms-python.python' appears in product.json but enables LESS API proposals than the extension wants.
+package.json (LOSES): contribEditorContentMenu, quickPickSortByLabel, testObserver, quickPickItemTooltip, terminalDataWriteEvent, terminalExecuteCommandEvent, codeActionAI, notebookReplDocument, notebookVariableProvider
+product.json (WINS): contribEditorContentMenu, quickPickSortByLabel, portsAttributes, testObserver, quickPickItemTooltip, terminalDataWriteEvent, terminalExecuteCommandEvent, notebookReplDocument
+2026-09-06 14:36:13.078 [error] [Window] Extension 'ms-python.vscode-python-envs CANNOT USE these API proposals 'terminalShellEnv, terminalDataWriteEvent'. You MUST start in extension development mode or use the --enable-proposed-api command line flag
+2026-09-06 14:36:13.093 [error] [Window] [vscode.git]: property `title` is mandatory and must be of type `string` or `object`
+2026-09-06 14:36:13.099 [error] [Window] [vscode.git]: property `title` is mandatory and must be of type `string` or `object`
+2026-09-06 14:36:13.099 [error] [Window] [google.antigravity]: Menu item references a command `antigravity.importAntigravitySettings` which is not defined in the 'commands' section.
+2026-09-06 14:36:13.099 [error] [Window] [google.antigravity]: Menu item references a command `antigravity.importAntigravityExtensions` which is not defined in the 'commands' section.
+2026-09-06 14:36:13.099 [error] [Window] [google.antigravity]: Menu item references a command `antigravity.prioritized.chat.open` which is not defined in the 'commands' section.
+2026-09-06 14:36:13.461 [info] [Extension Host] Extension host with pid 392307 started
+2026-09-06 14:36:13.461 [info] [Extension Host] Skipping acquiring lock for /home/sb/.config/Antigravity/User/workspaceStorage/7758a72dd07b70995fdf815331eb82eb.
+2026-09-06 14:36:13.546 [info] [Extension Host] ExtensionService#_doActivateExtension vscode.emmet, startup: false, activationEvent: 'onLanguage'
+2026-09-06 14:36:13.588 [info] [Extension Host] ExtensionService#_doActivateExtension vscode.git-base, startup: true, activationEvent: '*', root cause: google.antigravity
+2026-09-06 14:36:13.645 [info] [Extension Host] ExtensionService#_doActivateExtension vscode.git, startup: true, activationEvent: '*', root cause: google.antigravity
+2026-09-06 14:36:13.694 [info] [Extension Host] ExtensionService#_doActivateExtension vscode.github, startup: true, activationEvent: '*'
+2026-09-06 14:36:13.772 [info] [Extension Host] ExtensionService#_doActivateExtension google.antigravity, startup: true, activationEvent: '*'
+2026-09-06 14:36:13.867 [error] [Remote Tunnel Service] Missing 'tunnelApplicationConfig' or 'tunnelApplicationName' in product.json. Remote tunneling is not available.
+2026-09-06 14:36:14.123 [info] [Git] [main] Log level: Info
+2026-09-06 14:36:14.123 [info] [Git] [main] Validating found git in: "git"
+2026-09-06 14:36:14.123 [info] [Git] [main] Using git "2.54.0" from "git"
+2026-09-06 14:36:14.123 [info] [Git] [Model][doInitialScan] Initial repository scan started
+2026-09-06 14:36:14.123 [info] [Git] > git rev-parse --show-toplevel [7ms]
+2026-09-06 14:36:14.126 [info] [GitHub] Log level: Info
+2026-09-06 14:36:14.169 [info] [Git] > git rev-parse --git-dir --git-common-dir --show-superproject-working-tree [81ms]
+2026-09-06 14:36:14.177 [info] [Git] [Model][openRepository] Opened repository (path): /home/sb/LocalProjects/dotfiles
+2026-09-06 14:36:14.177 [info] [Git] [Model][openRepository] Opened repository (real path): /home/sb/LocalProjects/dotfiles
+2026-09-06 14:36:14.177 [info] [Git] [Model][openRepository] Opened repository (kind): repository
+2026-09-06 14:36:14.188 [info] [Git] > git config --get commit.template [5ms]
+2026-09-06 14:36:14.188 [info] [Git] > git rev-parse --show-toplevel [1ms]
+2026-09-06 14:36:14.201 [info] [Git] > git for-each-ref --format=%(refname)%00%(upstream:short)%00%(objectname)%00%(upstream:track)%00%(upstream:remotename)%00%(upstream:remoteref) refs/heads/main refs/remotes/main [7ms]
+2026-09-06 14:36:14.202 [info] [Git] > git rev-parse --show-toplevel [2ms]
+2026-09-06 14:36:14.227 [info] [Git] > git status -z -uall [9ms]
+2026-09-06 14:36:14.227 [info] [Git] > git rev-parse --show-toplevel [18ms]
+2026-09-06 14:36:14.240 [info] [Git] > git for-each-ref --sort -committerdate --format %(refname)%00%(objectname)%00%(*objectname) [15ms]
+2026-09-06 14:36:14.266 [info] [Git] > git for-each-ref --format=%(refname)%00%(upstream:short)%00%(objectname)%00%(upstream:track)%00%(upstream:remotename)%00%(upstream:remoteref) refs/heads/main refs/remotes/main [10ms]
+2026-09-06 14:36:14.272 [info] [Git] > git rev-parse --show-toplevel [31ms]
+2026-09-06 14:36:14.281 [info] [Git] > git config --get --local branch.main.vscode-merge-base [10ms]
+2026-09-06 14:36:14.292 [info] [Git] > git config --get commit.template [27ms]
+2026-09-06 14:36:14.294 [info] [Git] > git for-each-ref --format=%(refname)%00%(upstream:short)%00%(objectname)%00%(upstream:track)%00%(upstream:remotename)%00%(upstream:remoteref) refs/heads/origin/main refs/remotes/origin/main [2ms]
+2026-09-06 14:36:14.299 [info] [Git] > git rev-parse --show-toplevel [21ms]
+2026-09-06 14:36:14.308 [info] [Git] > git merge-base refs/heads/main refs/remotes/origin/main [9ms]
+2026-09-06 14:36:14.316 [info] [Git] > git diff --name-status -z --diff-filter=ADMR --find-renames=50% 717e37765092342679598179f89793fbe2d92797...refs/remotes/origin/main -- [3ms]
+2026-09-06 14:36:14.317 [info] [Git] > git rev-parse --show-toplevel [9ms]
+2026-09-06 14:36:14.319 [info] [Git] [Model][doInitialScan] Initial repository scan completed - repositories (1), closed repositories (0), parent repositories (0), unsafe repositories (0)
+2026-09-06 14:36:14.319 [info] [Git] > git for-each-ref --format=%(refname)%00%(upstream:short)%00%(objectname)%00%(upstream:track)%00%(upstream:remotename)%00%(upstream:remoteref) refs/heads/main refs/remotes/main [15ms]
+2026-09-06 14:36:14.326 [info] [Git] > git status -z -uall [3ms]
+2026-09-06 14:36:14.327 [info] [Git] > git for-each-ref --sort -committerdate --format %(refname)%00%(objectname)%00%(*objectname) [1ms]
+2026-09-06 14:36:14.521 [error] [Extension Host] Error: listen EACCES: permission denied /tmp/nix-shell-391998-3087420081/server_7a209b37c6942fa0
+	at Server.setupListenHandle [as _listen2] (node:net:1918:21)
+	at listenInCluster (node:net:1997:12)
+	at Server.listen (node:net:2119:5)
+	at /nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1975844
+	at aS (/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1975876)
+	at async uS.startLanguageServer (/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1986994)
+	at async /nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1983953
+2026-09-06 14:36:14.562 [error] [Window] An unknown error occurred. Please consult the log for more details.
+2026-09-06 14:36:14.589 [info] [Antigravity] I0906 14:36:14.588573 392400 server.go:1236] Starting language server process with pid 392400
+2026-09-06 14:36:14.589 [info] [Antigravity] I0906 14:36:14.588674 392400 server.go:301] Setting GOMAXPROCS to 4
+2026-09-06 14:36:14.589 [info] [Antigravity] I0906 14:36:14.589749 392400 server.go:440] Language server will attempt to listen on host 127.0.0.1
+2026-09-06 14:36:14.590 [info] [Antigravity] I0906 14:36:14.589924 392400 server.go:454] Language server listening on random port at 43943 for HTTPS (gRPC)
+2026-09-06 14:36:14.590 [info] [Antigravity] I0906 14:36:14.589972 392400 server.go:461] Language server listening on random port at 35831 for HTTP
+2026-09-06 14:36:14.706 [info] [Antigravity] I0906 14:36:14.706379 392400 server.go:433] Created extension server client at port 34499
+2026-09-06 14:36:14.740 [info] [Antigravity] I0906 14:36:14.739943 392400 cascade_manager.go:773] Reactive state is disabled
+2026-09-06 14:36:14.740 [info] [Antigravity] I0906 14:36:14.740436 392400 server.go:1768] Parent pipe closed on language server process 392400
+2026-09-06 14:36:14.760 [info] [Antigravity] (Antigravity) 2026-09-06 14:36:14.759 [INFO]: Language server started
+2026-09-06 14:36:14.786 [info] [Antigravity] I0906 14:36:14.771030 392400 server.go:1693] initialized server successfully in 182.331928ms
+2026-09-06 14:36:14.786 [info] [Antigravity] I0906 14:36:14.771144 392400 server.go:1897] Language server shutting down
+2026-09-06 14:36:14.808 [info] [Antigravity] (Antigravity) 2026-09-06 14:36:14.808 [INFO]: LS lspClient started successfully
+2026-09-06 14:36:14.823 [info] [Git] > git check-ignore -v -z --stdin [1ms]
+2026-09-06 14:36:15.136 [info] [Antigravity] (Antigravity) 2026-09-06 14:36:15.136 [INFO]: Language server exited with code 0
+2026-09-06 14:36:15.145 [error] [Window] [Extension Host] Error: Unleash Repository error: ENOENT: no such file or directory, open '/tmp/nix-shell-391998-3087420081/unleash-backup-codeium-extension.json'
+	at async open (node:internal/fs/promises:641:25)
+	at async writeFile (node:internal/fs/promises:1215:14)
+	at async s.save (/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:289552)
+	at async l.fetch (/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:2179596)
+	at async l.start (/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:2177232)
+	at async a.start (/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:2353318)
+	at async Promise.all (index 0)
+	at async s.start (/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:288703)
+	at async Promise.all (index 0)
+	at async f.start (/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:545326)
+2026-09-06 14:36:15.145 [error] [ls-main] [LS Main stderr] 2026/09/06 14:36:15 http: TLS handshake error from 127.0.0.1:49898: EOF
+
+2026-09-06 14:36:15.151 [error] [Window] [Extension Host] Failed to get status: ConnectError: [internal] certificate has expired
+	at KR.from (/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1811806)
+	at Ap (/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1895893)
+	at ClientHttp2Session.a (/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1904695)
+	at ClientHttp2Session.emit (node:events:519:28)
+	at emitClose (node:internal/http2/core:1164:10)
+	at process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+2026-09-06 14:36:15.151 [info] [antigravity-interactive-editor] Initialized with 0 existing HTML files
+2026-09-06 14:36:15.151 [info] [antigravity-interactive-editor] Watching for HTML files in: file:///home/sb/.gemini/antigravity/html_artifacts
+2026-09-06 14:36:15.152 [info] [Extension Host] ExtensionService#_doActivateExtension vscode.terminal-suggest, startup: false, activationEvent: 'onTerminalShellIntegration:*'
+2026-09-06 14:36:15.207 [error] [ls-main] [LS Main stderr] 2026/09/06 14:36:15 http: TLS handshake error from 127.0.0.1:49912: EOF
+
+2026-09-06 14:36:15.209 [error] [Window] [Extension Host] [Auth] Error identifying user ConnectError: [internal] certificate has expired
+	at KR.from (/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1811806)
+	at Ap (/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1895893)
+	at ClientHttp2Session.a (/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1904695)
+	at ClientHttp2Session.emit (node:events:519:28)
+	at emitClose (node:internal/http2/core:1164:10)
+	at process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+2026-09-06 14:36:15.222 [error] [ls-main] [LS Main stderr] 2026/09/06 14:36:15 http: TLS handshake error from 127.0.0.1:49924: EOF
+
+2026-09-06 14:36:15.223 [info] [Extension Host] Eager extensions activated
+2026-09-06 14:36:15.230 [info] [Extension Host] ExtensionService#_doActivateExtension google.antigravity-dev-containers, startup: false, activationEvent: 'onStartupFinished'
+2026-09-06 14:36:15.235 [info] [Extension Host] ExtensionService#_doActivateExtension vscode.debug-auto-launch, startup: false, activationEvent: 'onStartupFinished'
+2026-09-06 14:36:15.237 [info] [Extension Host] ExtensionService#_doActivateExtension vscode.merge-conflict, startup: false, activationEvent: 'onStartupFinished'
+2026-09-06 14:36:15.411 [info] [Antigravity] (Antigravity) 2026-09-06 14:36:15.411 [ERROR]: Language server has exited; restarting
+2026-09-06 14:36:15.413 [info] [Antigravity] (Antigravity) 2026-09-06 14:36:15.413 [ERROR]: LS lspClient stop error: Client is not running and can't be stopped. It's current state is: startFailed
+2026-09-06 14:36:15.448 [error] [Extension Host] Error: listen EACCES: permission denied /tmp/nix-shell-391998-3087420081/server_d92163783cd3e20c
+	at Server.setupListenHandle [as _listen2] (node:net:1918:21)
+	at listenInCluster (node:net:1997:12)
+	at Server.listen (node:net:2119:5)
+	at /nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1975844
+	at aS (/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1975876)
+	at async uS.startLanguageServer (/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1986994)
+	at async uS.restartImpl (/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1988394)
+	at async /nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1985279
+2026-09-06 14:36:15.542 [info] [Antigravity] I0906 14:36:15.542682 392435 server.go:1236] Starting language server process with pid 392435
+2026-09-06 14:36:15.543 [info] [Antigravity] I0906 14:36:15.542743 392435 server.go:301] Setting GOMAXPROCS to 4
+2026-09-06 14:36:15.543 [info] [Antigravity] I0906 14:36:15.543610 392435 server.go:440] Language server will attempt to listen on host 127.0.0.1
+2026-09-06 14:36:15.543 [info] [Antigravity] I0906 14:36:15.543759 392435 server.go:454] Language server listening on fixed port at 43943 for HTTPS (gRPC)
+2026-09-06 14:36:15.543 [info] [Antigravity] I0906 14:36:15.543784 392435 server.go:461] Language server listening on fixed port at 43483 for HTTP
+2026-09-06 14:36:15.645 [info] [Antigravity] I0906 14:36:15.644547 392435 server.go:433] Created extension server client at port 34499
+2026-09-06 14:36:15.666 [info] [Antigravity] I0906 14:36:15.666073 392435 cascade_manager.go:773] Reactive state is disabled
+2026-09-06 14:36:15.670 [info] [Antigravity] I0906 14:36:15.667432 392435 server.go:1768] Parent pipe closed on language server process 392435
+2026-09-06 14:36:15.678 [info] [Antigravity] (Antigravity) 2026-09-06 14:36:15.678 [INFO]: Language server started
+2026-09-06 14:36:15.682 [info] [Antigravity] I0906 14:36:15.680787 392435 server.go:1693] initialized server successfully in 138.010192ms
+2026-09-06 14:36:15.682 [info] [Antigravity] I0906 14:36:15.680895 392435 server.go:1897] Language server shutting down
+2026-09-06 14:36:15.698 [info] [Antigravity] (Antigravity) 2026-09-06 14:36:15.698 [INFO]: LS lspClient started successfully
+2026-09-06 14:36:15.746 [info] [Antigravity] (Antigravity) 2026-09-06 14:36:15.746 [INFO]: Language server exited with code 0
+2026-09-06 14:36:15.748 [error] [Window] [Extension Host] Sending request failed.
+2026-09-06 14:36:15.753 [info] [rendererPerf] Render performance baseline is 20ms
+2026-09-06 14:36:16.223 [error] [Extension Host] ConnectError: [internal] certificate has expired
+	at KR.from (/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1811806)
+	at Ap (/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1895893)
+	at ClientHttp2Session.a (/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1904695)
+	at ClientHttp2Session.emit (node:events:519:28)
+	at emitClose (node:internal/http2/core:1164:10)
+	at process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+2026-09-06 14:36:16.225 [error] [Window] An unknown error occurred. Please consult the log for more details.
+2026-09-06 14:36:16.225 [error] [ls-main] [LS Main stderr] 2026/09/06 14:36:16 http: TLS handshake error from 127.0.0.1:49932: EOF
+
+2026-09-06 14:36:16.421 [info] [Antigravity] (Antigravity) 2026-09-06 14:36:16.420 [ERROR]: Language server has exited; restarting
+2026-09-06 14:36:16.429 [error] [Extension Host] Error: listen EACCES: permission denied /tmp/nix-shell-391998-3087420081/server_fe6353d8d040f6aa
+	at Server.setupListenHandle [as _listen2] (node:net:1918:21)
+	at listenInCluster (node:net:1997:12)
+	at Server.listen (node:net:2119:5)
+	at /nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1975844
+	at aS (/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1975876)
+	at async uS.startLanguageServer (/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1986994)
+	at async uS.restartImpl (/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1988394)
+	at async /nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1985279
+2026-09-06 14:36:16.489 [info] [Antigravity] I0906 14:36:16.489392 392558 server.go:1236] Starting language server process with pid 392558
+2026-09-06 14:36:16.489 [info] [Antigravity] I0906 14:36:16.489459 392558 server.go:301] Setting GOMAXPROCS to 4
+2026-09-06 14:36:16.492 [info] [Antigravity] I0906 14:36:16.490442 392558 server.go:440] Language server will attempt to listen on host 127.0.0.1
+2026-09-06 14:36:16.492 [info] [Antigravity] I0906 14:36:16.490643 392558 server.go:454] Language server listening on fixed port at 43943 for HTTPS (gRPC)
+2026-09-06 14:36:16.492 [info] [Antigravity] I0906 14:36:16.490674 392558 server.go:461] Language server listening on fixed port at 45445 for HTTP
+2026-09-06 14:36:16.598 [info] [Antigravity] I0906 14:36:16.598134 392558 server.go:433] Created extension server client at port 34499
+2026-09-06 14:36:16.619 [info] [Antigravity] I0906 14:36:16.619455 392558 cascade_manager.go:773] Reactive state is disabled
+2026-09-06 14:36:16.620 [info] [Antigravity] I0906 14:36:16.620477 392558 server.go:1768] Parent pipe closed on language server process 392558
+2026-09-06 14:36:16.631 [info] [Antigravity] (Antigravity) 2026-09-06 14:36:16.630 [INFO]: Language server started
+2026-09-06 14:36:16.634 [info] [Antigravity] I0906 14:36:16.633101 392558 server.go:1693] initialized server successfully in 143.601695ms
+2026-09-06 14:36:16.634 [info] [Antigravity] I0906 14:36:16.633226 392558 server.go:1897] Language server shutting down
+2026-09-06 14:36:16.661 [info] [Antigravity] (Antigravity) 2026-09-06 14:36:16.660 [INFO]: LS lspClient started successfully
+2026-09-06 14:36:16.705 [info] [Antigravity] (Antigravity) 2026-09-06 14:36:16.704 [INFO]: Language server exited with code 0
+2026-09-06 14:36:16.743 [error] [Window] [Extension Host] Sending request failed.
+2026-09-06 14:36:16.745 [error] [Extension Host] Error: Cannot call write after a stream was destroyed
+	at _write (node:internal/streams/writable:491:11)
+	at Writable.write (node:internal/streams/writable:510:10)
+	at /nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:149626
+	at new Promise (<anonymous>)
+	at a.write (/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:149545)
+	at g.doWrite (/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:317471)
+	at /nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:317370
+2026-09-06 14:36:17.421 [info] [Antigravity] (Antigravity) 2026-09-06 14:36:17.421 [ERROR]: Language server has exited; restarting
+2026-09-06 14:36:17.429 [error] [Extension Host] Error: listen EACCES: permission denied /tmp/nix-shell-391998-3087420081/server_ade5224eae190ec1
+	at Server.setupListenHandle [as _listen2] (node:net:1918:21)
+	at listenInCluster (node:net:1997:12)
+	at Server.listen (node:net:2119:5)
+	at /nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1975844
+	at aS (/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1975876)
+	at async uS.startLanguageServer (/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1986994)
+	at async uS.restartImpl (/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1988394)
+	at async /nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1985279
+2026-09-06 14:36:17.438 [error] [Window] An unknown error occurred. Please consult the log for more details.
+2026-09-06 14:36:17.495 [info] [Antigravity] I0906 14:36:17.495049 392642 server.go:1236] Starting language server process with pid 392642
+2026-09-06 14:36:17.495 [info] [Antigravity] I0906 14:36:17.495116 392642 server.go:301] Setting GOMAXPROCS to 4
+2026-09-06 14:36:17.496 [info] [Antigravity] I0906 14:36:17.495961 392642 server.go:440] Language server will attempt to listen on host 127.0.0.1
+2026-09-06 14:36:17.496 [info] [Antigravity] I0906 14:36:17.496137 392642 server.go:454] Language server listening on fixed port at 43943 for HTTPS (gRPC)
+2026-09-06 14:36:17.496 [info] [Antigravity] I0906 14:36:17.496163 392642 server.go:461] Language server listening on fixed port at 42797 for HTTP
+2026-09-06 14:36:17.594 [info] [Antigravity] I0906 14:36:17.594370 392642 server.go:433] Created extension server client at port 34499
+2026-09-06 14:36:17.613 [info] [Antigravity] I0906 14:36:17.612839 392642 cascade_manager.go:773] Reactive state is disabled
+2026-09-06 14:36:17.617 [info] [Antigravity] I0906 14:36:17.615349 392642 server.go:1768] Parent pipe closed on language server process 392642
+2026-09-06 14:36:17.625 [info] [Antigravity] (Antigravity) 2026-09-06 14:36:17.624 [INFO]: Language server started
+2026-09-06 14:36:17.628 [info] [Antigravity] I0906 14:36:17.627705 392642 server.go:1693] initialized server successfully in 132.566271ms
+2026-09-06 14:36:17.628 [info] [Antigravity] I0906 14:36:17.627782 392642 server.go:1897] Language server shutting down
+2026-09-06 14:36:17.654 [info] [Antigravity] (Antigravity) 2026-09-06 14:36:17.654 [INFO]: LS lspClient started successfully
+2026-09-06 14:36:17.706 [error] [Extension Host] Error: Cannot call write after a stream was destroyed
+	at _write (node:internal/streams/writable:491:11)
+	at Writable.write (node:internal/streams/writable:510:10)
+	at /nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:149626
+	at new Promise (<anonymous>)
+	at a.write (/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:149545)
+	at g.doWrite (/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:317471)
+	at /nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:317370
+	at runNextTicks (node:internal/process/task_queues:65:5)
+	at process.processImmediate (node:internal/timers:453:9)
+2026-09-06 14:36:17.711 [info] [Antigravity] (Antigravity) 2026-09-06 14:36:17.711 [INFO]: Language server exited with code 0
+2026-09-06 14:36:18.421 [info] [Antigravity] (Antigravity) 2026-09-06 14:36:18.421 [ERROR]: Language server has exited; restarting
+2026-09-06 14:36:18.421 [info] [Antigravity] (Antigravity) 2026-09-06 14:36:18.421 [ERROR]: LS lspClient stop error: Client is not running and can't be stopped. It's current state is: startFailed
+2026-09-06 14:36:18.430 [error] [Extension Host] Error: listen EACCES: permission denied /tmp/nix-shell-391998-3087420081/server_c8b18f8ea603f921
+	at Server.setupListenHandle [as _listen2] (node:net:1918:21)
+	at listenInCluster (node:net:1997:12)
+	at Server.listen (node:net:2119:5)
+	at /nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1975844
+	at aS (/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1975876)
+	at async uS.startLanguageServer (/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1986994)
+	at async uS.restartImpl (/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1988394)
+	at async /nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1985279
+2026-09-06 14:36:18.442 [error] [Window] An unknown error occurred. Please consult the log for more details.
+2026-09-06 14:36:18.499 [info] [Antigravity] I0906 14:36:18.499028 392725 server.go:1236] Starting language server process with pid 392725
+2026-09-06 14:36:18.499 [info] [Antigravity] I0906 14:36:18.499149 392725 server.go:301] Setting GOMAXPROCS to 4
+2026-09-06 14:36:18.500 [info] [Antigravity] I0906 14:36:18.500483 392725 server.go:440] Language server will attempt to listen on host 127.0.0.1
+2026-09-06 14:36:18.500 [info] [Antigravity] I0906 14:36:18.500672 392725 server.go:454] Language server listening on fixed port at 43943 for HTTPS (gRPC)
+2026-09-06 14:36:18.500 [info] [Antigravity] I0906 14:36:18.500694 392725 server.go:461] Language server listening on fixed port at 34753 for HTTP
+2026-09-06 14:36:18.612 [info] [Antigravity] I0906 14:36:18.611741 392725 server.go:433] Created extension server client at port 34499
+2026-09-06 14:36:18.623 [info] [Antigravity] I0906 14:36:18.622938 392725 cascade_manager.go:773] Reactive state is disabled
+2026-09-06 14:36:18.624 [info] [Antigravity] I0906 14:36:18.623621 392725 server.go:1768] Parent pipe closed on language server process 392725
+2026-09-06 14:36:18.629 [info] [Antigravity] (Antigravity) 2026-09-06 14:36:18.629 [INFO]: Language server started
+2026-09-06 14:36:18.632 [info] [Antigravity] I0906 14:36:18.630909 392725 server.go:1693] initialized server successfully in 131.735203ms
+2026-09-06 14:36:18.632 [info] [Antigravity] I0906 14:36:18.630993 392725 server.go:1897] Language server shutting down
+2026-09-06 14:36:18.651 [info] [Antigravity] (Antigravity) 2026-09-06 14:36:18.651 [INFO]: LS lspClient started successfully
+2026-09-06 14:36:18.718 [info] [Antigravity] (Antigravity) 2026-09-06 14:36:18.718 [INFO]: Language server exited with code 0
+2026-09-06 14:36:19.421 [info] [Antigravity] (Antigravity) 2026-09-06 14:36:19.421 [ERROR]: Language server has exited; restarting
+2026-09-06 14:36:19.422 [info] [Antigravity] (Antigravity) 2026-09-06 14:36:19.422 [ERROR]: LS lspClient stop error: Client is not running and can't be stopped. It's current state is: startFailed
+2026-09-06 14:36:19.431 [error] [Extension Host] Error: listen EACCES: permission denied /tmp/nix-shell-391998-3087420081/server_7a37aba60fe2ab42
+	at Server.setupListenHandle [as _listen2] (node:net:1918:21)
+	at listenInCluster (node:net:1997:12)
+	at Server.listen (node:net:2119:5)
+	at /nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1975844
+	at aS (/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1975876)
+	at async uS.startLanguageServer (/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1986994)
+	at async uS.restartImpl (/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1988394)
+	at async /nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1985279
+2026-09-06 14:36:19.497 [info] [Antigravity] I0906 14:36:19.496969 392781 server.go:1236] Starting language server process with pid 392781
+2026-09-06 14:36:19.497 [info] [Antigravity] I0906 14:36:19.497033 392781 server.go:301] Setting GOMAXPROCS to 4
+2026-09-06 14:36:19.497 [info] [Antigravity] I0906 14:36:19.497809 392781 server.go:440] Language server will attempt to listen on host 127.0.0.1
+2026-09-06 14:36:19.498 [info] [Antigravity] I0906 14:36:19.497979 392781 server.go:454] Language server listening on fixed port at 43943 for HTTPS (gRPC)
+2026-09-06 14:36:19.498 [info] [Antigravity] I0906 14:36:19.498023 392781 server.go:461] Language server listening on fixed port at 44673 for HTTP
+2026-09-06 14:36:19.589 [info] [Antigravity] I0906 14:36:19.589420 392781 server.go:433] Created extension server client at port 34499
+2026-09-06 14:36:19.603 [info] [Antigravity] I0906 14:36:19.603002 392781 cascade_manager.go:773] Reactive state is disabled
+2026-09-06 14:36:19.603 [info] [Antigravity] I0906 14:36:19.603639 392781 server.go:1768] Parent pipe closed on language server process 392781
+2026-09-06 14:36:19.610 [info] [Antigravity] (Antigravity) 2026-09-06 14:36:19.609 [INFO]: Language server started
+2026-09-06 14:36:19.613 [info] [Antigravity] I0906 14:36:19.612002 392781 server.go:1693] initialized server successfully in 114.95282ms
+2026-09-06 14:36:19.613 [info] [Antigravity] I0906 14:36:19.612102 392781 server.go:1897] Language server shutting down
+2026-09-06 14:36:19.633 [info] [Antigravity] (Antigravity) 2026-09-06 14:36:19.632 [INFO]: LS lspClient started successfully
+2026-09-06 14:36:19.681 [info] [Antigravity] (Antigravity) 2026-09-06 14:36:19.681 [INFO]: Language server exited with code 0
+2026-09-06 14:36:19.704 [error] [Window] [Extension Host] Sending request failed.
+2026-09-06 14:36:20.422 [info] [Antigravity] (Antigravity) 2026-09-06 14:36:20.422 [ERROR]: Language server has exited; restarting
+2026-09-06 14:36:20.431 [error] [Extension Host] Error: listen EACCES: permission denied /tmp/nix-shell-391998-3087420081/server_54c162236d4f0087
+	at Server.setupListenHandle [as _listen2] (node:net:1918:21)
+	at listenInCluster (node:net:1997:12)
+	at Server.listen (node:net:2119:5)
+	at /nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1975844
+	at aS (/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1975876)
+	at async uS.startLanguageServer (/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1986994)
+	at async uS.restartImpl (/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1988394)
+	at async /nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1985279
+2026-09-06 14:36:20.436 [error] [Window] An unknown error occurred. Please consult the log for more details.
+2026-09-06 14:36:20.496 [info] [Antigravity] I0906 14:36:20.496439 392797 server.go:1236] Starting language server process with pid 392797
+2026-09-06 14:36:20.496 [info] [Antigravity] I0906 14:36:20.496522 392797 server.go:301] Setting GOMAXPROCS to 4
+2026-09-06 14:36:20.497 [info] [Antigravity] I0906 14:36:20.497484 392797 server.go:440] Language server will attempt to listen on host 127.0.0.1
+2026-09-06 14:36:20.497 [info] [Antigravity] I0906 14:36:20.497811 392797 server.go:454] Language server listening on fixed port at 43943 for HTTPS (gRPC)
+2026-09-06 14:36:20.497 [info] [Antigravity] I0906 14:36:20.497842 392797 server.go:461] Language server listening on fixed port at 38175 for HTTP
+2026-09-06 14:36:20.607 [info] [Antigravity] I0906 14:36:20.607139 392797 server.go:433] Created extension server client at port 34499
+2026-09-06 14:36:20.612 [info] [Antigravity] I0906 14:36:20.612409 392797 cascade_manager.go:773] Reactive state is disabled
+2026-09-06 14:36:20.612 [info] [Antigravity] I0906 14:36:20.612587 392797 server.go:1768] Parent pipe closed on language server process 392797
+2026-09-06 14:36:20.618 [info] [Antigravity] (Antigravity) 2026-09-06 14:36:20.618 [INFO]: Language server started
+2026-09-06 14:36:20.622 [info] [Antigravity] I0906 14:36:20.620083 392797 server.go:1693] initialized server successfully in 123.545503ms
+2026-09-06 14:36:20.623 [info] [Antigravity] I0906 14:36:20.622485 392797 server.go:1897] Language server shutting down
+2026-09-06 14:36:20.647 [info] [Antigravity] (Antigravity) 2026-09-06 14:36:20.647 [INFO]: LS lspClient started successfully
+2026-09-06 14:36:20.682 [error] [Extension Host] Error: Cannot call write after a stream was destroyed
+	at _write (node:internal/streams/writable:491:11)
+	at Writable.write (node:internal/streams/writable:510:10)
+	at /nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:149626
+	at new Promise (<anonymous>)
+	at a.write (/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:149545)
+	at g.doWrite (/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:317471)
+	at /nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:317370
+	at runNextTicks (node:internal/process/task_queues:65:5)
+	at process.processImmediate (node:internal/timers:453:9)
+2026-09-06 14:36:20.690 [info] [Antigravity] (Antigravity) 2026-09-06 14:36:20.690 [INFO]: Language server exited with code 0
+2026-09-06 14:36:20.714 [error] [Window] [Extension Host] Sending request failed.
+2026-09-06 14:36:21.222 [error] [ls-main] [LS Main stderr] 2026/09/06 14:36:21 http: TLS handshake error from 127.0.0.1:49944: EOF
+
+2026-09-06 14:36:21.422 [info] [Antigravity] (Antigravity) 2026-09-06 14:36:21.422 [ERROR]: Language server has exited; restarting
+2026-09-06 14:36:21.432 [error] [Extension Host] Error: listen EACCES: permission denied /tmp/nix-shell-391998-3087420081/server_c206ad3c2491a1ff
+	at Server.setupListenHandle [as _listen2] (node:net:1918:21)
+	at listenInCluster (node:net:1997:12)
+	at Server.listen (node:net:2119:5)
+	at /nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1975844
+	at aS (/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1975876)
+	at async uS.startLanguageServer (/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1986994)
+	at async uS.restartImpl (/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1988394)
+	at async /nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1985279
+2026-09-06 14:36:21.439 [error] [Window] An unknown error occurred. Please consult the log for more details.
+2026-09-06 14:36:21.496 [info] [Antigravity] I0906 14:36:21.496151 392811 server.go:1236] Starting language server process with pid 392811
+2026-09-06 14:36:21.496 [info] [Antigravity] I0906 14:36:21.496244 392811 server.go:301] Setting GOMAXPROCS to 4
+2026-09-06 14:36:21.497 [info] [Antigravity] I0906 14:36:21.497186 392811 server.go:440] Language server will attempt to listen on host 127.0.0.1
+2026-09-06 14:36:21.497 [info] [Antigravity] I0906 14:36:21.497397 392811 server.go:454] Language server listening on fixed port at 43943 for HTTPS (gRPC)
+2026-09-06 14:36:21.497 [info] [Antigravity] I0906 14:36:21.497424 392811 server.go:461] Language server listening on fixed port at 39133 for HTTP
+2026-09-06 14:36:21.607 [info] [Antigravity] I0906 14:36:21.606950 392811 server.go:433] Created extension server client at port 34499
+2026-09-06 14:36:21.614 [info] [Antigravity] I0906 14:36:21.614580 392811 cascade_manager.go:773] Reactive state is disabled
+2026-09-06 14:36:21.619 [info] [Antigravity] I0906 14:36:21.618907 392811 server.go:1768] Parent pipe closed on language server process 392811
+2026-09-06 14:36:21.628 [info] [Antigravity] (Antigravity) 2026-09-06 14:36:21.627 [INFO]: Language server started
+2026-09-06 14:36:21.632 [info] [Antigravity] I0906 14:36:21.630057 392811 server.go:1693] initialized server successfully in 133.779652ms
+2026-09-06 14:36:21.632 [info] [Antigravity] I0906 14:36:21.630143 392811 server.go:1897] Language server shutting down
+2026-09-06 14:36:21.652 [info] [Antigravity] (Antigravity) 2026-09-06 14:36:21.652 [INFO]: LS lspClient started successfully
+2026-09-06 14:36:21.689 [error] [Extension Host] Error: Cannot call write after a stream was destroyed
+	at _write (node:internal/streams/writable:491:11)
+	at Writable.write (node:internal/streams/writable:510:10)
+	at /nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:149626
+	at new Promise (<anonymous>)
+	at a.write (/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:149545)
+	at g.doWrite (/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:317471)
+	at /nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:317370
+2026-09-06 14:36:21.699 [info] [Antigravity] (Antigravity) 2026-09-06 14:36:21.699 [INFO]: Language server exited with code 0
+2026-09-06 14:36:21.748 [error] [Window] [Extension Host] Sending request failed.
+2026-09-06 14:36:22.421 [info] [Antigravity] (Antigravity) 2026-09-06 14:36:22.421 [ERROR]: Language server has exited; restarting
+2026-09-06 14:36:22.427 [error] [Extension Host] Error: listen EACCES: permission denied /tmp/nix-shell-391998-3087420081/server_37c79b00429c2b4d
+	at Server.setupListenHandle [as _listen2] (node:net:1918:21)
+	at listenInCluster (node:net:1997:12)
+	at Server.listen (node:net:2119:5)
+	at /nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1975844
+	at aS (/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1975876)
+	at async uS.startLanguageServer (/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1986994)
+	at async uS.restartImpl (/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1988394)
+	at async /nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1985279
+2026-09-06 14:36:22.490 [info] [Antigravity] I0906 14:36:22.489884 392824 server.go:1236] Starting language server process with pid 392824
+2026-09-06 14:36:22.490 [info] [Antigravity] I0906 14:36:22.489962 392824 server.go:301] Setting GOMAXPROCS to 4
+2026-09-06 14:36:22.491 [info] [Antigravity] I0906 14:36:22.490937 392824 server.go:440] Language server will attempt to listen on host 127.0.0.1
+2026-09-06 14:36:22.491 [info] [Antigravity] I0906 14:36:22.491084 392824 server.go:454] Language server listening on fixed port at 43943 for HTTPS (gRPC)
+2026-09-06 14:36:22.491 [info] [Antigravity] I0906 14:36:22.491107 392824 server.go:461] Language server listening on fixed port at 45543 for HTTP
+2026-09-06 14:36:22.581 [info] [Antigravity] I0906 14:36:22.581135 392824 server.go:433] Created extension server client at port 34499
+2026-09-06 14:36:22.592 [info] [Antigravity] I0906 14:36:22.592408 392824 cascade_manager.go:773] Reactive state is disabled
+2026-09-06 14:36:22.593 [info] [Antigravity] I0906 14:36:22.593112 392824 server.go:1768] Parent pipe closed on language server process 392824
+2026-09-06 14:36:22.598 [info] [Antigravity] (Antigravity) 2026-09-06 14:36:22.598 [INFO]: Language server started
+2026-09-06 14:36:22.600 [info] [Antigravity] I0906 14:36:22.600115 392824 server.go:1693] initialized server successfully in 110.127792ms
+2026-09-06 14:36:22.600 [info] [Antigravity] I0906 14:36:22.600197 392824 server.go:1897] Language server shutting down
+2026-09-06 14:36:22.623 [info] [Antigravity] (Antigravity) 2026-09-06 14:36:22.623 [INFO]: LS lspClient started successfully
+2026-09-06 14:36:22.663 [info] [Antigravity] (Antigravity) 2026-09-06 14:36:22.663 [INFO]: Language server exited with code 0
+2026-09-06 14:36:22.699 [error] [Window] An unknown error occurred. Please consult the log for more details.
+2026-09-06 14:36:22.699 [error] [Extension Host] Error: Cannot call write after a stream was destroyed
+	at _write (node:internal/streams/writable:491:11)
+	at Writable.write (node:internal/streams/writable:510:10)
+	at /nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:149626
+	at new Promise (<anonymous>)
+	at a.write (/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:149545)
+	at g.doWrite (/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:317471)
+	at /nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:317370
+2026-09-06 14:36:23.422 [info] [Antigravity] (Antigravity) 2026-09-06 14:36:23.422 [ERROR]: Language server has exited; restarting
+2026-09-06 14:36:23.422 [info] [Antigravity] (Antigravity) 2026-09-06 14:36:23.422 [ERROR]: LS lspClient stop error: Client is not running and can't be stopped. It's current state is: startFailed
+2026-09-06 14:36:23.429 [error] [Extension Host] Error: listen EACCES: permission denied /tmp/nix-shell-391998-3087420081/server_a241babfc620edba
+	at Server.setupListenHandle [as _listen2] (node:net:1918:21)
+	at listenInCluster (node:net:1997:12)
+	at Server.listen (node:net:2119:5)
+	at /nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1975844
+	at aS (/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1975876)
+	at async uS.startLanguageServer (/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1986994)
+	at async uS.restartImpl (/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1988394)
+	at async /nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1985279
+2026-09-06 14:36:23.501 [info] [Antigravity] I0906 14:36:23.501528 392837 server.go:1236] Starting language server process with pid 392837
+2026-09-06 14:36:23.501 [info] [Antigravity] I0906 14:36:23.501585 392837 server.go:301] Setting GOMAXPROCS to 4
+2026-09-06 14:36:23.502 [info] [Antigravity] I0906 14:36:23.502398 392837 server.go:440] Language server will attempt to listen on host 127.0.0.1
+2026-09-06 14:36:23.502 [info] [Antigravity] I0906 14:36:23.502549 392837 server.go:454] Language server listening on fixed port at 43943 for HTTPS (gRPC)
+2026-09-06 14:36:23.502 [info] [Antigravity] I0906 14:36:23.502564 392837 server.go:461] Language server listening on fixed port at 34093 for HTTP
+2026-09-06 14:36:23.636 [info] [Antigravity] I0906 14:36:23.636400 392837 server.go:433] Created extension server client at port 34499
+2026-09-06 14:36:23.642 [info] [Antigravity] I0906 14:36:23.642317 392837 cascade_manager.go:773] Reactive state is disabled
+2026-09-06 14:36:23.642 [info] [Antigravity] I0906 14:36:23.642504 392837 server.go:1768] Parent pipe closed on language server process 392837
+2026-09-06 14:36:23.649 [info] [Antigravity] (Antigravity) 2026-09-06 14:36:23.649 [INFO]: Language server started
+2026-09-06 14:36:23.653 [info] [Antigravity] I0906 14:36:23.652022 392837 server.go:1693] initialized server successfully in 150.413144ms
+2026-09-06 14:36:23.653 [info] [Antigravity] I0906 14:36:23.652112 392837 server.go:1897] Language server shutting down
+2026-09-06 14:36:23.674 [info] [Antigravity] (Antigravity) 2026-09-06 14:36:23.674 [INFO]: LS lspClient started successfully
+2026-09-06 14:36:23.725 [info] [Antigravity] (Antigravity) 2026-09-06 14:36:23.725 [INFO]: Language server exited with code 0
+2026-09-06 14:36:23.728 [error] [Window] [Extension Host] Sending request failed.
+2026-09-06 14:36:24.421 [info] [Antigravity] (Antigravity) 2026-09-06 14:36:24.421 [ERROR]: Language server has exited; restarting
+2026-09-06 14:36:24.428 [error] [Extension Host] Error: listen EACCES: permission denied /tmp/nix-shell-391998-3087420081/server_9d95aed0170cab57
+	at Server.setupListenHandle [as _listen2] (node:net:1918:21)
+	at listenInCluster (node:net:1997:12)
+	at Server.listen (node:net:2119:5)
+	at /nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1975844
+	at aS (/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1975876)
+	at async uS.startLanguageServer (/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1986994)
+	at async uS.restartImpl (/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1988394)
+	at async /nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1985279
+2026-09-06 14:36:24.429 [error] [Window] An unknown error occurred. Please consult the log for more details.
+2026-09-06 14:36:24.491 [info] [Antigravity] I0906 14:36:24.491178 392849 server.go:1236] Starting language server process with pid 392849
+2026-09-06 14:36:24.491 [info] [Antigravity] I0906 14:36:24.491253 392849 server.go:301] Setting GOMAXPROCS to 4
+2026-09-06 14:36:24.492 [info] [Antigravity] I0906 14:36:24.492196 392849 server.go:440] Language server will attempt to listen on host 127.0.0.1
+2026-09-06 14:36:24.492 [info] [Antigravity] I0906 14:36:24.492334 392849 server.go:454] Language server listening on fixed port at 43943 for HTTPS (gRPC)
+2026-09-06 14:36:24.492 [info] [Antigravity] I0906 14:36:24.492357 392849 server.go:461] Language server listening on fixed port at 34385 for HTTP
+2026-09-06 14:36:24.587 [info] [Antigravity] I0906 14:36:24.587415 392849 server.go:433] Created extension server client at port 34499
+2026-09-06 14:36:24.593 [info] [Antigravity] I0906 14:36:24.593094 392849 cascade_manager.go:773] Reactive state is disabled
+2026-09-06 14:36:24.593 [info] [Antigravity] I0906 14:36:24.593294 392849 server.go:1768] Parent pipe closed on language server process 392849
+2026-09-06 14:36:24.599 [info] [Antigravity] (Antigravity) 2026-09-06 14:36:24.599 [INFO]: Language server started
+2026-09-06 14:36:24.603 [info] [Antigravity] I0906 14:36:24.600993 392849 server.go:1693] initialized server successfully in 109.714865ms
+2026-09-06 14:36:24.603 [info] [Antigravity] I0906 14:36:24.601083 392849 server.go:1897] Language server shutting down
+2026-09-06 14:36:24.625 [info] [Antigravity] (Antigravity) 2026-09-06 14:36:24.625 [INFO]: LS lspClient started successfully
+2026-09-06 14:36:24.663 [info] [Antigravity] (Antigravity) 2026-09-06 14:36:24.663 [INFO]: Language server exited with code 0
+2026-09-06 14:36:24.725 [error] [Extension Host] Error: Cannot call write after a stream was destroyed
+	at _write (node:internal/streams/writable:491:11)
+	at Writable.write (node:internal/streams/writable:510:10)
+	at /nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:149626
+	at new Promise (<anonymous>)
+	at a.write (/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:149545)
+	at g.doWrite (/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:317471)
+	at /nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:317370
+2026-09-06 14:36:25.112 [error] [ls-main] [LS Main stderr] 2026/09/06 14:36:25 http: TLS handshake error from 127.0.0.1:59664: EOF
+
+2026-09-06 14:36:25.422 [info] [Antigravity] (Antigravity) 2026-09-06 14:36:25.422 [ERROR]: Language server has exited; restarting
+2026-09-06 14:36:25.423 [info] [Antigravity] (Antigravity) 2026-09-06 14:36:25.422 [ERROR]: LS lspClient stop error: Client is not running and can't be stopped. It's current state is: startFailed
+2026-09-06 14:36:25.471 [error] [Extension Host] Error: listen EACCES: permission denied /tmp/nix-shell-391998-3087420081/server_8da28e133a5fccb3
+	at Server.setupListenHandle [as _listen2] (node:net:1918:21)
+	at listenInCluster (node:net:1997:12)
+	at Server.listen (node:net:2119:5)
+	at /nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1975844
+	at aS (/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1975876)
+	at async uS.startLanguageServer (/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1986994)
+	at async uS.restartImpl (/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1988394)
+	at async /nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1985279
+2026-09-06 14:36:25.474 [error] [Window] An unknown error occurred. Please consult the log for more details.
+2026-09-06 14:36:25.544 [info] [Antigravity] I0906 14:36:25.544632 392868 server.go:1236] Starting language server process with pid 392868
+2026-09-06 14:36:25.545 [info] [Antigravity] I0906 14:36:25.544691 392868 server.go:301] Setting GOMAXPROCS to 4
+2026-09-06 14:36:25.545 [info] [Antigravity] I0906 14:36:25.545578 392868 server.go:440] Language server will attempt to listen on host 127.0.0.1
+2026-09-06 14:36:25.545 [info] [Antigravity] I0906 14:36:25.545729 392868 server.go:454] Language server listening on fixed port at 43943 for HTTPS (gRPC)
+2026-09-06 14:36:25.545 [info] [Antigravity] I0906 14:36:25.545761 392868 server.go:461] Language server listening on fixed port at 44295 for HTTP
+2026-09-06 14:36:25.647 [info] [Antigravity] I0906 14:36:25.647675 392868 server.go:433] Created extension server client at port 34499
+2026-09-06 14:36:25.659 [info] [Antigravity] I0906 14:36:25.659774 392868 cascade_manager.go:773] Reactive state is disabled
+2026-09-06 14:36:25.660 [info] [Antigravity] I0906 14:36:25.659977 392868 server.go:1768] Parent pipe closed on language server process 392868
+2026-09-06 14:36:25.668 [info] [Antigravity] (Antigravity) 2026-09-06 14:36:25.668 [INFO]: Language server started
+2026-09-06 14:36:25.670 [info] [Antigravity] I0906 14:36:25.669936 392868 server.go:1693] initialized server successfully in 125.224232ms
+2026-09-06 14:36:25.671 [info] [Antigravity] I0906 14:36:25.670449 392868 server.go:1897] Language server shutting down
+2026-09-06 14:36:25.688 [info] [Antigravity] (Antigravity) 2026-09-06 14:36:25.688 [INFO]: LS lspClient started successfully
+2026-09-06 14:36:25.729 [info] [Antigravity] (Antigravity) 2026-09-06 14:36:25.729 [INFO]: Language server exited with code 0
+2026-09-06 14:36:26.221 [error] [ls-main] [LS Main stderr] 2026/09/06 14:36:26 http: TLS handshake error from 127.0.0.1:59668: EOF
+
+2026-09-06 14:36:26.421 [info] [Antigravity] (Antigravity) 2026-09-06 14:36:26.421 [ERROR]: Language server has exited; restarting
+2026-09-06 14:36:26.422 [info] [Antigravity] (Antigravity) 2026-09-06 14:36:26.422 [ERROR]: LS lspClient stop error: Client is not running and can't be stopped. It's current state is: startFailed
+2026-09-06 14:36:26.429 [error] [Extension Host] Error: listen EACCES: permission denied /tmp/nix-shell-391998-3087420081/server_02e37c4286006498
+	at Server.setupListenHandle [as _listen2] (node:net:1918:21)
+	at listenInCluster (node:net:1997:12)
+	at Server.listen (node:net:2119:5)
+	at /nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1975844
+	at aS (/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1975876)
+	at async uS.startLanguageServer (/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1986994)
+	at async uS.restartImpl (/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1988394)
+	at async /nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1985279
+2026-09-06 14:36:26.487 [info] [Antigravity] I0906 14:36:26.487070 392879 server.go:1236] Starting language server process with pid 392879
+2026-09-06 14:36:26.487 [info] [Antigravity] I0906 14:36:26.487137 392879 server.go:301] Setting GOMAXPROCS to 4
+2026-09-06 14:36:26.488 [info] [Antigravity] I0906 14:36:26.487932 392879 server.go:440] Language server will attempt to listen on host 127.0.0.1
+2026-09-06 14:36:26.488 [info] [Antigravity] I0906 14:36:26.488095 392879 server.go:454] Language server listening on fixed port at 43943 for HTTPS (gRPC)
+2026-09-06 14:36:26.488 [info] [Antigravity] I0906 14:36:26.488121 392879 server.go:461] Language server listening on fixed port at 35183 for HTTP
+2026-09-06 14:36:26.598 [info] [Antigravity] I0906 14:36:26.597933 392879 server.go:433] Created extension server client at port 34499
+2026-09-06 14:36:26.607 [info] [Antigravity] I0906 14:36:26.607056 392879 cascade_manager.go:773] Reactive state is disabled
+2026-09-06 14:36:26.607 [info] [Antigravity] I0906 14:36:26.607412 392879 server.go:1768] Parent pipe closed on language server process 392879
+2026-09-06 14:36:26.613 [info] [Antigravity] (Antigravity) 2026-09-06 14:36:26.613 [INFO]: Language server started
+2026-09-06 14:36:26.615 [info] [Antigravity] I0906 14:36:26.614612 392879 server.go:1693] initialized server successfully in 127.450124ms
+2026-09-06 14:36:26.615 [info] [Antigravity] I0906 14:36:26.614690 392879 server.go:1897] Language server shutting down
+2026-09-06 14:36:26.631 [info] [Antigravity] (Antigravity) 2026-09-06 14:36:26.631 [INFO]: LS lspClient started successfully
+2026-09-06 14:36:26.670 [info] [Antigravity] (Antigravity) 2026-09-06 14:36:26.670 [INFO]: Language server exited with code 0
+2026-09-06 14:36:27.422 [info] [Antigravity] (Antigravity) 2026-09-06 14:36:27.422 [ERROR]: Language server has exited; restarting
+2026-09-06 14:36:27.422 [info] [Antigravity] (Antigravity) 2026-09-06 14:36:27.422 [ERROR]: LS lspClient stop error: Client is not running and can't be stopped. It's current state is: startFailed
+2026-09-06 14:36:27.430 [error] [Extension Host] Error: listen EACCES: permission denied /tmp/nix-shell-391998-3087420081/server_d8d449848fc7640b
+	at Server.setupListenHandle [as _listen2] (node:net:1918:21)
+	at listenInCluster (node:net:1997:12)
+	at Server.listen (node:net:2119:5)
+	at /nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1975844
+	at aS (/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1975876)
+	at async uS.startLanguageServer (/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1986994)
+	at async uS.restartImpl (/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1988394)
+	at async /nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1985279
+2026-09-06 14:36:27.431 [error] [Window] An unknown error occurred. Please consult the log for more details.
+2026-09-06 14:36:27.484 [info] [Antigravity] I0906 14:36:27.484498 392890 server.go:1236] Starting language server process with pid 392890
+2026-09-06 14:36:27.484 [info] [Antigravity] I0906 14:36:27.484566 392890 server.go:301] Setting GOMAXPROCS to 4
+2026-09-06 14:36:27.485 [info] [Antigravity] I0906 14:36:27.485158 392890 server.go:440] Language server will attempt to listen on host 127.0.0.1
+2026-09-06 14:36:27.485 [info] [Antigravity] I0906 14:36:27.485280 392890 server.go:454] Language server listening on fixed port at 43943 for HTTPS (gRPC)
+2026-09-06 14:36:27.485 [info] [Antigravity] I0906 14:36:27.485296 392890 server.go:461] Language server listening on fixed port at 41171 for HTTP
+2026-09-06 14:36:27.584 [info] [Antigravity] I0906 14:36:27.584531 392890 server.go:433] Created extension server client at port 34499
+2026-09-06 14:36:27.591 [info] [Antigravity] I0906 14:36:27.591639 392890 cascade_manager.go:773] Reactive state is disabled
+2026-09-06 14:36:27.592 [info] [Antigravity] I0906 14:36:27.592397 392890 server.go:1768] Parent pipe closed on language server process 392890
+2026-09-06 14:36:27.601 [info] [Antigravity] (Antigravity) 2026-09-06 14:36:27.600 [INFO]: Language server started
+2026-09-06 14:36:27.603 [info] [Antigravity] I0906 14:36:27.602242 392890 server.go:1693] initialized server successfully in 117.652429ms
+2026-09-06 14:36:27.603 [info] [Antigravity] I0906 14:36:27.602620 392890 server.go:1897] Language server shutting down
+2026-09-06 14:36:27.618 [info] [Antigravity] (Antigravity) 2026-09-06 14:36:27.618 [INFO]: LS lspClient started successfully
+2026-09-06 14:36:27.657 [info] [Antigravity] (Antigravity) 2026-09-06 14:36:27.657 [INFO]: Language server exited with code 0
+2026-09-06 14:36:28.421 [info] [Antigravity] (Antigravity) 2026-09-06 14:36:28.421 [ERROR]: Language server has exited; restarting
+2026-09-06 14:36:28.422 [info] [Antigravity] (Antigravity) 2026-09-06 14:36:28.422 [ERROR]: LS lspClient stop error: Client is not running and can't be stopped. It's current state is: startFailed
+2026-09-06 14:36:28.429 [error] [Extension Host] Error: listen EACCES: permission denied /tmp/nix-shell-391998-3087420081/server_47c46fb07e61eca6
+	at Server.setupListenHandle [as _listen2] (node:net:1918:21)
+	at listenInCluster (node:net:1997:12)
+	at Server.listen (node:net:2119:5)
+	at /nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1975844
+	at aS (/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1975876)
+	at async uS.startLanguageServer (/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1986994)
+	at async uS.restartImpl (/nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1988394)
+	at async /nix/store/9k57k43xrs514d6ia86s3sfkdbg11211-antigravity-1.23.2/lib/antigravity/resources/app/extensions/antigravity/dist/extension.js:2:1985279
+2026-09-06 14:36:28.488 [info] [Antigravity] I0906 14:36:28.487300 392902 server.go:1236] Starting language server process with pid 392902
+2026-09-06 14:36:28.488 [info] [Antigravity] I0906 14:36:28.487431 392902 server.go:301] Setting GOMAXPROCS to 4
+2026-09-06 14:36:28.489 [info] [Antigravity] I0906 14:36:28.489291 392902 server.go:440] Language server will attempt to listen on host 127.0.0.1
+2026-09-06 14:36:28.489 [info] [Antigravity] I0906 14:36:28.489452 392902 server.go:454] Language server listening on fixed port at 43943 for HTTPS (gRPC)
+2026-09-06 14:36:28.489 [info] [Antigravity] I0906 14:36:28.489470 392902 server.go:461] Language server listening on fixed port at 36471 for HTTP
+2026-09-06 14:36:28.603 [info] [Antigravity] I0906 14:36:28.603009 392902 server.go:433] Created extension server client at port 34499
+2026-09-06 14:36:28.609 [info] [Antigravity] I0906 14:36:28.609357 392902 cascade_manager.go:773] Reactive state is disabled
+2026-09-06 14:36:28.612 [info] [Antigravity] I0906 14:36:28.610147 392902 server.go:1768] Parent pipe closed on language server process 392902
+2026-09-06 14:36:28.621 [info] [Antigravity] (Antigravity) 2026-09-06 14:36:28.621 [INFO]: Language server started
+2026-09-06 14:36:28.624 [info] [Antigravity] I0906 14:36:28.623959 392902 server.go:1693] initialized server successfully in 136.504436ms
+2026-09-06 14:36:28.624 [info] [Antigravity] I0906 14:36:28.624040 392902 server.go:1897] Language server shutting down
+2026-09-06 14:36:28.641 [info] [Antigravity] (Antigravity) 2026-09-06 14:36:28.641 [INFO]: LS lspClient started successfully
+2026-09-06 14:36:28.711 [info] [Antigravity] (Antigravity) 2026-09-06 14:36:28.711 [INFO]: Language server exited with code 0

@@ -1,8 +1,12 @@
-{ pkgs, ... }:
-pkgs.vimUtils.buildVimPlugin {
-  pname = "zsh-nix-shell";
+{
+  vimUtils,
+  fetchFromGitHub,
+  ...
+}:
+vimUtils.buildVimPlugin {
+  name = "zsh-nix-shell";
   file = "nix-shell.plugin.zsh";
-  src = pkgs.fetchFromGitHub {
+  src = fetchFromGitHub {
     owner = "chisui";
     repo = "zsh-nix-shell";
     rev = "v0.8.0";
