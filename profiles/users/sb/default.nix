@@ -126,22 +126,21 @@ with lib;
     programs.pywal.enable = true;
     xdg.mimeApps = {
       enable = true;
-      associations.removed = {
-        "inode/directory" = "kate.desktop";
+      defaultApplications = {
+        "inode/directory" = [ "thunar.desktop" ];
       };
     };
 
     programs.vim = {
       enable = true;
       plugins = with pkgs.vimPlugins; [
-        localPackages.vimPlugins.vimini
         localPackages.vimPlugins.zsh-nix-shell
       ];
       settings = { };
       extraConfig = ''
-        				set ts=2 sw=2
-        				set smartindent
-        			'';
+        set ts=2 sw=2
+        set smartindent
+      '';
     };
   };
 }
