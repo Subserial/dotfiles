@@ -6,7 +6,7 @@ This document provides technical guidelines and reference documentation for AI a
 
 ## 1. Repository Architecture & Directory Structure
 
-This repository manages Subsy's personal multi-host NixOS setups and Home Manager user environments using Nix Flakes (`x86_64-linux`).
+This repository manages a personal multi-host NixOS setups and Home Manager user environments using Nix Flakes (`x86_64-linux`).
 
 ### High-Level Directory Layout
 
@@ -22,7 +22,7 @@ This repository manages Subsy's personal multi-host NixOS setups and Home Manage
 │   │   ├── library.nix    # Dell XPS 15 9570 Laptop (Intel + Nvidia Hybrid)
 │   │   └── cloudsdale.nix # Minimal bootable NixOS ISO installer with LUKS/YubiKey bootstrap tools (somewhat tested)
 │   └── users/             # User environment profiles & desktop configs
-│       ├── sb/            # Primary user environment (used on everfree)
+│       ├── sb/            # User environment for everfree (`users.users.sb`)
 │       ├── twilight/      # User environment for library (`users.users.twilight`)
 │       └── rdash/         # Minimal user for cloudsdale installer (`users.users.rdash`)
 ├── modules/               # Custom reusable NixOS modules

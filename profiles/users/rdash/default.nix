@@ -29,6 +29,7 @@ with lib;
 
   home-manager.users.rdash = {
     imports = [
+      "${self}/home-manager/keepassxc.nix"
       "${self}/home-manager/zsh.nix"
       ./hyprland.nix
     ];
