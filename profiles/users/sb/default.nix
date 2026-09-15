@@ -42,6 +42,7 @@ with lib;
 
   home-manager.users.sb = {
     imports = [
+      "${self}/home-manager/keepassxc.nix"
       "${self}/home-manager/zsh.nix"
       ./hyprland.nix
     ];
