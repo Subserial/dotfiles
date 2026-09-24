@@ -5,7 +5,7 @@
     slurp
     hyprpaper
     hyprsunset
-    wayshot
+    wl-clipboard-rs
   ];
 
   services.hypridle = {
@@ -156,9 +156,9 @@
         "SHIFT, F10, exec, hyprctl hyprsunset gamma +10"
         "$mod SHIFT, T, exec, ~/.config/scripts/toggle-touchpad.sh"
 
-        ", Print, exec, wayshot \"/home/sb/Screenshots/$(date +%y-%m-%d-%H-%M-%S).png\""
-        "SHIFT, Print, exec, wayshot -g \"/home/sb/Screenshots/$(date +%y-%m-%d-%H-%M-%S).png\""
-        "CTRL, Print, exec, wayshot -g --clipboard"
+        ", Print, exec, grim \"/home/sb/Screenshots/$(date +%y-%m-%d-%H-%M-%S).png\""
+        "SHIFT, Print, exec, grim -g \"$(slurp -w 0 -o)\" \"/home/sb/Screenshots/$(date +%y-%m-%d-%H-%M-%S).png\""
+        "CTRL, Print, exec, grim -g \"$(slurp -w 0 -o)\" | wl-copy"
 
         "$mod, Q, exec, $terminal"
         "$mod, E, exec, $fileManager"
