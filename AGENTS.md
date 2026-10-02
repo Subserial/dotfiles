@@ -39,7 +39,7 @@ This repository manages a personal multi-host NixOS setups and Home Manager user
   - `nixos-hardware`: Provides hardware-specific quirks (e.g., Dell XPS 15 9570, Framework 11th Gen).
   - `home-manager`: Manages user dotfiles and packages.
   - `sops-nix`: Manages secret decryption using `age` keys.
-  - `git-hooks`: Provides pre-commit validation (configured with `nixfmt`).
+  - `git-hooks`: Provides pre-commit validation and code formatting (configured with `nixfmt` for Nix and `stylua` for Lua).
 - **`specialArgs`**:
   - `self`: Reference to the flake repository.
   - `localPackages`: Custom derivations built from `./pkgs`, passed into all host configurations and available to modules and user environments.
@@ -61,13 +61,13 @@ All commands should be executed from the repository root.
   nix flake check
   ```
 - **Code Formatting**:
-  Format all Nix files with `nixfmt` (via git-hooks pre-commit runner):
+  Format all Nix and Lua files automatically with `nix fmt` (runs `nixfmt` for `.nix` and `stylua` for `.lua` via the git-hooks pre-commit runner):
+  ```bash
+  nix fmt
+  ```
+  Or run the pre-commit checks directly:
   ```bash
   nix run .#packages.x86_64-linux.pre-commit-run
-  ```
-  Or format specific files directly if `nixfmt` is in your environment:
-  ```bash
-  nixfmt flake.nix
   ```
 
 ### Building Host Configurations
@@ -179,13 +179,64 @@ When a host boots, `sops-nix` looks for the private age key at:
 
 ---
 
-## 4. Guidelines for Agents & Contributors
+## 4. Desktop Configuration & Hyprland Lua Setup
 
-- **Always verify formatting**: Before finalizing changes to `.nix` files, make sure the flake builds or evaluates without syntax errors (`nix flake check`).
+For the `sb` user on `everfree`, Hyprland is configured using the modern Lua API (`hl.*`) rather than legacy `hyprlang` (`.conf`).
+
+### Decoupled Runtime Architecture & Copy-over Behavior
+
+- **Home Manager Entrypoint (`hyprland.lua`)**:
+  Home Manager manages `~/.config/hypr/hyprland.lua` as a read-only symlink to `/nix/store/...`. It sets up compositor lifecycle hooks (e.g. systemd session targets) and imports the standalone user configuration:
+  ```lua
+  dofile(os.getenv("HOME") .. "/.config/hypr/hyprland.user.lua")
+  ```
+
+- **User-Editable Configuration (`hyprland.user.lua`)**:
+  The active compositor configuration resides at `~/.config/hypr/hyprland.user.lua`. It is a regular, writable file (`-rw-r--r--`), **not** a Nix store symlink. Users can edit it freely and reload Hyprland immediately with `hyprctl reload` without needing to run `nixos-rebuild switch`.
+
+- **Automatic Seeding on Login (`seed-hyprland-config.service`)**:
+  A oneshot systemd user service runs at session startup (before `graphical-session-pre.target` and `hyprland-session.target`).
+  - Sourced directly from the active OS closure template in `/nix/store/...` (packaged from `profiles/users/sb/hyprland.user.lua` at build time).
+  - Checks if `~/.config/hypr/hyprland.user.lua` exists; if missing, copies the template and grants user write permissions (`chmod u+w`).
+  - It does **not** overwrite the file if it already exists, preserving local customizations across system rebuilds.
+
+### How to Maintain & Update the Hyprland Configuration
+
+1. **Local Testing & Live Tweaking**:
+   - Edit `~/.config/hypr/hyprland.user.lua` directly using any editor.
+   - Reload Hyprland immediately via `hyprctl reload` or the keybind `SUPER + SHIFT + R`.
+   - Verify active functionality or inspect errors using `hyprctl configerrors`.
+
+2. **Committing Changes back to the Repository**:
+   - Once satisfied with changes made in `~/.config/hypr/hyprland.user.lua`, copy the updated file back to the repository:
+     ```bash
+     cp ~/.config/hypr/hyprland.user.lua profiles/users/sb/hyprland.user.lua
+     ```
+   - Format the code:
+     ```bash
+     nix fmt
+     ```
+   - Stage and commit the changes in git:
+     ```bash
+     git add profiles/users/sb/hyprland.user.lua
+     git commit -m "Update hyprland configuration"
+     ```
+   - Deploy or test-build:
+     ```bash
+     sudo nixos-rebuild switch --flake .#everfree
+     ```
+
+---
+
+## 5. Guidelines for Agents & Contributors
+
+- **Always verify formatting**: Before finalizing changes to `.nix` or `.lua` files, format all files with `nix fmt` (configured via `git-hooks` with `nixfmt` and `stylua`), and make sure the flake builds or evaluates without syntax errors (`nix flake check`).
 - **Never commit unencrypted secrets**: Never create plaintext password files or tokens outside the sops workflow. If testing a password, generate a hash using `mkpasswd -m sha-512` or test with sops.
 - **Keep system and user concerns separated**:
   - System-wide hardware and service configs belong in `modules/` or `profiles/hosts/`.
   - User desktop settings, themes, and personal CLI tools belong in `profiles/users/<user>/` and `home-manager/`.
+  - For user `sb`, Hyprland compositor settings live in `profiles/users/sb/hyprland.user.lua` (Lua), rather than in Nix `settings = { ... }`.
 - **Maintain purity and conventions**:
   - Use `specialArgs` to pass global dependencies.
   - Ensure any new package derivations added to `./pkgs` are exposed through `pkgs/default.nix`.
+

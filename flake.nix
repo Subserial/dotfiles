@@ -52,6 +52,7 @@
           src = ./.;
           hooks = {
             nixfmt.enable = true;
+            stylua.enable = true;
           };
         };
       });
