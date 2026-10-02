@@ -64,7 +64,8 @@ hl.on("hyprland.start", function()
 	hl.exec_cmd("hyprpaper")
 	hl.exec_cmd("hyprsunset")
 	hl.exec_cmd("eww daemon")
-	hl.exec_cmd("eww open bar")
+	hl.exec_cmd(home .. "/.config/eww/scripts/open-bars.sh")
+	hl.exec_cmd(home .. "/.config/eww/scripts/event-watcher.sh")
 	hl.exec_cmd("systemctl --user start hyprpolkitagent")
 end)
 
@@ -124,6 +125,10 @@ hl.config({
 	dwindle = {
 		preserve_split = true,
 	},
+	binds = {
+		workspace_back_and_forth = true,
+		allow_workspace_cycles = true,
+	},
 })
 
 -- Curves & Animations
@@ -148,8 +153,8 @@ hl.bind("SUPER + L", hl.dsp.exec_cmd("loginctl lock-session"))
 hl.bind("SUPER + SHIFT + L", hl.dsp.exec_cmd("systemctl suspend"))
 hl.bind("F9", hl.dsp.exec_cmd(home .. "/.config/scripts/volume-down.sh"))
 hl.bind("F10", hl.dsp.exec_cmd(home .. "/.config/scripts/volume-up.sh"))
-hl.bind("SHIFT + F9", hl.dsp.exec_cmd("hyprctl hyprsunset gamma -10"))
-hl.bind("SHIFT + F10", hl.dsp.exec_cmd("hyprctl hyprsunset gamma +10"))
+hl.bind("SHIFT + F9", hl.dsp.exec_cmd(home .. "/.config/eww/scripts/brightness.sh step -10"))
+hl.bind("SHIFT + F10", hl.dsp.exec_cmd(home .. "/.config/eww/scripts/brightness.sh step +10"))
 hl.bind("SUPER + SHIFT + T", hl.dsp.exec_cmd(home .. "/.config/scripts/toggle-touchpad.sh"))
 
 hl.bind("Print", hl.dsp.exec_cmd('grim "' .. home .. '/Screenshots/$(date +%y-%m-%d-%H-%M-%S).png"'))
@@ -163,7 +168,7 @@ hl.bind("SUPER + Q", hl.dsp.exec_cmd(terminal))
 hl.bind("SUPER + E", hl.dsp.exec_cmd(fileManager))
 hl.bind("SUPER + F", hl.dsp.exec_cmd("firefox"))
 hl.bind("SUPER + R", hl.dsp.exec_cmd(menu))
-hl.bind("SUPER + space", hl.dsp.exec_cmd("eww open --toggle control_center"))
+hl.bind("SUPER + space", hl.dsp.exec_cmd(home .. "/.config/eww/scripts/toggle-control-center.sh"))
 
 hl.bind("SUPER + C", hl.dsp.window.close())
 hl.bind("SUPER + V", hl.dsp.window.float({ action = "toggle" }))
@@ -173,9 +178,36 @@ hl.bind("SUPER + ALT + P", hl.dsp.window.pseudo())
 hl.bind("SUPER + G", hl.dsp.group.toggle())
 hl.bind("SUPER + H", hl.dsp.group.lock_active("toggle"))
 hl.bind("ALT + Tab", hl.dsp.group.next())
+hl.bind("SUPER + Tab", hl.dsp.focus({ workspace = "previous_per_monitor" }))
+hl.bind("SUPER + grave", hl.dsp.focus({ workspace = "previous_per_monitor" }))
 hl.bind("SHIFT + F11", hl.dsp.window.fullscreen())
 
+local monitor_last_ws = {}
+local monitor_prev_ws = {}
+
+for _, m in ipairs(hl.get_monitors() or {}) do
+	if m.name and m.active_workspace and m.active_workspace.name then
+		monitor_last_ws[m.name] = m.active_workspace.name
+	end
+end
+
+hl.on("workspace.active", function(ws)
+	if not ws or not ws.monitor then
+		return
+	end
+	local mon = ws.monitor.name
+	local name = ws.name
+	if monitor_last_ws[mon] ~= name then
+		monitor_prev_ws[mon] = monitor_last_ws[mon]
+		monitor_last_ws[mon] = name
+	end
+end)
+
 local function move_or_focus_workspace(ws_name)
+	if ws_name == "0" then
+		ws_name = "name:0"
+	end
+
 	local cur_mon = hl.get_active_monitor()
 	if not cur_mon then
 		hl.dispatch(hl.dsp.focus({ workspace = ws_name }))
@@ -183,42 +215,86 @@ local function move_or_focus_workspace(ws_name)
 	end
 
 	local ws = hl.get_workspace(ws_name)
-	if not ws or not ws.monitor or ws.monitor.name == cur_mon.name then
+	if not ws then
 		hl.dispatch(hl.dsp.focus({ workspace = ws_name }))
-		return
+		ws = hl.get_workspace(ws_name)
 	end
 
-	local other_mon = ws.monitor
-	hl.dispatch(hl.dsp.workspace.move({ workspace = ws_name, monitor = cur_mon.name }))
-	hl.dispatch(hl.dsp.focus({ workspace = ws_name }))
+	if ws and ws.monitor and ws.monitor.name ~= cur_mon.name then
+		local other_mon = ws.monitor
+		-- Pre-capture other_mon's previous workspace before the move triggers workspace.active fallback
+		local prev_ws = monitor_prev_ws[other_mon.name]
+		if not prev_ws or prev_ws == ws_name or prev_ws == ws.name or prev_ws == "0" then
+			prev_ws = nil
+		end
 
-	local other_active = other_mon.active_workspace
-	if not other_active or other_active.is_empty or other_active.windows == 0 then
-		for _, w in ipairs(hl.get_workspaces()) do
-			if
-				w.monitor
-				and w.monitor.name == other_mon.name
-				and w.name ~= ws_name
-				and not w.is_empty
-				and w.windows > 0
-			then
-				other_mon:set_workspace({ workspace = w.name })
-				return
+		hl.dispatch(hl.dsp.workspace.move({ workspace = ws_name, monitor = cur_mon.name }))
+		hl.dispatch(hl.dsp.focus({ workspace = ws_name }))
+
+		if prev_ws then
+			local target_prev = (prev_ws == "0") and "name:0" or prev_ws
+			other_mon:set_workspace({ workspace = target_prev })
+			monitor_last_ws[other_mon.name] = prev_ws
+		else
+			local other_active = other_mon.active_workspace
+			if not other_active or other_active.is_empty or other_active.windows == 0 then
+				for _, w in ipairs(hl.get_workspaces()) do
+					if
+						w.monitor
+						and w.monitor.name == other_mon.name
+						and w.name ~= ws.name
+						and not w.is_empty
+						and w.windows > 0
+					then
+						other_mon:set_workspace({ workspace = w.name })
+						break
+					end
+				end
 			end
 		end
+	else
+		hl.dispatch(hl.dsp.focus({ workspace = ws_name }))
 	end
 end
 
--- Workspaces
-for i = 1, 10 do
-	local key = tostring(i % 10)
-	local ws = tostring(i)
+--------------------
+---- WORKSPACES ----
+--------------------
+-- Workspaces 0 through 9
+for i = 0, 9 do
+	local key = tostring(i)
+	local ws = (i == 0) and "name:0" or tostring(i)
 	hl.bind("SUPER + " .. key, hl.dsp.focus({ workspace = ws }))
 	hl.bind("SUPER + SHIFT + " .. key, hl.dsp.window.move({ workspace = ws }))
 	hl.bind("SUPER + CTRL + " .. key, function()
 		move_or_focus_workspace(ws)
 	end)
 end
+
+----------------------------
+---- WORKSPACE SELECTOR ----
+----------------------------
+hl.define_submap("workspace_selector", function()
+	for i = 0, 9 do
+		local key = tostring(i)
+		local ws = (i == 0) and "name:0" or tostring(i)
+		hl.bind(key, function()
+			move_or_focus_workspace(ws)
+			hl.dispatch(hl.dsp.submap("reset"))
+		end, { submap = "workspace_selector" })
+	end
+	hl.bind("Tab", function()
+		hl.dispatch(hl.dsp.focus({ workspace = "previous_per_monitor" }))
+		hl.dispatch(hl.dsp.submap("reset"))
+	end, { submap = "workspace_selector" })
+	hl.bind("grave", function()
+		hl.dispatch(hl.dsp.focus({ workspace = "previous_per_monitor" }))
+		hl.dispatch(hl.dsp.submap("reset"))
+	end, { submap = "workspace_selector" })
+	hl.bind("escape", function()
+		hl.dispatch(hl.dsp.submap("reset"))
+	end, { submap = "workspace_selector" })
+end)
 
 -- Mouse binds
 hl.bind("SUPER + mouse:272", hl.dsp.window.drag(), { mouse = true })

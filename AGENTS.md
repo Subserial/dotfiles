@@ -228,7 +228,74 @@ For the `sb` user on `everfree`, Hyprland is configured using the modern Lua API
 
 ---
 
-## 5. Guidelines for Agents & Contributors
+## 5. Desktop Widgets: Eww Bar & Control Center
+
+For user `sb` on `everfree`, custom desktop widgets are implemented using [Eww (ElKowars wacky widgets)](https://elkowar.github.io/eww/) with GTK layer-shell, styled dynamically using Pywal colors.
+
+### Decoupled Runtime Architecture & Copy-over Behavior
+
+- **Template Source in Repository (`profiles/users/sb/eww/`)**:
+  Contains `eww.yuck`, `eww.scss`, and helper scripts in `scripts/`.
+- **User-Editable Configuration (`~/.config/eww/`)**:
+  The active runtime configuration is a regular, writable directory (`~/.config/eww/`), **not** a Nix store symlink. Users can edit widgets, scripts, and stylesheets freely and reload them immediately with `eww reload`.
+- **Automatic Seeding on Login (`seed-eww-config.service`)**:
+  A oneshot systemd user service in `profiles/users/sb/hyprland.nix` copies templates from `/nix/store/...` into `~/.config/eww/` if missing, preserving existing local customizations across system rebuilds.
+- **Autostart Lifecycle**:
+  The Eww daemon and background processes are launched on compositor startup in `profiles/users/sb/hyprland.user.lua`:
+  - `eww daemon`
+  - `~/.config/eww/scripts/open-bars.sh` (opens single bar preferring `HDMI-A-1`)
+  - `~/.config/eww/scripts/event-watcher.sh` (listens to Hyprland socket2 events)
+
+### Key Components & Conventions
+
+1. **Taskbar (`bar_hdmi`, `bar_dp`)**:
+   - Single taskbar anchored to the bottom of preferred display `HDMI-A-1`.
+   - **Centered Clock**: Implemented with native `centerbox :orientation "h"`.
+   - **Workspace Indicator (`<top> | <bottom>`)**:
+     - Formatted by `scripts/workspaces.sh` (e.g. `2 | 9`).
+     - Workspaces are strictly numbers `0` through `9` (`name:0` for workspace 0). Workspace 10 does not exist.
+     - Clicking the badge enters `workspace_selector` mode (`.selector-active` Pywal amber glow); pressing `0`–`9`, `Tab`, or `` ` `` switches workspaces.
+2. **Control Center Pop-up (`control_center`)**:
+   - Anchored at bottom-right of the active monitor via `scripts/toggle-control-center.sh` (keybind `SUPER + space`).
+   - **Click-Outside Dismissal**: Transparent full-screen layer-shell backdrop catchers (`control_center_catcher_dp`, `control_center_catcher_hdmi`) catch clicks outside the popup to dismiss it immediately.
+   - **Focus Dismissal**: `scripts/event-watcher.sh` monitors Hyprland socket events (`activewindow`, `workspace`, `focusedmon`) to dismiss the pop-up on window interactions.
+   - **Display Mode**: Extend vs. Mirror switching via `scripts/display-select.sh`.
+   - **Smart App Focus**: `scripts/launch-or-focus.sh` queries client window addresses to shift focus to the active window and screen for Discord and Steam.
+   - **Brightness & Volume**: Screen brightness slider powered by `scripts/brightness.sh` (`brightnessctl`) placed below Audio Volume.
+   - **Shutdown Confirmation**: 2-step confirmation via `scripts/shutdown-action.sh`. Clicking changes label to "Exit?" with accent fill, resetting after 5 seconds or upon dialog close. *Never execute shutdown commands during agent testing.*
+
+### How to Maintain & Update Eww Configuration
+
+1. **Local Testing & Tweaking**:
+   - Edit files in `~/.config/eww/`.
+   - Reload widgets immediately:
+     ```bash
+     eww reload
+     ```
+   - Check active windows and debug logs:
+     ```bash
+     eww active-windows
+     eww logs
+     ```
+
+2. **Committing Changes Back to the Repository**:
+   - Copy updated files from `~/.config/eww/` back to the repository:
+     ```bash
+     cp -r ~/.config/eww/* profiles/users/sb/eww/
+     ```
+   - Format the code:
+     ```bash
+     nix fmt
+     ```
+   - Stage and commit in git:
+     ```bash
+     git add profiles/users/sb/eww/
+     git commit -m "Update eww widget configuration"
+     ```
+
+---
+
+## 6. Guidelines for Agents & Contributors
 
 - **Always verify formatting**: Before finalizing changes to `.nix` or `.lua` files, format all files with `nix fmt` (configured via `git-hooks` with `nixfmt` and `stylua`), and make sure the flake builds or evaluates without syntax errors (`nix flake check`).
 - **Never commit unencrypted secrets**: Never create plaintext password files or tokens outside the sops workflow. If testing a password, generate a hash using `mkpasswd -m sha-512` or test with sops.
@@ -236,6 +303,7 @@ For the `sb` user on `everfree`, Hyprland is configured using the modern Lua API
   - System-wide hardware and service configs belong in `modules/` or `profiles/hosts/`.
   - User desktop settings, themes, and personal CLI tools belong in `profiles/users/<user>/` and `home-manager/`.
   - For user `sb`, Hyprland compositor settings live in `profiles/users/sb/hyprland.user.lua` (Lua), rather than in Nix `settings = { ... }`.
+  - For user `sb`, Eww widgets live in `profiles/users/sb/eww/` and seed to `~/.config/eww/`.
 - **Maintain purity and conventions**:
   - Use `specialArgs` to pass global dependencies.
   - Ensure any new package derivations added to `./pkgs` are exposed through `pkgs/default.nix`.

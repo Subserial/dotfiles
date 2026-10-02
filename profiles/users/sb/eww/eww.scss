@@ -33,13 +33,9 @@ $accent-alert: $color2;
 
 .bar-container {
   background-color: $bg-bar;
-  border-bottom: 1px solid $border-subtle;
+  border-top: 1px solid $border-subtle;
   padding: 4px 12px;
   color: $text-bright;
-}
-
-.left-modules, .center-modules, .right-modules {
-  spacing: 8px;
 }
 
 .module-box {
@@ -49,23 +45,25 @@ $accent-alert: $color2;
   border: 1px solid $border-subtle;
 }
 
-// Workspaces
-.workspace-btn {
-  padding: 2px 7px;
-  margin: 0 2px;
-  border-radius: 6px;
-  color: $text-dim;
+// Workspace Badge
+.workspace-badge {
+  padding: 3px 10px;
+  margin: 0 4px;
+  border-radius: 8px;
+  background-color: $accent-primary;
+  color: $background;
   font-weight: bold;
+  font-size: 14px;
   transition: all 0.2s ease-in-out;
 
   &:hover {
-    background-color: $bg-hover;
-    color: $text-bright;
+    background-color: lighten($accent-primary, 10%);
   }
 
-  &.active {
-    background-color: $accent-primary;
+  &.selector-active {
+    background-color: $accent-secondary;
     color: $background;
+    box-shadow: 0 0 8px $accent-secondary;
   }
 }
 
@@ -73,7 +71,6 @@ $accent-alert: $color2;
 .window-title {
   color: $text-bright;
   font-weight: 500;
-  max-width: 450px;
 }
 
 // Clock / Date
@@ -99,7 +96,6 @@ $accent-alert: $color2;
 }
 
 .volume-box {
-  spacing: 6px;
   .vol-icon {
     font-size: 15px;
     color: $accent-primary;
@@ -144,8 +140,6 @@ $accent-alert: $color2;
   font-size: 11px;
   font-weight: bold;
   color: $text-dim;
-  text-transform: uppercase;
-  letter-spacing: 1px;
   margin-bottom: 6px;
 }
 
@@ -179,7 +173,6 @@ $accent-alert: $color2;
 // Display Mode Selector
 .display-selector-box {
   margin-bottom: 14px;
-  spacing: 8px;
 
   .disp-btn {
     padding: 8px 14px;
@@ -205,7 +198,6 @@ $accent-alert: $color2;
 // Program Shortcuts Grid
 .shortcuts-box {
   margin-bottom: 14px;
-  spacing: 8px;
 
   .app-btn {
     background-color: $bg-element;
@@ -254,11 +246,15 @@ $accent-alert: $color2;
   }
 }
 
+// Catcher Backdrop
+.catcher-box {
+  background-color: transparent;
+}
+
 // Session Actions
 .session-box {
   padding-top: 10px;
   border-top: 1px solid $border-subtle;
-  spacing: 8px;
 
   .session-btn {
     padding: 6px 12px;
@@ -278,6 +274,17 @@ $accent-alert: $color2;
       background-color: rgba($color2, 0.4);
       color: #ff5555;
       border-color: rgba($color2, 0.6);
+    }
+
+    &.confirm-accent {
+      background-color: $accent-secondary;
+      color: $background;
+      border-color: $accent-secondary;
+      box-shadow: 0 0 8px $accent-secondary;
+
+      &:hover {
+        background-color: lighten($accent-secondary, 10%);
+      }
     }
   }
 }
