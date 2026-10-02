@@ -24,11 +24,14 @@ $accent-alert: $color2;
   font-size: 13px;
 }
 
-// ----------------------
-// TASKBAR STYLING
-// ----------------------
-.bar-window {
+window,
+.bar-window,
+.catcher-box,
+.control_center_catcher_dp,
+.control_center_catcher_hdmi,
+.control_center_catcher {
   background-color: transparent;
+  background: transparent;
 }
 
 .bar-container {
@@ -138,21 +141,14 @@ $accent-alert: $color2;
     font-size: 13px;
     font-family: monospace;
     font-weight: bold;
-    letter-spacing: 1px;
+    letter-spacing: 0px;
+    min-width: 136px;
   }
 }
 
 // ----------------------
-// POPUPS DESIGN SYSTEM & TRAY
+// POPUPS DESIGN SYSTEM
 // ----------------------
-.popups-tray-window {
-  background-color: transparent;
-}
-
-.popups-container {
-  background-color: transparent;
-}
-
 // Shared Pop-up Card Base
 %popup-card {
   background-color: $bg-card;
@@ -161,16 +157,15 @@ $accent-alert: $color2;
   padding: 16px;
   color: $text-bright;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+  min-width: 380px;
 }
 
 .control-center-card {
   @extend %popup-card;
-  min-width: 380px;
 }
 
 .media-player-card {
   @extend %popup-card;
-  min-width: 360px;
 }
 
 // Unified Interactive Buttons
@@ -225,6 +220,14 @@ scale.popup-scale,
 // ----------------------
 // MEDIA PLAYER POP-UP CARD
 // ----------------------
+.popups-flex-container {
+  background-color: transparent;
+}
+
+.media-player-container {
+  background-color: transparent;
+}
+
 .media-player-card {
   .media-info-header {
     margin-bottom: 12px;
@@ -233,6 +236,35 @@ scale.popup-scale,
       border-radius: 8px;
       background-color: $bg-element;
       border: 1px solid $border-subtle;
+    }
+
+    .media-source-row {
+      margin-bottom: 4px;
+
+      .media-source-badge {
+        font-size: 10px;
+        font-weight: bold;
+        padding: 2px 7px;
+        border-radius: 5px;
+        background-color: rgba($color4, 0.2);
+        color: $accent-primary;
+        border: 1px solid rgba($color4, 0.35);
+      }
+
+      .media-status-badge {
+        font-size: 10px;
+        font-weight: 500;
+        padding: 2px 6px;
+        border-radius: 5px;
+
+        &.playing {
+          color: $color2;
+        }
+
+        &.paused {
+          color: $text-dim;
+        }
+      }
     }
 
     .media-card-title {

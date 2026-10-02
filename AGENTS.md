@@ -29,6 +29,7 @@ This repository manages a personal multi-host NixOS setups and Home Manager user
 ├── home-manager/          # Reusable Home Manager modules
 ├── pkgs/                  # Custom Nix package derivations
 ├── scripts/               # Helper utilities & desktop scripts (e.g., lock screen, monitor, audio scripts)
+├── user-scripts/          # Maintenance scripts to copy desktop configs to live user directories
 └── secrets/               # SOPS-encrypted secrets
 ```
 
@@ -228,7 +229,7 @@ For the `sb` user on `everfree`, Hyprland is configured using the modern Lua API
 
 ---
 
-## 5. Desktop Widgets: Eww Bar & Control Center
+## 5. Desktop Widgets: Eww Bar, Audio Visualizer & Pop-up System
 
 For user `sb` on `everfree`, custom desktop widgets are implemented using [Eww (ElKowars wacky widgets)](https://elkowar.github.io/eww/) with GTK layer-shell, styled dynamically using Pywal colors.
 
@@ -240,6 +241,11 @@ For user `sb` on `everfree`, custom desktop widgets are implemented using [Eww (
   The active runtime configuration is a regular, writable directory (`~/.config/eww/`), **not** a Nix store symlink. Users can edit widgets, scripts, and stylesheets freely and reload them immediately with `eww reload`.
 - **Automatic Seeding on Login (`seed-eww-config.service`)**:
   A oneshot systemd user service in `profiles/users/sb/hyprland.nix` copies templates from `/nix/store/...` into `~/.config/eww/` if missing, preserving existing local customizations across system rebuilds.
+- **Copy Utility Script (`user-scripts/copy-eww.sh`)**:
+  A dedicated maintenance script copies configuration templates from `profiles/users/<user>/eww/` to `~/.config/eww/` while creating `.bak` backups of modified files:
+  ```bash
+  ./user-scripts/copy-eww.sh sb ~/.config/eww
+  ```
 - **Autostart Lifecycle**:
   The Eww daemon and background processes are launched on compositor startup in `profiles/users/sb/hyprland.user.lua`:
   - `eww daemon`
@@ -255,14 +261,44 @@ For user `sb` on `everfree`, custom desktop widgets are implemented using [Eww (
      - Formatted by `scripts/workspaces.sh` (e.g. `2 | 9`).
      - Workspaces are strictly numbers `0` through `9` (`name:0` for workspace 0). Workspace 10 does not exist.
      - Clicking the badge enters `workspace_selector` mode (`.selector-active` Pywal amber glow); pressing `0`–`9`, `Tab`, or `` ` `` switches workspaces.
-2. **Control Center Pop-up (`control_center`)**:
-   - Anchored at bottom-right of the active monitor via `scripts/toggle-control-center.sh` (keybind `SUPER + space`).
-   - **Click-Outside Dismissal**: Transparent full-screen layer-shell backdrop catchers (`control_center_catcher_dp`, `control_center_catcher_hdmi`) catch clicks outside the popup to dismiss it immediately.
-   - **Focus Dismissal**: `scripts/event-watcher.sh` monitors Hyprland socket events (`activewindow`, `workspace`, `focusedmon`) to dismiss the pop-up on window interactions.
+   - **Audio Visualizer Module (`.media-bar-module`)**:
+     - Positioned directly to the left of the Audio Volume & Control Panel button.
+     - Dynamically visible only when an active MPRIS media source exists (`:visible {media_data.available}`).
+     - Shows current album artwork thumbnail (20x20) and a real-time 16-bar audio visualizer powered by `cava` (`scripts/cava-bar.sh`).
+     - Uses Unicode Block Elements (`U+2581` through `U+2588`, ` ▂▃▄▅▆▇█`) for zero-to-peak levels. Level 0 is mapped to ` ` (`U+2581`, lower 1/8 block) rather than ASCII space to guarantee consistent advance width across silence and active playback without Pango/GTK whitespace collapsing.
+     - Fixed CSS width (`min-width: 136px; letter-spacing: 0px`) and `:width 136` attribute prevent horizontal resizing or taskbar jitter.
+     - Clicking the module opens or toggles the interactive Media Player pop-up via `scripts/popups.sh toggle-media`.
+
+2. **Pop-up Tray & Flex Box Tiling (`popups_tray`)**:
+   - Both cards live inside a unified horizontal flex container (`popups_tray`), anchored at bottom-right (`:x "12px", :y "12px"`), with `:orientation "h" :space-evenly false :spacing 12 :halign "end" :valign "end"`.
+   - **Zero Re-fading & Natural Flex Positioning**:
+     - When either card is open alone: sits flush at the bottom-right corner.
+     - When both cards are open: `control_center_card` sits on the right, and `media_player_card` sits directly next to it with an exact 12px gap.
+     - Opening a second card while one is already open simply adds it to the flex layout. The existing card never closes, never unmaps, and never fades out/in—it simply occupies its adjacent flex slot.
+     - Layer animations are disabled (`hl.animation({ leaf = "layers", enabled = false })`) so the flex container expands and collapses instantly without Wayland buffer-resize stretching artifacts.
+   - **Independent Heights via `:valign "end"`**: Cards are vertically bottom-aligned. The Media Player retains its natural compact height (~200px) and never stretches to match the Control Center's taller height (~520px).
+   - **Window & Catchers Transparency**: The root `window` selector in `eww.scss` explicitly enforces `background: transparent; background-color: transparent;` so full-screen catchers and window bases never draw opaque GTK theme rectangles over the desktop.
+
+3. **Control Center Pop-up (`control_center`)**:
+   - Anchored at bottom-right of the active monitor via `scripts/toggle-control-center.sh` (delegating to `scripts/popups.sh toggle-control-center`, keybind `SUPER + space`).
+   - **Click-Outside Dismissal**: Transparent layer-shell backdrop catchers (`control_center_catcher_dp`, `control_center_catcher_hdmi`) anchored at layer `bottom` catch clicks outside the popup on empty desktop without obstructing the taskbar (`top` layer) or client application windows.
+   - **Focus Dismissal**: `scripts/event-watcher.sh` monitors Hyprland socket events (`activewindow`, `workspace`, `focusedmon`) to dismiss all pop-ups on window focus changes.
    - **Display Mode**: Extend vs. Mirror switching via `scripts/display-select.sh`.
    - **Smart App Focus**: `scripts/launch-or-focus.sh` queries client window addresses to shift focus to the active window and screen for Discord and Steam.
    - **Brightness & Volume**: Screen brightness slider powered by `scripts/brightness.sh` (`brightnessctl`) placed below Audio Volume.
    - **Shutdown Confirmation**: 2-step confirmation via `scripts/shutdown-action.sh`. Clicking changes label to "Exit?" with accent fill, resetting after 5 seconds or upon dialog close. *Never execute shutdown commands during agent testing.*
+
+4. **Media Player Pop-up (`media_player`, `media_player_tiled`)**:
+   - **Multi-Source Vertical Tiling**: Dynamically displays all active MPRIS sources (Deezer, YouTube, Spotify, etc.) stacked vertically using `(for p in {media_data.players} ...)`.
+   - **Prominence Sorting (Bottom-Anchored)**: Media sources are scored based on playback status (`Playing` > `Paused`) and active playerctl focus. The source array is sorted in ascending order so that the **most prominent active source is always anchored at the bottom** of the vertical stack (closest to the taskbar and cursor).
+   - **Player Cards**: Each stacked card contains 74x74 album artwork, a source badge (`YouTube`, `Deezer`, etc.), playback status indicator (`Playing` / `Paused`), track title, artist, album name, interactive duration seeker slider (`popup-scale`), and dedicated per-player playback controls (Previous, Play/Pause, Next) routed to `scripts/media-control.sh <action> <player>`.
+
+5. **Backend Helper Daemons & Scripts**:
+   - `scripts/media-info.sh`: Streams JSON metadata for all active MPRIS players (`playerctl -l`), caches remote artwork to `~/.cache/eww/art/`, resolves source badges, calculates prominence scores, and formats duration strings. Emits `{"available":false,"players":[]}` when media is idle.
+   - `scripts/cava-bar.sh`: 16-bar 25 FPS PipeWire spectrum visualizer translated via `sed` to Unicode block glyphs ` ▂▃▄▅▆▇█`.
+   - `scripts/media-control.sh`: Dispatches playback commands (`play-pause`, `next`, `previous`, `seek`) targeted to specific player names.
+   - `scripts/popups.sh`: Coordinates pop-up window visibility, monitor tracking, tiled placement, and backdrop catchers.
+   - `scripts/event-watcher.sh`: Background listener on Hyprland's socket2, closing all pop-ups on focus shifts.
 
 ### How to Maintain & Update Eww Configuration
 

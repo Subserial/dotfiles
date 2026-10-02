@@ -13,8 +13,8 @@ fi
 nc -U "$SOCKET" 2>/dev/null | while read -r line; do
     case "$line" in
         "activewindow>>"*|"workspace>>"*|"focusedmon>>"*)
-            # If popups_tray or control_center is open, dismiss it
-            if eww active-windows 2>/dev/null | grep -qE "^(popups_tray|control_center):"; then
+            # If any popup is open, dismiss it
+            if eww active-windows 2>/dev/null | grep -qE "^(control_center|media_player|media_player_tiled|popups_tray):"; then
                 "$HOME/.config/eww/scripts/popups.sh" close-all 2>/dev/null || true
             fi
 

@@ -68,7 +68,7 @@ if [ -d "$scripts_source" ]; then
       cp "$target_file" "$backup_file"
     fi
     echo "Copying $source_file -> $target_file"
-    cp "$source_file" "$target_file"
+    cp --remove-destination "$source_file" "$target_file"
     chmod u+w "$target_file"
   done
 fi
