@@ -83,6 +83,8 @@ with lib;
         dunst
         eww
         font-awesome
+        socat
+        brightnessctl
 
         pywal
         jq

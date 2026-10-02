@@ -21,6 +21,40 @@ hl.env("XCURSOR_SIZE", "24")
 hl.env("HYPRCURSOR_SIZE", "24")
 hl.env("AQ_DRM_DEVICES", "/dev/dri/card1")
 
+---------------------------------
+---- PALETTE & THEME (PYWAL) ----
+---------------------------------
+local function load_wal_colors()
+	local f = io.open(home .. "/.cache/wal/colors", "r")
+	if not f then
+		return nil
+	end
+	local lines = {}
+	for line in f:lines() do
+		local cleaned = line:gsub("%s+", "")
+		if cleaned ~= "" then
+			table.insert(lines, cleaned)
+		end
+	end
+	f:close()
+	return lines
+end
+
+local function hex_to_rgba(hex, alpha)
+	if not hex then
+		return nil
+	end
+	hex = hex:gsub("#", "")
+	return "rgba(" .. hex .. (alpha or "ee") .. ")"
+end
+
+local wal = load_wal_colors()
+local col_active_1 = (wal and hex_to_rgba(wal[5], "ee")) or "rgba(cc33ccee)"
+local col_active_2 = (wal and hex_to_rgba(wal[2], "ee")) or "rgba(3333ffee)"
+local col_inactive = (wal and hex_to_rgba(wal[1], "aa")) or "rgba(660066aa)"
+local col_group_active = (wal and hex_to_rgba(wal[5], "ee")) or "rgba(cc33ccee)"
+local col_group_inactive = (wal and hex_to_rgba(wal[1], "aa")) or "rgba(660066aa)"
+
 -------------------
 ---- AUTOSTART ----
 -------------------
@@ -30,6 +64,7 @@ hl.on("hyprland.start", function()
 	hl.exec_cmd("hyprpaper")
 	hl.exec_cmd("hyprsunset")
 	hl.exec_cmd("eww daemon")
+	hl.exec_cmd("eww open bar")
 	hl.exec_cmd("systemctl --user start hyprpolkitagent")
 end)
 
@@ -49,24 +84,41 @@ hl.config({
 	general = {
 		gaps_in = 5,
 		gaps_out = 10,
-		border_size = 1,
+		border_size = 2,
 		col = {
-			active_border = { colors = { "rgba(cc33ccee)", "rgba(3333ffee)" }, angle = 45 },
-			inactive_border = "rgba(660066aa)",
+			active_border = { colors = { col_active_1, col_active_2 }, angle = 45 },
+			inactive_border = col_inactive,
 		},
 	},
 	decoration = {
 		rounding = 10,
+		dim_inactive = true,
+		dim_strength = 0.08,
 		blur = {
 			enabled = true,
-			size = 3,
-			passes = 1,
+			size = 5,
+			passes = 2,
 		},
 		shadow = {
 			enabled = true,
-			range = 4,
+			range = 16,
 			render_power = 3,
-			color = "rgba(1a1a1aee)",
+			color = "rgba(00000073)",
+		},
+	},
+	group = {
+		col = {
+			border_active = col_group_active,
+			border_inactive = col_group_inactive,
+		},
+		groupbar = {
+			font_family = "JetBrainsMono Nerd Font",
+			font_size = 10,
+			height = 20,
+			col = {
+				active = col_group_active,
+				inactive = col_group_inactive,
+			},
 		},
 	},
 	dwindle = {
@@ -111,11 +163,13 @@ hl.bind("SUPER + Q", hl.dsp.exec_cmd(terminal))
 hl.bind("SUPER + E", hl.dsp.exec_cmd(fileManager))
 hl.bind("SUPER + F", hl.dsp.exec_cmd("firefox"))
 hl.bind("SUPER + R", hl.dsp.exec_cmd(menu))
+hl.bind("SUPER + space", hl.dsp.exec_cmd("eww open --toggle control_center"))
 
 hl.bind("SUPER + C", hl.dsp.window.close())
 hl.bind("SUPER + V", hl.dsp.window.float({ action = "toggle" }))
 hl.bind("SUPER + J", hl.dsp.layout("rotatesplit 90"))
-hl.bind("SUPER + P", hl.dsp.window.pseudo())
+hl.bind("SUPER + P", hl.dsp.exec_cmd(home .. "/.config/eww/scripts/display-select.sh toggle"))
+hl.bind("SUPER + ALT + P", hl.dsp.window.pseudo())
 hl.bind("SUPER + G", hl.dsp.group.toggle())
 hl.bind("SUPER + H", hl.dsp.group.lock_active("toggle"))
 hl.bind("ALT + Tab", hl.dsp.group.next())

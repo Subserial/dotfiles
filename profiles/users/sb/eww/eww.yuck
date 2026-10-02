@@ -1,0 +1,109 @@
+;; profiles/users/sb/eww/eww.yuck
+;; Eww configuration for user sb
+
+;; -------------------
+;; POLLERS & LISTENERS
+;; -------------------
+(defpoll time :interval "1s" "date '+%H:%M'")
+(defpoll date :interval "30s" "date '+%A, %d %B %Y'")
+(defpoll display_mode :interval "2s" "scripts/display-select.sh status")
+(defpoll volume_val :interval "1s" "scripts/volume.sh get")
+(defpoll volume_icon :interval "1s" "scripts/volume.sh icon")
+(deflisten current_workspace :initial "1" "scripts/workspaces.sh")
+(defpoll active_window :interval "1s" "hyprctl activewindow -j 2>/dev/null | jq -r '.title // \"\"' | cut -c 1-45")
+
+;; -------------------
+;; TASKBAR WINDOW
+;; -------------------
+(defwindow bar
+  :monitor 0
+  :geometry (geometry :x "0%" :y "0%" :width "100%" :height "36px" :anchor "top center")
+  :stacking "fg"
+  :exclusive true
+  (box :class "bar-container" :space-evenly false
+    ;; Left: Workspaces
+    (box :class "left-modules" :space-evenly false :halign "start" :hexpand false
+      (box :class "module-box" :space-evenly false
+        (button :class "workspace-btn ${current_workspace == '1' ? 'active' : ''}" :onclick "hyprctl dispatch workspace 1" "1")
+        (button :class "workspace-btn ${current_workspace == '2' ? 'active' : ''}" :onclick "hyprctl dispatch workspace 2" "2")
+        (button :class "workspace-btn ${current_workspace == '3' ? 'active' : ''}" :onclick "hyprctl dispatch workspace 3" "3")
+        (button :class "workspace-btn ${current_workspace == '4' ? 'active' : ''}" :onclick "hyprctl dispatch workspace 4" "4")
+        (button :class "workspace-btn ${current_workspace == '5' ? 'active' : ''}" :onclick "hyprctl dispatch workspace 5" "5")
+        (button :class "workspace-btn ${current_workspace == '6' ? 'active' : ''}" :onclick "hyprctl dispatch workspace 6" "6")
+        (button :class "workspace-btn ${current_workspace == '7' ? 'active' : ''}" :onclick "hyprctl dispatch workspace 7" "7")
+        (button :class "workspace-btn ${current_workspace == '8' ? 'active' : ''}" :onclick "hyprctl dispatch workspace 8" "8")
+        (button :class "workspace-btn ${current_workspace == '9' ? 'active' : ''}" :onclick "hyprctl dispatch workspace 9" "9")
+        (button :class "workspace-btn ${current_workspace == '10' ? 'active' : ''}" :onclick "hyprctl dispatch workspace 10" "10"))
+      (box :class "module-box" :visible {active_window != ""}
+        (label :class "window-title" :text active_window :limit-width 45)))
+
+    ;; Center: Clock and Date
+    (box :class "center-modules" :space-evenly false :halign "center" :hexpand true
+      (box :class "module-box" :space-evenly false
+        (label :class "clock-text" :text time)
+        (label :class "date-text" :text "•  ${date}")))
+
+    ;; Right: Display mode toggle, volume, control panel button
+    (box :class "right-modules" :space-evenly false :halign "end" :hexpand false
+      (button :class "display-badge" :onclick "scripts/display-select.sh toggle" :tooltip "Click to toggle Extend / Mirror"
+        "${display_mode == 'mirror' ? '󰍺 Mirror' : '󰍹 Extend'}")
+      (eventbox :onscroll "if [ '{}' = 'up' ]; then wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%+; else wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%-; fi"
+        (button :class "module-box volume-box" :onclick "scripts/volume.sh toggle-mute" :tooltip "Click to mute, scroll to change volume"
+          (box :space-evenly false :spacing 6
+            (label :class "vol-icon" :text volume_icon)
+            (label :class "vol-text" :text "${volume_val}%"))))
+      (button :class "panel-toggle-btn" :onclick "eww open --toggle control_center" " Controls"))))
+
+;; ---------------------------
+;; CONTROL CENTER OVERLAY
+;; ---------------------------
+(defwindow control_center
+  :monitor 0
+  :geometry (geometry :x "12px" :y "12px" :width "400px" :anchor "top right")
+  :stacking "overlay"
+  :exclusive false
+  (box :class "control-center-box" :orientation "v" :space-evenly false
+    ;; Header
+    (box :class "header-box" :space-evenly false
+      (box :orientation "v" :space-evenly false :hexpand true
+        (label :class "header-time" :text time :halign "start")
+        (label :class "header-date" :text date :halign "start"))
+      (button :class "close-btn" :onclick "eww close control_center" "✕"))
+
+    ;; Display Mode Selector
+    (box :orientation "v" :space-evenly false
+      (label :class "section-title" :text "Display Layout (External Only)" :halign "start")
+      (box :class "display-selector-box" :space-evenly true
+        (button :class "disp-btn ${display_mode == 'extend' ? 'active' : ''}"
+                :onclick "scripts/display-select.sh extend" "󰍹 Extend (Dual)")
+        (button :class "disp-btn ${display_mode == 'mirror' ? 'active' : ''}"
+                :onclick "scripts/display-select.sh mirror" "󰍺 Mirror (Clone)")))
+
+    ;; Program Shortcuts
+    (box :orientation "v" :space-evenly false
+      (label :class "section-title" :text "Applications" :halign "start")
+      (box :class "shortcuts-box" :orientation "v" :spacing 6
+        (box :space-evenly true :spacing 6
+          (button :class "app-btn" :onclick "alacritty & eww close control_center" " Terminal")
+          (button :class "app-btn" :onclick "firefox & eww close control_center" " Browser")
+          (button :class "app-btn" :onclick "thunar & eww close control_center" " Files"))
+        (box :space-evenly true :spacing 6
+          (button :class "app-btn" :onclick "kcalc & eww close control_center" " Calculator")
+          (button :class "app-btn" :onclick "discord-canary & eww close control_center" " Discord")
+          (button :class "app-btn" :onclick "steam & eww close control_center" " Steam"))))
+
+    ;; Audio Sliders
+    (box :orientation "v" :space-evenly false
+      (label :class "section-title" :text "Audio Volume" :halign "start")
+      (box :class "sliders-box" :orientation "v"
+        (box :class "slider-item" :space-evenly false
+          (button :class "slider-icon" :onclick "scripts/volume.sh toggle-mute" volume_icon)
+          (scale :min 0 :max 101 :value volume_val :hexpand true
+                 :onchange "scripts/volume.sh set {}"))))
+
+    ;; Session Controls
+    (box :class "session-box" :space-evenly true
+      (button :class "session-btn" :onclick "loginctl lock-session & eww close control_center" " Lock")
+      (button :class "session-btn" :onclick "systemctl suspend & eww close control_center" " Suspend")
+      (button :class "session-btn" :onclick "hyprctl reload & eww reload" " Reload")
+      (button :class "session-btn danger" :onclick "hyprctl dispatch exit" " Exit"))))

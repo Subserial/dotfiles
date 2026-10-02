@@ -154,6 +154,37 @@
     };
   };
 
+  systemd.user.services.seed-eww-config = {
+    Unit = {
+      Description = "Seed Eww user config from active OS profile if missing";
+      Before = [
+        "graphical-session-pre.target"
+        "hyprland-session.target"
+      ];
+      PartOf = [ "graphical-session.target" ];
+    };
+    Install = {
+      WantedBy = [
+        "graphical-session-pre.target"
+        "default.target"
+      ];
+    };
+    Service = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      ExecStart = pkgs.writeShellScript "seed-eww-config" ''
+        CONFIG_DIR="$HOME/.config/eww"
+        SOURCE_DIR="${./eww}"
+
+        mkdir -p "$CONFIG_DIR"
+        if [ ! -e "$CONFIG_DIR/eww.yuck" ]; then
+          cp -r "$SOURCE_DIR"/* "$CONFIG_DIR/"
+          chmod -R u+w "$CONFIG_DIR"
+        fi
+      '';
+    };
+  };
+
   services.hyprpaper = {
     enable = true;
     settings = {
