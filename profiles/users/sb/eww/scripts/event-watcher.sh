@@ -13,16 +13,15 @@ fi
 nc -U "$SOCKET" 2>/dev/null | while read -r line; do
     case "$line" in
         "activewindow>>"*|"workspace>>"*|"focusedmon>>"*)
-            # If control_center is open, dismiss it and catchers
-            if eww active-windows 2>/dev/null | grep -q "^control_center:"; then
-                eww close control_center control_center_catcher_dp control_center_catcher_hdmi control_center_catcher 2>/dev/null || true
-                "$HOME/.config/eww/scripts/shutdown-action.sh" reset 2>/dev/null || true
+            # If popups_tray or control_center is open, dismiss it
+            if eww active-windows 2>/dev/null | grep -qE "^(popups_tray|control_center):"; then
+                "$HOME/.config/eww/scripts/popups.sh" close-all 2>/dev/null || true
             fi
 
             # If workspace_selector submap is active, reset it on focus change
             CURRENT_SUBMAP=$(hyprctl submap 2>/dev/null)
             if [ "$CURRENT_SUBMAP" = "workspace_selector" ]; then
-                hyprctl eval 'hl.dispatch(hl.dsp.submap("reset"))' 2>/dev/null || true
+                hyprctl dispatch 'hl.dsp.submap("reset")' 2>/dev/null || true
             fi
             ;;
     esac

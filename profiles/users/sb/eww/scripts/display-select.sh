@@ -18,12 +18,12 @@ set_extend() {
     hyprctl eval 'hl.monitor({ output = "HDMI-A-1", mode = "1920x1080@75", position = "0x1080", scale = 1, bitdepth = 8, mirror = "" })' 2>/dev/null
     # Move odd workspaces to bottom monitor (HDMI-A-1), even to top monitor (DP-1)
     for ws in 1 3 5 7 9; do
-        hyprctl eval "hl.dispatch(hl.dsp.workspace.move({ workspace = '$ws', monitor = 'HDMI-A-1' }))" 2>/dev/null || true
+        hyprctl dispatch "hl.dsp.workspace.move({ workspace = '$ws', monitor = 'HDMI-A-1' })" 2>/dev/null || true
     done
     for ws in 0 2 4 6 8; do
         target_ws="$ws"
         [ "$ws" = "0" ] && target_ws="name:0"
-        hyprctl eval "hl.dispatch(hl.dsp.workspace.move({ workspace = '$target_ws', monitor = 'DP-1' }))" 2>/dev/null || true
+        hyprctl dispatch "hl.dsp.workspace.move({ workspace = '$target_ws', monitor = 'DP-1' })" 2>/dev/null || true
     done
     echo "extend" > "$STATE_FILE"
     command -v dunstify >/dev/null 2>&1 && dunstify -u normal -r 421178010 "Display Configuration" "Mode: Extended Displays"

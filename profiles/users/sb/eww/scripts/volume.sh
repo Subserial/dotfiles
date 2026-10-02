@@ -13,18 +13,18 @@ get_vol() {
 get_icon() {
     vol_output=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ 2>/dev/null)
     if [[ "$vol_output" == *"[MUTED]"* ]]; then
-        echo "󰝟"
+        echo "🔇"
     else
         val=$(echo "$vol_output" | awk '{print $2}')
         pct=$(awk -v v="$val" 'BEGIN { printf "%.0f\n", (v ? v : 0) * 100 }')
         if [ "$pct" -ge 65 ]; then
-            echo "󰕾"
+            echo "🔊"
         elif [ "$pct" -ge 30 ]; then
-            echo "󰖀"
+            echo "🔉"
         elif [ "$pct" -gt 0 ]; then
-            echo "󰕿"
+            echo "🔈"
         else
-            echo "󰝟"
+            echo "🔇"
         fi
     fi
 }

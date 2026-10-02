@@ -5,7 +5,7 @@
 CURRENT_SUBMAP=$(hyprctl submap 2>/dev/null)
 
 if [ "$CURRENT_SUBMAP" = "workspace_selector" ]; then
-    hyprctl eval 'hl.dispatch(hl.dsp.submap("reset"))' 2>/dev/null
+    hyprctl dispatch 'hl.dsp.submap("reset")' 2>/dev/null
 else
-    hyprctl eval 'hl.dispatch(hl.dsp.submap("workspace_selector"))' 2>/dev/null
+    hyprctl dispatch 'hl.dsp.submap("workspace_selector")' 2>/dev/null
 fi

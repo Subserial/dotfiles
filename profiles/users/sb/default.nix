@@ -85,6 +85,8 @@ with lib;
         font-awesome
         socat
         brightnessctl
+        playerctl
+        cava
 
         pywal
         jq
@@ -94,6 +96,7 @@ with lib;
         prismlauncher
 
         localPackages.pyzo
+        localPackages.beskope
       ];
       sessionVariables = {
         EDITOR = "vim";

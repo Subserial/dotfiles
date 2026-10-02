@@ -56,6 +56,15 @@
           };
         };
       });
+      packages = eachSystem (
+        system:
+        let
+          pkgs = (systemArgs system).localPackages;
+        in
+        {
+          inherit (pkgs) pyzo beskope;
+        }
+      );
       formatter = eachSystem (
         system:
         let
