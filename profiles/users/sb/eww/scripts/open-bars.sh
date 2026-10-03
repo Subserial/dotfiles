@@ -3,8 +3,10 @@
 # Close active bar windows
 eww close bar bar_dp bar_hdmi 2>/dev/null || true
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
 # Check display mode
-MODE=$("$HOME/.config/eww/scripts/display-select.sh" status 2>/dev/null)
+MODE=$("$SCRIPT_DIR/display-select.sh" status 2>/dev/null)
 
 if [ "$MODE" = "mirror" ]; then
     # In mirror mode, DP-1 is the source surface mirrored onto HDMI-A-1
@@ -20,3 +22,6 @@ else
         eww open bar 2>/dev/null || true
     fi
 fi
+
+# Ensure event-watcher daemon is running
+"$SCRIPT_DIR/event-watcher.sh" &

@@ -5,19 +5,23 @@
 
 CACHE_DIR="$HOME/.cache/eww/art"
 mkdir -p "$CACHE_DIR"
+DEFAULT_ART="$CACHE_DIR/default.png"
+if [ ! -f "$DEFAULT_ART" ]; then
+    ffmpeg -y -f lavfi -i color=c=black@0.0:s=1x1 -frames:v 1 "$DEFAULT_ART" 2>/dev/null || touch "$DEFAULT_ART"
+fi
 
 FMT='{"name":"{{playerName}}","status":"{{status}}","title":"{{markup_escape(title)}}","artist":"{{markup_escape(artist)}}","album":"{{markup_escape(album)}}","art":"{{mpris:artUrl}}","length":"{{mpris:length}}","url":"{{xesam:url}}"}'
 
 get_media_json() {
     if ! command -v playerctl >/dev/null 2>&1; then
-        echo '{"available":false,"players":[]}'
+        echo "{\"available\":false,\"art\":\"$DEFAULT_ART\",\"players\":[]}"
         return
     fi
 
     local player_names
     player_names=$(playerctl -l 2>/dev/null)
     if [ -z "$player_names" ]; then
-        echo '{"available":false,"players":[]}'
+        echo "{\"available\":false,\"art\":\"$DEFAULT_ART\",\"players\":[]}"
         return
     fi
 
@@ -34,31 +38,44 @@ get_media_json() {
         meta=$(playerctl -p "$p" metadata --format "$FMT" 2>/dev/null)
         [ -z "$meta" ] && continue
 
-        local title
-        title=$(echo "$meta" | jq -r '.title // ""' 2>/dev/null)
+        local title art_url source_url status
+        IFS=$'\t' read -r title art_url source_url status < <(echo "$meta" | jq -r '[.title // "", .art // "", .url // "", .status // ""] | @tsv' 2>/dev/null)
         [ -z "$title" ] && continue
 
         pos=$(playerctl -p "$p" position 2>/dev/null || echo "0")
 
         # Resolve artwork
-        local art_url art_path
-        art_url=$(echo "$meta" | jq -r '.art // ""')
+        local art_path
         if [[ "$art_url" == file://* ]]; then
             art_path="${art_url#file://}"
         elif [[ "$art_url" =~ ^https?:// ]]; then
             local url_hash
             url_hash=$(echo -n "$art_url" | md5sum | cut -d' ' -f1)
             art_path="$CACHE_DIR/${url_hash}.png"
-            if [ ! -f "$art_path" ]; then
-                curl -sSL "$art_url" -o "$art_path" 2>/dev/null &
+            local failed_marker="$CACHE_DIR/${url_hash}.failed"
+            local dl_marker="$CACHE_DIR/${url_hash}.downloading"
+            if [ ! -f "$art_path" ] && [ ! -f "$failed_marker" ] && [ ! -f "$dl_marker" ]; then
+                touch "$dl_marker"
+                (
+                    if curl -sSL --connect-timeout 2 --max-time 4 "$art_url" -o "${art_path}.tmp" 2>/dev/null && [ -s "${art_path}.tmp" ]; then
+                        mv -f "${art_path}.tmp" "$art_path"
+                    else
+                        rm -f "${art_path}.tmp"
+                        touch "$failed_marker"
+                    fi
+                    rm -f "$dl_marker"
+                ) &
             fi
         else
             art_path="$art_url"
         fi
 
+        if [ -z "$art_path" ] || [ ! -f "$art_path" ]; then
+            art_path="$DEFAULT_ART"
+        fi
+
         # Source badge detection
-        local source_url source_name
-        source_url=$(echo "$meta" | jq -r '.url // ""')
+        local source_name
         if [[ "$source_url" == *youtube.com* || "$source_url" == *youtu.be* ]]; then
             source_name="YouTube"
         elif [[ "$source_url" == *deezer.com* ]]; then
@@ -84,8 +101,7 @@ get_media_json() {
         # Prominence score:
         # Playing = 100, Paused = 50, Stopped = 10
         # If default player = +200
-        local status score=10
-        status=$(echo "$meta" | jq -r '.status // ""')
+        local score=10
         if [ "$status" = "Playing" ]; then
             score=100
         elif [ "$status" = "Paused" ]; then
@@ -129,7 +145,7 @@ get_media_json() {
     done <<< "$player_names"
 
     if [ ${#items[@]} -eq 0 ]; then
-        echo '{"available":false,"players":[]}'
+        echo "{\"available\":false,\"art\":\"$DEFAULT_ART\",\"players\":[]}"
         return
     fi
 
@@ -151,7 +167,7 @@ get_media_json() {
         "source": $prominent.source,
         "players": .
       }
-    ' 2>/dev/null || echo '{"available":false,"players":[]}'
+    ' 2>/dev/null || echo "{\"available\":false,\"art\":\"$DEFAULT_ART\",\"players\":[]}"
 }
 
 # Initial output

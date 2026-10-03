@@ -8,23 +8,8 @@ if ! command -v cava >/dev/null 2>&1; then
     exit 0
 fi
 
-CAVA_CONF="/tmp/cava_eww_$UID.conf"
-
-cat << EOF > "$CAVA_CONF"
-[general]
-bars = 16
-framerate = 25
-
-[input]
-method = pulse
-
-[output]
-method = raw
-raw_target = /dev/stdout
-data_format = ascii
-ascii_max_range = 7
-bar_delimiter = 59
-EOF
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+CAVA_CONF="$SCRIPT_DIR/cava.conf"
 
 while true; do
     cava -p "$CAVA_CONF" 2>/dev/null | sed -u "y/01234567/▁▂▃▄▅▆▇█/; s/;//g"

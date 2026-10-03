@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 STATE_FILE="$HOME/.cache/eww_display_mode"
 
 get_status() {
@@ -27,7 +28,7 @@ set_extend() {
     done
     echo "extend" > "$STATE_FILE"
     command -v dunstify >/dev/null 2>&1 && dunstify -u normal -r 421178010 "Display Configuration" "Mode: Extended Displays"
-    [ -x "$HOME/.config/eww/scripts/open-bars.sh" ] && "$HOME/.config/eww/scripts/open-bars.sh" &
+    [ -x "$SCRIPT_DIR/open-bars.sh" ] && "$SCRIPT_DIR/open-bars.sh" &
 }
 
 set_mirror() {
@@ -36,7 +37,7 @@ set_mirror() {
     hyprctl eval 'hl.monitor({ output = "HDMI-A-1", mode = "1920x1080@60", position = "0x0", scale = 1, bitdepth = 8, mirror = "DP-1" })' 2>/dev/null
     echo "mirror" > "$STATE_FILE"
     command -v dunstify >/dev/null 2>&1 && dunstify -u normal -r 421178010 "Display Configuration" "Mode: Mirrored Displays"
-    [ -x "$HOME/.config/eww/scripts/open-bars.sh" ] && "$HOME/.config/eww/scripts/open-bars.sh" &
+    [ -x "$SCRIPT_DIR/open-bars.sh" ] && "$SCRIPT_DIR/open-bars.sh" &
 }
 
 case "$1" in

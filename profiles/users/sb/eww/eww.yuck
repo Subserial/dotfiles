@@ -6,16 +6,16 @@
 ;; -------------------
 (defpoll time :interval "1s" "date '+%H:%M'")
 (defpoll date :interval "30s" "date '+%A, %d %B %Y'")
-(defpoll display_mode :interval "2s" "scripts/display-select.sh status")
-(defpoll volume_val :interval "1s" "scripts/volume.sh get")
-(defpoll volume_icon :interval "1s" "scripts/volume.sh icon")
-(defpoll brightness_val :interval "2s" "scripts/brightness.sh get")
+(defpoll display_mode :interval "2s" :initial "extend" "scripts/display-select.sh status")
+(defpoll volume_val :interval "1s" :initial "50" "scripts/volume.sh get")
+(defpoll volume_icon :interval "1s" :initial "🔊" "scripts/volume.sh icon")
+(defpoll brightness_val :interval "2s" :initial "100" "scripts/brightness.sh get")
 (deflisten workspace_data :initial "{\"ws\":\"1 | 1\",\"submap\":false}" "scripts/workspaces.sh")
 (defpoll active_window :interval "1s" "hyprctl activewindow -j 2>/dev/null | jq -r '.title // \"\"' | cut -c 1-45")
 (defvar shutdown_confirm false)
 (defvar media_player_open false)
 (defvar control_center_open false)
-(deflisten media_data :initial "{\"available\":false}" "scripts/media-info.sh")
+(deflisten media_data :initial "{\"available\":false,\"art\":\"/home/sb/.cache/eww/art/default.png\",\"players\":[]}" "scripts/media-info.sh")
 (deflisten visualizer :initial "▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁" "scripts/cava-bar.sh")
 
 ;; -------------------
@@ -43,7 +43,7 @@
       ;; Media Visualizer Widget
       (eventbox :class "media-bar-module"
                 :visible {media_data.available}
-                :onclick "scripts/popups.sh toggle-media"
+                :onclick "scripts/popups.sh toggle-media &"
                 :tooltip "${media_data.title} • ${media_data.artist}"
         (box :class "module-box media-bar-box" :space-evenly false :spacing 8
           (image :class "media-bar-thumb"
@@ -51,12 +51,12 @@
                  :image-width 20
                  :image-height 20)
           (label :class "media-bar-cava" :text visualizer :width 136)))
-      (eventbox :onscroll "if [ '{}' = 'up' ]; then wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%+; else wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%-; fi"
-        (button :class "module-box volume-box" :onclick "scripts/volume.sh toggle-mute" :tooltip "Click to mute, scroll to change volume"
+      (eventbox :onscroll "scripts/volume.sh {}"
+        (button :class "module-box volume-box" :onclick "scripts/volume.sh toggle-mute &" :tooltip "Click to mute, scroll to change volume"
           (box :space-evenly false :spacing 6
             (label :class "vol-icon" :text volume_icon)
             (label :class "vol-text" :text "${volume_val}%"))))
-      (button :class "panel-toggle-btn" :onclick "scripts/popups.sh toggle-control-center" " Controls"))))
+      (button :class "panel-toggle-btn" :onclick "scripts/popups.sh toggle-control-center &" " Controls"))))
 
 ;; -------------------
 ;; TASKBAR WINDOWS
@@ -90,21 +90,21 @@
   :geometry (geometry :x "0%" :y "0%" :width "100%" :height "100%" :anchor "top left")
   :stacking "bottom"
   :exclusive false
-  (eventbox :class "catcher-box" :onclick "scripts/popups.sh close-all"))
+  (eventbox :class "catcher-box" :onclick "scripts/popups.sh close-all &"))
 
 (defwindow control_center_catcher_hdmi
   :monitor "HDMI-A-1"
   :geometry (geometry :x "0%" :y "0%" :width "100%" :height "100%" :anchor "top left")
   :stacking "bottom"
   :exclusive false
-  (eventbox :class "catcher-box" :onclick "scripts/popups.sh close-all"))
+  (eventbox :class "catcher-box" :onclick "scripts/popups.sh close-all &"))
 
 (defwindow control_center_catcher
   :monitor 0
   :geometry (geometry :x "0%" :y "0%" :width "100%" :height "100%" :anchor "top left")
   :stacking "bottom"
   :exclusive false
-  (eventbox :class "catcher-box" :onclick "scripts/popups.sh close-all"))
+  (eventbox :class "catcher-box" :onclick "scripts/popups.sh close-all &"))
 
 ;; ---------------------------
 ;; POP-UP CARDS
@@ -185,8 +185,8 @@
       (label :class "section-title" :text "Audio Volume" :halign "start")
       (box :class "sliders-box" :orientation "v"
         (box :class "slider-item" :space-evenly false
-          (button :class "slider-icon" :onclick "scripts/volume.sh toggle-mute" volume_icon)
-          (scale :min 0 :max 101 :value volume_val :hexpand true
+          (button :class "slider-icon" :onclick "scripts/volume.sh toggle-mute &" volume_icon)
+          (scale :min 0 :max 101 :value {volume_val != "" ? volume_val : 50} :hexpand true
                  :onchange "scripts/volume.sh set {}"))))
 
     ;; Screen Brightness
@@ -195,7 +195,7 @@
       (box :class "sliders-box" :orientation "v"
         (box :class "slider-item" :space-evenly false
           (label :class "slider-icon" :text "☼")
-          (scale :min 10 :max 101 :value brightness_val :hexpand true
+          (scale :min 10 :max 101 :value {brightness_val != "" ? brightness_val : 100} :hexpand true
                  :onchange "scripts/brightness.sh set {}"))))
 
     ;; Session Controls
@@ -227,24 +227,3 @@
     (box :visible control_center_open
          :valign "end"
       (control_center_card))))
-
-(defwindow control_center
-  :monitor 0
-  :geometry (geometry :x "12px" :y "12px" :width "380px" :anchor "bottom right")
-  :stacking "overlay"
-  :exclusive false
-  (control_center_card))
-
-(defwindow media_player
-  :monitor 0
-  :geometry (geometry :x "12px" :y "12px" :width "380px" :anchor "bottom right")
-  :stacking "overlay"
-  :exclusive false
-  (media_player_card))
-
-(defwindow media_player_tiled
-  :monitor 0
-  :geometry (geometry :x "404px" :y "12px" :width "380px" :anchor "bottom right")
-  :stacking "overlay"
-  :exclusive false
-  (media_player_card))

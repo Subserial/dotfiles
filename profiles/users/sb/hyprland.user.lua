@@ -283,17 +283,6 @@ hl.define_submap("workspace_selector", function()
 			hl.dispatch(hl.dsp.submap("reset"))
 		end, { submap = "workspace_selector" })
 	end
-	hl.bind("Tab", function()
-		hl.dispatch(hl.dsp.focus({ workspace = "previous_per_monitor" }))
-		hl.dispatch(hl.dsp.submap("reset"))
-	end, { submap = "workspace_selector" })
-	hl.bind("grave", function()
-		hl.dispatch(hl.dsp.focus({ workspace = "previous_per_monitor" }))
-		hl.dispatch(hl.dsp.submap("reset"))
-	end, { submap = "workspace_selector" })
-	hl.bind("escape", function()
-		hl.dispatch(hl.dsp.submap("reset"))
-	end, { submap = "workspace_selector" })
 end)
 
 -- Mouse binds

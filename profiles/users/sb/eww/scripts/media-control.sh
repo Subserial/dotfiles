@@ -43,7 +43,7 @@ case "$ACTION" in
         if [ -n "$PARAM" ]; then
             LEN_US=$(playerctl "${PLAYER_FLAG[@]}" metadata --format "{{mpris:length}}" 2>/dev/null || echo "0")
             if [ -n "$LEN_US" ] && [ "$LEN_US" -gt 0 ] 2>/dev/null; then
-                TARGET=$(awk -v l="$LEN_US" -v p="$PARAM" 'BEGIN { printf "%.2f", (l / 1000000) * (p / 100) }')
+                TARGET=$(awk -v l="$LEN_US" -v p="$PARAM" 'BEGIN { if (p > 100) p = 100; if (p < 0) p = 0; printf "%.2f", (l / 1000000) * (p / 100) }')
                 playerctl "${PLAYER_FLAG[@]}" position "$TARGET" 2>/dev/null || true
             fi
         fi

@@ -2,6 +2,7 @@
 
 # Helper script for smart app launch/focus from Eww Control Center
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 APP="$1"
 
 case "$APP" in
@@ -32,5 +33,4 @@ case "$APP" in
         ;;
 esac
 
-eww close control_center control_center_catcher_dp control_center_catcher_hdmi control_center_catcher 2>/dev/null || true
-"$HOME/.config/eww/scripts/shutdown-action.sh" reset 2>/dev/null || true
+"$SCRIPT_DIR/popups.sh" close-all 2>/dev/null || true
