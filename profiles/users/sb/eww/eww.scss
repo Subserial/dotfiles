@@ -1,0 +1,448 @@
+// profiles/users/sb/eww/eww.scss
+// Stylesheet for Eww widgets, unified with Pywal colors
+
+@import "/home/sb/.cache/wal/colors.scss";
+
+// Design token aliases mapped from Pywal
+$bg-solid: $background;
+$bg-bar: rgba($background, 0.82);
+$bg-card: rgba($background, 0.92);
+$bg-element: rgba($color8, 0.15);
+$bg-hover: rgba($color8, 0.28);
+$border-subtle: rgba($foreground, 0.12);
+$border-accent: rgba($color4, 0.45);
+
+$text-bright: $foreground;
+$text-dim: rgba($foreground, 0.65);
+$accent-primary: $color4;
+$accent-secondary: $color1;
+$accent-alert: $color2;
+
+* {
+  all: unset;
+  font-family: "JetBrainsMono Nerd Font", "Font Awesome 6 Free", monospace;
+  font-size: 13px;
+}
+
+window,
+.bar-window,
+.catcher-box,
+.control_center_catcher_dp,
+.control_center_catcher_hdmi,
+.control_center_catcher {
+  background-color: transparent;
+  background: transparent;
+}
+
+.bar-container {
+  background-color: $bg-bar;
+  border-top: 1px solid $border-subtle;
+  padding: 4px 12px;
+  color: $text-bright;
+}
+
+.module-box {
+  background-color: $bg-element;
+  border-radius: 8px;
+  padding: 4px 10px;
+  border: 1px solid $border-subtle;
+}
+
+// Workspace Badge
+.workspace-badge {
+  padding: 3px 10px;
+  margin: 0 4px;
+  border-radius: 8px;
+  background-color: $accent-primary;
+  color: $background;
+  font-weight: bold;
+  font-size: 14px;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    background-color: lighten($accent-primary, 10%);
+  }
+
+  &.selector-active {
+    background-color: $accent-secondary;
+    color: $background;
+    box-shadow: 0 0 8px $accent-secondary;
+  }
+}
+
+// Active Window
+.window-title {
+  color: $text-bright;
+  font-weight: 500;
+}
+
+// Clock / Date
+.clock-text {
+  font-weight: bold;
+  color: $text-bright;
+}
+
+.date-text {
+  color: $text-dim;
+  font-size: 12px;
+  margin-left: 6px;
+}
+
+// Status Badges
+.display-badge {
+  color: $accent-secondary;
+  font-weight: bold;
+  padding: 2px 8px;
+  border-radius: 6px;
+  background-color: rgba($color1, 0.15);
+  border: 1px solid rgba($color1, 0.3);
+}
+
+.volume-box {
+  .vol-icon {
+    font-size: 15px;
+    color: $accent-primary;
+  }
+  .vol-text {
+    color: $text-bright;
+    font-weight: bold;
+  }
+}
+
+.panel-toggle-btn {
+  background-color: $accent-primary;
+  color: $background;
+  padding: 4px 9px;
+  border-radius: 6px;
+  font-weight: bold;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: lighten($accent-primary, 10%);
+  }
+}
+
+.media-bar-module {
+}
+
+.media-bar-box {
+  padding: 2px 10px;
+
+  &:hover {
+    background-color: $bg-hover;
+  }
+
+  .media-bar-thumb {
+    border-radius: 4px;
+  }
+
+  .media-bar-cava {
+    color: $accent-primary;
+    font-size: 13px;
+    font-family: monospace;
+    font-weight: bold;
+    letter-spacing: 0px;
+    min-width: 136px;
+  }
+}
+
+// ----------------------
+// POPUPS DESIGN SYSTEM
+// ----------------------
+// Shared Pop-up Card Base
+%popup-card {
+  background-color: $bg-card;
+  border: 1px solid $border-accent;
+  border-radius: 10px;
+  padding: 16px;
+  color: $text-bright;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+  min-width: 380px;
+}
+
+.control-center-card {
+  @extend %popup-card;
+}
+
+.media-player-card {
+  @extend %popup-card;
+}
+
+// Unified Interactive Buttons
+%popup-interactive-btn {
+  border-radius: 8px;
+  background-color: $bg-element;
+  border: 1px solid $border-subtle;
+  color: $text-bright;
+  font-weight: 500;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: $bg-hover;
+    border-color: rgba($foreground, 0.25);
+  }
+
+  &:active {
+    background-color: $accent-primary;
+    color: $background;
+  }
+}
+
+.disp-btn,
+.app-btn,
+.media-ctrl-btn {
+  @extend %popup-interactive-btn;
+}
+
+// Unified Sliders & Scale Track
+scale.popup-scale,
+.sliders-box scale {
+  trough {
+    background-color: rgba($foreground, 0.15);
+    border-radius: 6px;
+    min-height: 8px;
+    min-width: 180px;
+
+    highlight {
+      background-color: $accent-primary;
+      border-radius: 6px;
+    }
+  }
+
+  slider {
+    background-color: $text-bright;
+    border-radius: 50%;
+    min-width: 14px;
+    min-height: 14px;
+  }
+}
+
+// ----------------------
+// MEDIA PLAYER POP-UP CARD
+// ----------------------
+.popups-flex-container {
+  background-color: transparent;
+}
+
+.media-player-container {
+  background-color: transparent;
+}
+
+.media-player-card {
+  .media-info-header {
+    margin-bottom: 12px;
+
+    .media-card-art {
+      border-radius: 8px;
+      background-color: $bg-element;
+      border: 1px solid $border-subtle;
+    }
+
+    .media-source-row {
+      margin-bottom: 4px;
+
+      .media-source-badge {
+        font-size: 10px;
+        font-weight: bold;
+        padding: 2px 7px;
+        border-radius: 5px;
+        background-color: rgba($color4, 0.2);
+        color: $accent-primary;
+        border: 1px solid rgba($color4, 0.35);
+      }
+
+      .media-status-badge {
+        font-size: 10px;
+        font-weight: 500;
+        padding: 2px 6px;
+        border-radius: 5px;
+
+        &.playing {
+          color: $color2;
+        }
+
+        &.paused {
+          color: $text-dim;
+        }
+      }
+    }
+
+    .media-card-title {
+      font-size: 15px;
+      font-weight: bold;
+      color: $text-bright;
+      margin-bottom: 2px;
+    }
+
+    .media-card-artist {
+      font-size: 13px;
+      color: $accent-primary;
+      font-weight: 500;
+      margin-bottom: 2px;
+    }
+
+    .media-card-album {
+      font-size: 11px;
+      color: $text-dim;
+    }
+  }
+
+  .media-progress-box {
+    margin-bottom: 12px;
+    background-color: $bg-element;
+    border-radius: 8px;
+    padding: 8px 12px;
+    border: 1px solid $border-subtle;
+
+    .media-time-labels {
+      margin-top: 4px;
+
+      .media-time-pos,
+      .media-time-len {
+        font-size: 11px;
+        color: $text-dim;
+        font-family: monospace;
+      }
+    }
+  }
+
+  .media-btn-row {
+    .media-ctrl-btn {
+      padding: 8px 0;
+      font-size: 16px;
+
+      &.play-btn {
+        background-color: $accent-primary;
+        color: $background;
+        font-size: 18px;
+
+        &:hover {
+          background-color: lighten($accent-primary, 10%);
+        }
+      }
+    }
+  }
+}
+
+// ----------------------
+// CONTROL CENTER POP-UP CARD
+// ----------------------
+.section-title {
+  font-size: 11px;
+  font-weight: bold;
+  color: $text-dim;
+  margin-bottom: 6px;
+}
+
+// Header
+.header-box {
+  padding-bottom: 12px;
+  border-bottom: 1px solid $border-subtle;
+  margin-bottom: 14px;
+
+  .header-time {
+    font-size: 24px;
+    font-weight: bold;
+    color: $accent-primary;
+  }
+  .header-date {
+    font-size: 12px;
+    color: $text-dim;
+  }
+  .close-btn {
+    padding: 4px 8px;
+    border-radius: 6px;
+    background-color: $bg-element;
+    color: $text-dim;
+    &:hover {
+      background-color: $bg-hover;
+      color: $text-bright;
+    }
+  }
+}
+
+// Display Mode Selector
+.display-selector-box {
+  margin-bottom: 14px;
+
+  .disp-btn {
+    padding: 8px 14px;
+
+    &.active {
+      background-color: $accent-primary;
+      color: $background;
+      border: 1px solid $accent-primary;
+    }
+  }
+}
+
+// Program Shortcuts Grid
+.shortcuts-box {
+  margin-bottom: 14px;
+
+  .app-btn {
+    padding: 8px 10px;
+  }
+}
+
+// Sliders
+.sliders-box {
+  margin-bottom: 14px;
+
+  .slider-item {
+    background-color: $bg-element;
+    border-radius: 8px;
+    padding: 8px 12px;
+    border: 1px solid $border-subtle;
+    margin-bottom: 6px;
+
+    .slider-icon {
+      font-size: 16px;
+      color: $accent-primary;
+      margin-right: 10px;
+    }
+  }
+}
+
+// Catcher Backdrop
+.catcher-box {
+  background-color: transparent;
+}
+
+// Session Actions
+.session-box {
+  padding-top: 10px;
+  border-top: 1px solid $border-subtle;
+
+  .session-btn {
+    padding: 6px 12px;
+    border-radius: 6px;
+    background-color: $bg-element;
+    border: 1px solid $border-subtle;
+    color: $text-dim;
+    font-weight: bold;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background-color: $bg-hover;
+      color: $text-bright;
+    }
+
+    &.danger:hover {
+      background-color: rgba($color2, 0.4);
+      color: #ff5555;
+      border-color: rgba($color2, 0.6);
+    }
+
+    &.confirm-accent {
+      background-color: $accent-secondary;
+      color: $background;
+      border-color: $accent-secondary;
+      box-shadow: 0 0 8px $accent-secondary;
+
+      &:hover {
+        background-color: lighten($accent-secondary, 10%);
+      }
+    }
+  }
+}

@@ -6,7 +6,7 @@ This document provides technical guidelines and reference documentation for AI a
 
 ## 1. Repository Architecture & Directory Structure
 
-This repository manages Subsy's personal multi-host NixOS setups and Home Manager user environments using Nix Flakes (`x86_64-linux`).
+This repository manages Subserial's personal multi-host NixOS setups and Home Manager user environments using Nix Flakes (`x86_64-linux`).
 
 ### High-Level Directory Layout
 
@@ -22,13 +22,14 @@ This repository manages Subsy's personal multi-host NixOS setups and Home Manage
 │   │   ├── library.nix    # Dell XPS 15 9570 Laptop (Intel + Nvidia Hybrid)
 │   │   └── cloudsdale.nix # Minimal bootable NixOS ISO installer with LUKS/YubiKey bootstrap tools (somewhat tested)
 │   └── users/             # User environment profiles & desktop configs
-│       ├── sb/            # Primary user environment (used on everfree)
+│       ├── sb/            # User environment for everfree (`users.users.sb`)
 │       ├── twilight/      # User environment for library (`users.users.twilight`)
 │       └── rdash/         # Minimal user for cloudsdale installer (`users.users.rdash`)
 ├── modules/               # Custom reusable NixOS modules
 ├── home-manager/          # Reusable Home Manager modules
 ├── pkgs/                  # Custom Nix package derivations
 ├── scripts/               # Helper utilities & desktop scripts (e.g., lock screen, monitor, audio scripts)
+├── user-scripts/          # Maintenance scripts to copy desktop configs to live user directories
 └── secrets/               # SOPS-encrypted secrets
 ```
 
@@ -39,7 +40,7 @@ This repository manages Subsy's personal multi-host NixOS setups and Home Manage
   - `nixos-hardware`: Provides hardware-specific quirks (e.g., Dell XPS 15 9570, Framework 11th Gen).
   - `home-manager`: Manages user dotfiles and packages.
   - `sops-nix`: Manages secret decryption using `age` keys.
-  - `git-hooks`: Provides pre-commit validation (configured with `nixfmt`).
+  - `git-hooks`: Provides pre-commit validation and code formatting (configured with `nixfmt` for Nix and `stylua` for Lua).
 - **`specialArgs`**:
   - `self`: Reference to the flake repository.
   - `localPackages`: Custom derivations built from `./pkgs`, passed into all host configurations and available to modules and user environments.
@@ -61,13 +62,13 @@ All commands should be executed from the repository root.
   nix flake check
   ```
 - **Code Formatting**:
-  Format all Nix files with `nixfmt` (via git-hooks pre-commit runner):
+  Format all Nix and Lua files automatically with `nix fmt`:
+  ```bash
+  nix fmt
+  ```
+  Or run the pre-commit checks directly:
   ```bash
   nix run .#packages.x86_64-linux.pre-commit-run
-  ```
-  Or format specific files directly if `nixfmt` is in your environment:
-  ```bash
-  nixfmt flake.nix
   ```
 
 ### Building Host Configurations
@@ -186,6 +187,7 @@ When a host boots, `sops-nix` looks for the private age key at:
 - **Keep system and user concerns separated**:
   - System-wide hardware and service configs belong in `modules/` or `profiles/hosts/`.
   - User desktop settings, themes, and personal CLI tools belong in `profiles/users/<user>/` and `home-manager/`.
+  - For user `sb`, Hyprland compositor settings live in `profiles/users/sb/hyprland.user.lua` (Lua), rather than in Nix `settings = { ... }`.
 - **Maintain purity and conventions**:
   - Use `specialArgs` to pass global dependencies.
   - Ensure any new package derivations added to `./pkgs` are exposed through `pkgs/default.nix`.

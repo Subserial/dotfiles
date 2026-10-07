@@ -52,9 +52,19 @@
           src = ./.;
           hooks = {
             nixfmt.enable = true;
+            stylua.enable = true;
           };
         };
       });
+      packages = eachSystem (
+        system:
+        let
+          pkgs = (systemArgs system).localPackages;
+        in
+        {
+          inherit (pkgs) pyzo beskope;
+        }
+      );
       formatter = eachSystem (
         system:
         let
