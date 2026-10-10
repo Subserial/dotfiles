@@ -8,51 +8,59 @@ with lib;
 {
   boot = {
     kernelModules = [ "kvm-intel" ];
+    extraModulePackages = [ ];
     kernelParams = [
       "video=DP-5:1920x1080@75"
       "video=HDMI-A-1:1920x1080@60"
     ];
     supportedFilesystems = [ "ntfs" ];
-    initrd.availableKernelModules = [
-      "xhci_pci"
-      "thunderbolt"
-      "nvme"
-      "uas"
-      "usbhid"
-      "sd_mod"
-    ];
+    initrd = {
+      availableKernelModules = [
+        "xhci_pci"
+        "thunderbolt"
+        "nvme"
+        "uas"
+        "usbhid"
+        "usb_storage"
+        "sd_mod"
+      ];
+      luks = {
+        devices."encrypted" = {
+          device = "/dev/nvme0n1p2";
+          crypttabExtraOpts = [ "fido2-device=auto" ];
+        };
+      };
+      systemd.enable = true;
+    };
   };
 
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/03bf65d3-e0ff-4a98-9657-b389254ed2ea";
-    fsType = "ext4";
-  };
-
-  fileSystems."/nix" = {
-    device = "/dev/disk/by-uuid/58e74b03-d053-4b4b-8243-30c6fded7479";
-    fsType = "ext4";
-  };
-
-  fileSystems."/game" = {
-    device = "/dev/disk/by-uuid/b655feef-7b07-4f41-bb95-5370ce64a656";
-    fsType = "ext4";
-  };
-
-  fileSystems."/home" = {
-    device = "/dev/disk/by-uuid/8576f90a-04bf-4175-b3e3-6bcbb764aa50";
-    fsType = "ext4";
+      device = "/dev/partitions/data";
+      fsType = "xfs";
   };
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/5477-6C44";
-    fsType = "vfat";
-    options = [
-      "fmask=0022"
-      "dmask=0022"
-    ];
+      device = "/dev/nvme0n1p2";
+      fsType = "vfat";
+      options = [ "fmask=0022" "dmask=0022" ];
+    };
+
+  fileSystems."/game" = {
+      device = "/dev/partitions/game";
+      fsType = "xfs";
   };
 
-  swapDevices = [ { device = "/dev/disk/by-uuid/1c745f1e-f407-42ba-a2fb-e6a9e87d6f09"; } ];
+  fileSystems."/home" = { 
+      device = "/dev/partitions/home";
+      fsType = "xfs";
+  };
+
+  fileSystems."/nix" = {
+      device = "/dev/partitions/nix";
+      fsType = "xfs";
+  };
+
+  swapDevices = [ ];
 
   networking.useDHCP = mkDefault true;
   nixpkgs.hostPlatform = mkDefault "x86_64-linux";
@@ -62,8 +70,17 @@ with lib;
   powerManagement.cpuFreqGovernor = mkDefault "powersave";
 
   # Bootloader
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader = {
+    efi = {
+      canTouchEfiVariables = true;
+      efiSysMountPoint = "/boot";
+    };
+    grub = {
+      enable = true;
+      efiSupport = true;
+      device = "nodev";
+    };
+  };
 
   # Network and time
   networking = {
@@ -177,11 +194,13 @@ with lib;
     NIXOS_OZONE_WL = "1";
   };
 
-  virtualisation.docker = {
-    enable = true;
-    rootless = {
+  virtualisation = {
+    containers.enable = true;
+    containers.registries.search = [ "docker.io" ];
+    podman = {
       enable = true;
-      setSocketVariable = true;
+      dockerCompat = true;
+      defaultNetwork.settings.dns_enabled = true;
     };
   };
 
@@ -190,7 +209,7 @@ with lib;
     git
     wget
     curl
-    docker-client
+    podman-compose
     # hypr polkit
     # requires `exec-once systemctl --user start hyprpolkitagent`
     hyprpolkitagent

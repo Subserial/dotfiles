@@ -6,24 +6,16 @@ local terminal = "alacritty"
 local fileManager = "thunar"
 local menu = "wofi --show drun"
 
-------------------
----- MONITORS ----
-------------------
 hl.monitor({ output = "eDP-1", disabled = true })
 hl.monitor({ output = "Unknown-1", disabled = true })
 hl.monitor({ output = "DP-1", mode = "1920x1080@60", position = "0x0", scale = 1, bitdepth = 8 })
 hl.monitor({ output = "HDMI-A-1", mode = "1920x1080@75", position = "0x1080", scale = 1, bitdepth = 8 })
 
--------------------------------
----- ENVIRONMENT VARIABLES ----
--------------------------------
 hl.env("XCURSOR_SIZE", "24")
 hl.env("HYPRCURSOR_SIZE", "24")
 hl.env("AQ_DRM_DEVICES", "/dev/dri/card1")
 
----------------------------------
----- PALETTE & THEME (PYWAL) ----
----------------------------------
+-- fetch colors from pywal
 local function load_wal_colors()
 	local f = io.open(home .. "/.cache/wal/colors", "r")
 	if not f then
@@ -55,23 +47,16 @@ local col_inactive = (wal and hex_to_rgba(wal[1], "aa")) or "rgba(660066aa)"
 local col_group_active = (wal and hex_to_rgba(wal[5], "ee")) or "rgba(cc33ccee)"
 local col_group_inactive = (wal and hex_to_rgba(wal[1], "aa")) or "rgba(660066aa)"
 
--------------------
----- AUTOSTART ----
--------------------
 hl.on("hyprland.start", function()
 	hl.exec_cmd("dunst")
 	hl.exec_cmd("hypridle")
 	hl.exec_cmd("hyprpaper")
 	hl.exec_cmd("hyprsunset")
 	hl.exec_cmd("eww daemon")
-	hl.exec_cmd(home .. "/.config/eww/scripts/open-bars.sh")
-	hl.exec_cmd(home .. "/.config/eww/scripts/event-watcher.sh")
 	hl.exec_cmd("systemctl --user start hyprpolkitagent")
 end)
 
------------------------
----- LOOK AND FEEL ----
------------------------
+-- user interface
 hl.config({
 	input = {
 		kb_layout = "us",
@@ -112,15 +97,6 @@ hl.config({
 			border_active = col_group_active,
 			border_inactive = col_group_inactive,
 		},
-		groupbar = {
-			font_family = "JetBrainsMono Nerd Font",
-			font_size = 10,
-			height = 20,
-			col = {
-				active = col_group_active,
-				inactive = col_group_inactive,
-			},
-		},
 	},
 	dwindle = {
 		preserve_split = true,
@@ -143,9 +119,7 @@ hl.animation({ leaf = "fade", enabled = true, speed = 7, bezier = "default" })
 hl.animation({ leaf = "workspaces", enabled = true, speed = 6, bezier = "default" })
 hl.animation({ leaf = "layers", enabled = false })
 
-----------------------
----- KEY BINDINGS ----
-----------------------
+-- Binds
 hl.bind("SUPER + SHIFT + R", hl.dsp.exec_cmd("hyprctl reload"))
 hl.bind("SUPER + M", hl.dsp.exit())
 
@@ -182,116 +156,23 @@ hl.bind("SUPER + Tab", hl.dsp.focus({ workspace = "previous_per_monitor" }))
 hl.bind("SUPER + grave", hl.dsp.focus({ workspace = "previous_per_monitor" }))
 hl.bind("SHIFT + F11", hl.dsp.window.fullscreen())
 
-local monitor_last_ws = {}
-local monitor_prev_ws = {}
-
-for _, m in ipairs(hl.get_monitors() or {}) do
-	if m.name and m.active_workspace and m.active_workspace.name then
-		monitor_last_ws[m.name] = m.active_workspace.name
-	end
-end
-
-hl.on("workspace.active", function(ws)
-	if not ws or not ws.monitor then
-		return
-	end
-	local mon = ws.monitor.name
-	local name = ws.name
-	if monitor_last_ws[mon] ~= name then
-		monitor_prev_ws[mon] = monitor_last_ws[mon]
-		monitor_last_ws[mon] = name
-	end
-end)
-
-local function move_or_focus_workspace(ws_name)
-	if ws_name == "0" then
-		ws_name = "name:0"
-	end
-
-	local cur_mon = hl.get_active_monitor()
-	if not cur_mon then
-		hl.dispatch(hl.dsp.focus({ workspace = ws_name }))
-		return
-	end
-
-	local ws = hl.get_workspace(ws_name)
-	if not ws then
-		hl.dispatch(hl.dsp.focus({ workspace = ws_name }))
-		ws = hl.get_workspace(ws_name)
-	end
-
-	if ws and ws.monitor and ws.monitor.name ~= cur_mon.name then
-		local other_mon = ws.monitor
-		-- Pre-capture other_mon's previous workspace before the move triggers workspace.active fallback
-		local prev_ws = monitor_prev_ws[other_mon.name]
-		if not prev_ws or prev_ws == ws_name or prev_ws == ws.name or prev_ws == "0" then
-			prev_ws = nil
-		end
-
-		hl.dispatch(hl.dsp.workspace.move({ workspace = ws_name, monitor = cur_mon.name }))
-		hl.dispatch(hl.dsp.focus({ workspace = ws_name }))
-
-		if prev_ws then
-			local target_prev = (prev_ws == "0") and "name:0" or prev_ws
-			other_mon:set_workspace({ workspace = target_prev })
-			monitor_last_ws[other_mon.name] = prev_ws
-		else
-			local other_active = other_mon.active_workspace
-			if not other_active or other_active.is_empty or other_active.windows == 0 then
-				for _, w in ipairs(hl.get_workspaces()) do
-					if
-						w.monitor
-						and w.monitor.name == other_mon.name
-						and w.name ~= ws.name
-						and not w.is_empty
-						and w.windows > 0
-					then
-						other_mon:set_workspace({ workspace = w.name })
-						break
-					end
-				end
-			end
-		end
-	else
-		hl.dispatch(hl.dsp.focus({ workspace = ws_name }))
-	end
-end
-
---------------------
----- WORKSPACES ----
---------------------
--- Workspaces 0 through 9
+-- Workspace binds
 for i = 0, 9 do
 	local key = tostring(i)
 	local ws = (i == 0) and "name:0" or tostring(i)
 	hl.bind("SUPER + " .. key, hl.dsp.focus({ workspace = ws }))
 	hl.bind("SUPER + SHIFT + " .. key, hl.dsp.window.move({ workspace = ws }))
 	hl.bind("SUPER + CTRL + " .. key, function()
-		move_or_focus_workspace(ws)
+		hl.dispatch(hl.dsp.workspace.move({ workspace = ws, monitor = "current" }))
+    hl.dispatch(hl.dsp.focus({ workspace = ws }))
 	end)
 end
-
-----------------------------
----- WORKSPACE SELECTOR ----
-----------------------------
-hl.define_submap("workspace_selector", function()
-	for i = 0, 9 do
-		local key = tostring(i)
-		local ws = (i == 0) and "name:0" or tostring(i)
-		hl.bind(key, function()
-			move_or_focus_workspace(ws)
-			hl.dispatch(hl.dsp.submap("reset"))
-		end, { submap = "workspace_selector" })
-	end
-end)
 
 -- Mouse binds
 hl.bind("SUPER + mouse:272", hl.dsp.window.drag(), { mouse = true })
 hl.bind("SUPER + mouse:273", hl.dsp.window.resize(), { mouse = true })
 
-----------------------
----- WINDOW RULES ----
-----------------------
+-- Window rules
 hl.window_rule({
 	name = "steam-workspace",
 	match = { class = "steam" },
