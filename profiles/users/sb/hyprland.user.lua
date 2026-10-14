@@ -164,7 +164,7 @@ for i = 0, 9 do
 	hl.bind("SUPER + SHIFT + " .. key, hl.dsp.window.move({ workspace = ws }))
 	hl.bind("SUPER + CTRL + " .. key, function()
 		hl.dispatch(hl.dsp.workspace.move({ workspace = ws, monitor = "current" }))
-    hl.dispatch(hl.dsp.focus({ workspace = ws }))
+		hl.dispatch(hl.dsp.focus({ workspace = ws }))
 	end)
 end
 

@@ -35,29 +35,32 @@ with lib;
   };
 
   fileSystems."/" = {
-      device = "/dev/partitions/data";
-      fsType = "xfs";
+    device = "/dev/partitions/data";
+    fsType = "xfs";
   };
 
   fileSystems."/boot" = {
-      device = "/dev/nvme0n1p1";
-      fsType = "vfat";
-      options = [ "fmask=0022" "dmask=0022" ];
-    };
-
-  fileSystems."/game" = {
-      device = "/dev/partitions/game";
-      fsType = "xfs";
+    device = "/dev/nvme0n1p1";
+    fsType = "vfat";
+    options = [
+      "fmask=0022"
+      "dmask=0022"
+    ];
   };
 
-  fileSystems."/home" = { 
-      device = "/dev/partitions/home";
-      fsType = "xfs";
+  fileSystems."/game" = {
+    device = "/dev/partitions/game";
+    fsType = "xfs";
+  };
+
+  fileSystems."/home" = {
+    device = "/dev/partitions/home";
+    fsType = "xfs";
   };
 
   fileSystems."/nix" = {
-      device = "/dev/partitions/nix";
-      fsType = "xfs";
+    device = "/dev/partitions/nix";
+    fsType = "xfs";
   };
 
   swapDevices = [ ];
